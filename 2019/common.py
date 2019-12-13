@@ -1,7 +1,8 @@
 import copy
 
 
-def add(L, c):
+def add(*args, **kwargs):
+    L, c = args
     p1 = L[c + 1]
     p2 = L[c + 2]
     p3 = L[c + 3]
@@ -10,7 +11,8 @@ def add(L, c):
     return 4
 
 
-def mult(L, c):
+def mult(*args, **kwargs):
+    L, c = args
     p1 = L[c + 1]
     p2 = L[c + 2]
     p3 = L[c + 3]
@@ -19,7 +21,7 @@ def mult(L, c):
     return 4
 
 
-def term(L, c):
+def term(*args, **kwargs):
     return -1
 
 
