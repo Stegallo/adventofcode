@@ -3,16 +3,19 @@ def calculate_2(i):
     good_1 = True
     good_2 = False
     good_3 = True
-    for k in range(0, 5):
-        if k == 0:
-            if s[k] == s[k + 1] and s[k + 1] != s[k + 2]:
-                good_2 = True
-        if k > 0 and k < 4:
-            if s[k - 1] != s[k] and s[k] == s[k + 1] and s[k + 1] != s[k + 2]:
-                good_2 = True
-        if k == 4:
-            if s[k - 1] != s[k] and s[k] == s[k + 1]:
-                good_2 = True
+    for k in range(5):
+        if k == 0 and s[k] == s[k + 1] and s[k + 1] != s[k + 2]:
+            good_2 = True
+        if (
+            k > 0
+            and k < 4
+            and s[k - 1] != s[k]
+            and s[k] == s[k + 1]
+            and s[k + 1] != s[k + 2]
+        ):
+            good_2 = True
+        if k == 4 and s[k - 1] != s[k] and s[k] == s[k + 1]:
+            good_2 = True
 
         if s[k + 1] < s[k]:
             good_1 = False
@@ -26,7 +29,7 @@ def calculate_1(i):
     s = str(i)
     good_1 = True
     good_2 = False
-    for k in range(0, 5):
+    for k in range(5):
         if s[k] == s[k + 1]:
             good_2 = True
         if s[k + 1] < s[k]:
@@ -38,15 +41,12 @@ def calculate_1(i):
 
 
 def main():
-    l = 145852
     u = 616942
     c1 = 0
     c2 = 0
-    while l < u:
-        c1 = c1 + calculate_1(l)
-        c2 = c2 + calculate_2(l)
-        l = l + 1
-
+    for l in range(145852, u):
+        c1 += calculate_1(l)
+        c2 += calculate_2(l)
     res_1 = c1
     res_2 = c2
 
