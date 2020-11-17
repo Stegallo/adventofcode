@@ -6,7 +6,7 @@ def calculate_1(i):
 
 
 def calculate_2(i):
-    if (w:= calculate_1(i)) < 0:
+    if (w := calculate_1(i)) < 0:
         return 0
     return w + calculate_2(w)
 
