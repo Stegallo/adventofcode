@@ -95,4 +95,4 @@ def test_calculate_2_75():
     test combination not found
     """
     with patch("day2.calculate_1", lambda x: 0):
-        assert calculate_2([1, 0, 0, 0, 99]) == None
+        assert calculate_2([1, 0, 0, 0, 99]) is None

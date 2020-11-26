@@ -5,61 +5,39 @@ from common import run_get_code
 def draw(mat, i, s, c):
     d = i[0]
     l = int(i[1:])
-    if d == "U":
-        for k in range(0, l):
-            temp = mat.get("x" + str(s[0] + k) + "y" + str(s[1]), (0, 0))
-            if temp[1] > 0:
-                u = temp[1]
-            else:
-                u = c + k
-            mat["x" + str(s[0] + k) + "y" + str(s[1])] = (temp[0] + 1, u)
-        s[0] = s[0] + l
     if d == "D":
-        for k in range(0, l):
+        for k in range(l):
             temp = mat.get("x" + str(s[0] - k) + "y" + str(s[1]), (0, 0))
-            if temp[1] > 0:
-                u = temp[1]
-            else:
-                u = c + k
+            u = temp[1] if temp[1] > 0 else c + k
             mat["x" + str(s[0] - k) + "y" + str(s[1])] = (temp[0] + 1, u)
         s[0] = s[0] - l
-    if d == "R":
-        for k in range(0, l):
-            temp = mat.get("x" + str(s[0]) + "y" + str(s[1] + k), (0, 0))
-            if temp[1] > 0:
-                u = temp[1]
-            else:
-                u = c + k
-            mat["x" + str(s[0]) + "y" + str(s[1] + k)] = (temp[0] + 1, u)
-        s[1] = s[1] + l
-    if d == "L":
-        for k in range(0, l):
+    elif d == "L":
+        for k in range(l):
             temp = mat.get("x" + str(s[0]) + "y" + str(s[1] - k), (0, 0))
-            if temp[1] > 0:
-                u = temp[1]
-            else:
-                u = c + k
+            u = temp[1] if temp[1] > 0 else c + k
             mat["x" + str(s[0]) + "y" + str(s[1] - k)] = (temp[0] + 1, u)
         s[1] = s[1] - l
+    elif d == "R":
+        for k in range(l):
+            temp = mat.get("x" + str(s[0]) + "y" + str(s[1] + k), (0, 0))
+            u = temp[1] if temp[1] > 0 else c + k
+            mat["x" + str(s[0]) + "y" + str(s[1] + k)] = (temp[0] + 1, u)
+        s[1] = s[1] + l
+    elif d == "U":
+        for k in range(l):
+            temp = mat.get("x" + str(s[0] + k) + "y" + str(s[1]), (0, 0))
+            u = temp[1] if temp[1] > 0 else c + k
+            mat["x" + str(s[0] + k) + "y" + str(s[1])] = (temp[0] + 1, u)
+        s[0] = s[0] + l
     return c + l
 
 
 def findxs(mat1, mat2):
-    result = []
-    for i in mat1:
-        if i != "x0y0":
-            if mat2.get(i):
-                result.append(i)
-    return result
+    return [i for i in mat1 if i != "x0y0" and mat2.get(i)]
 
 
 def findxs2(mat1, mat2):
-    result = []
-    for i in mat1:
-        if i != "x0y0":
-            if mat2.get(i):
-                result.append(mat1[i][1] + mat2[i][1])
-    return result
+    return [mat1[i][1] + mat2[i][1] for i in mat1 if i != "x0y0" and mat2.get(i)]
 
 
 def manh(xs):
@@ -93,8 +71,7 @@ def calculate_1(l, m):
         c2 = draw(d2, i, s2, c2)
 
     xs = findxs(d1, d2)
-    result = manh(xs)
-    return result
+    return manh(xs)
 
 
 def calculate_2(l, m):
@@ -110,8 +87,7 @@ def calculate_2(l, m):
         c2 = draw(d2, i, s2, c2)
 
     xs = findxs2(d1, d2)
-    result = manh2(xs)
-    return result
+    return manh2(xs)
 
 
 def main():
