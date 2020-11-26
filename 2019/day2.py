@@ -32,7 +32,7 @@ if __name__ == "__main__":
 
 def test_run_get_code():
     """
-        tests transformation of the code in the list
+    tests transformation of the code in the list
     """
     assert run_get_code([1, 0, 0, 0, 99], "day2") == [2, 0, 0, 0, 99]
     assert run_get_code([2, 3, 0, 3, 99], "day2") == [2, 3, 0, 6, 99]
@@ -45,7 +45,7 @@ def test_run_get_code():
 
 def test_calculate_1():
     """
-        tests extraction of first element from the list after code is run
+    tests extraction of first element from the list after code is run
     """
     assert calculate_1([99]) == 99
     assert calculate_1([1, 0, 0, 0, 99]) == 2
@@ -53,7 +53,7 @@ def test_calculate_1():
 
 def test_calculate_2_0():
     """
-        test the code covering all the combinations
+    test the code covering all the combinations
     """
 
     def mock_calculate_1(l):
@@ -66,7 +66,7 @@ def test_calculate_2_0():
 
 def test_calculate_2_99():
     """
-        test the code covering all the combinations
+    test the code covering all the combinations
     """
 
     def mock_calculate_1(l):
@@ -79,7 +79,7 @@ def test_calculate_2_99():
 
 def test_calculate_2_25():
     """
-        test the code covering all the combinations
+    test the code covering all the combinations
     """
 
     def mock_calculate_1(l):
@@ -92,7 +92,7 @@ def test_calculate_2_25():
 
 def test_calculate_2_75():
     """
-        test combination not found
+    test combination not found
     """
     with patch("day2.calculate_1", lambda x: 0):
         assert calculate_2([1, 0, 0, 0, 99]) == None

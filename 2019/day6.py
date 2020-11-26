@@ -1,10 +1,12 @@
 from collections import defaultdict
 
 from utils import load_input
+
 T = 0
 
 SPY = []
 SPS = []
+
 
 def traverse(c, d, x):
     global T
@@ -15,7 +17,7 @@ def traverse(c, d, x):
     for i in x:
 
         T = T + c + 1
-        traverse(c+1, d, d[i])
+        traverse(c + 1, d, d[i])
 
 
 def calculate_1(l):
@@ -30,23 +32,24 @@ def calculate_1(l):
         d[o[0]].append(o[1])
     print(d)
 
-    traverse(0, d, d['COM'])
+    traverse(0, d, d["COM"])
     return T
 
 
 def traverse2(c, d, x, w, SP):
     for i in d[x]:
         print(f"{i=}")
-        if i==w:
-            print('hi')
+        if i == w:
+            print("hi")
             SP.append(x)
             return x
-        k = traverse2(c+1, d, i, w, SP)
+        k = traverse2(c + 1, d, i, w, SP)
         if k:
             SP.append(x)
             return k
 
     return False
+
 
 def calculate_2(l):
     d = defaultdict(list)
@@ -55,9 +58,9 @@ def calculate_2(l):
         d[o[0]].append(o[1])
     print(d)
 
-    traverse2(0, d, 'COM', 'SAN', SPY)
+    traverse2(0, d, "COM", "SAN", SPY)
     print(f"{list(reversed(SPY))=}")
-    traverse2(0, d, 'COM', 'YOU', SPS)
+    traverse2(0, d, "COM", "YOU", SPS)
     print(f"{list(reversed(SPS))=}")
     for i in range(0, max(len(SPY), len(SPS))):
         print(list(reversed(SPY))[i], list(reversed(SPS))[i])
@@ -68,8 +71,8 @@ def calculate_2(l):
     # print(i)
     print(f"{SPY=}")
     print(f"{SPS=}")
-    print(len(SPY)-i+len(SPS)-i)
-    return len(SPY)-i+len(SPS)-i
+    print(len(SPY) - i + len(SPS) - i)
+    return len(SPY) - i + len(SPS) - i
 
 
 def main():
