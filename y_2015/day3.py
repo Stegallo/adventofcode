@@ -1,10 +1,5 @@
 from collections import defaultdict
 
-try:
-    from common import load_input
-except:
-    pass
-
 OPERATIONS = {">": (1, 0), "<": (-1, 0), "^": (0, 1), "v": (0, -1)}
 
 

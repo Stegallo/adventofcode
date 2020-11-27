@@ -1,9 +1,3 @@
-try:
-    from common import load_input
-except:
-    pass
-
-
 OPERATIONS = {"(": 1, ")": -1}
 
 
