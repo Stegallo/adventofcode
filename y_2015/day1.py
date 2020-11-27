@@ -1,10 +1,11 @@
+OPERATIONS = {"(": 1, ")": -1}
+
+
 def calculate_1(i: str):
     result = 0
     for x in i:
-        if x == "(":
-            result += 1
-        elif x == ")":
-            result -= 1
+        result += OPERATIONS[x]
+
     return result
 
 
