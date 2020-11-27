@@ -1,5 +1,5 @@
-import importlib
 import argparse
+import importlib
 
 
 def load_input(day):
