@@ -3,7 +3,7 @@ def calculate_1(i: str):
     for x in i:
         if x == "(":
             result += 1
-        if x == ")":
+        elif x == ")":
             result -= 1
     return result
 
