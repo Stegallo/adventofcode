@@ -6,13 +6,11 @@ def calculate_1(i: str):
 
 
 def calculate_2(i):
-    j = 1
     result = 0
-    for x in i:
+    for j, x in enumerate(i, start=1):
         result += OPERATIONS[x]
         if result == -1:
             return j
-        j += 1
 
 
 def main():
