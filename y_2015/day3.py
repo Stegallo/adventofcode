@@ -8,36 +8,23 @@ except:
 OPERATIONS = {">": (1, 0), "<": (-1, 0), "^": (0, 1), "v": (0, -1)}
 
 
-def calculate_1(i: str) -> int:
+def deliver(i: str, actors: list) -> int:
     grid = defaultdict(int)
-    x = 1
-    y = 1
-    grid[(x, y)] = 1
+    actor_location = [[1, 1] for i in actors]
+    grid[(1, 1)] = 1
+    current_actor = 0
     for j in i:
         moves = OPERATIONS[j]
-        x += moves[0]
-        y += moves[1]
-        grid[(x, y)] = 1
+        actor_location[current_actor][0] += moves[0]
+        actor_location[current_actor][1] += moves[1]
+        grid[tuple(actor_location[current_actor])] = 1
+        current_actor = (current_actor + 1) % len(actors)
     return len(grid)
+
+
+def calculate_1(i: str) -> int:
+    return deliver(i, ["santa"])
 
 
 def calculate_2(i: str) -> int:
-    grid = defaultdict(int)
-    sx = 1
-    sy = 1
-    rx = 1
-    ry = 1
-    grid[(1, 1)] = 1
-    s_moves = 1
-    for j in i:
-        moves = OPERATIONS[j]
-        if s_moves:
-            sx += moves[0]
-            sy += moves[1]
-            grid[(sx, sy)] = 1
-        else:
-            rx += moves[0]
-            ry += moves[1]
-            grid[(rx, ry)] = 1
-        s_moves = (s_moves + 1) % 2
-    return len(grid)
+    return deliver(i, ["santa", "robo-santa"])
