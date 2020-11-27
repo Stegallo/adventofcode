@@ -1,9 +1,3 @@
-try:
-    from common import load_input
-except:
-    pass
-
-
 def get_measures(i: str) -> tuple:
     return [int(x) for x in i.split("x")]
 

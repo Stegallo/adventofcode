@@ -1,1 +1,1 @@
-import y_2020.common
+import y_2020.common  # noqa 401
