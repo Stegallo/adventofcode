@@ -17,15 +17,3 @@ def calculate_2(i: str) -> int:
         result += OPERATIONS[x]
         if result == -1:
             return j
-
-
-def main():
-    """"""
-    x = load_input(1)
-
-    print(f"sol 1: {sum(calculate_1(i) for i in x)}")
-    print(f"sol 2: {sum(calculate_2(i) for i in x)}")
-
-
-if __name__ == "__main__":
-    main()
