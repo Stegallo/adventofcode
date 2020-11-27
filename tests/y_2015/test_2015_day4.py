@@ -6,8 +6,6 @@ def test_calculate_1():
     assert calculate_1("pqrstuv") == 1048970
 
 
-#
-# def test_calculate_2():
-#     assert calculate_2("^v") == 3
-#     assert calculate_2("^>v<") == 3
-#     assert calculate_2("^v^v^v^v^v") == 11
+def test_calculate_2():
+    assert calculate_2("abcdef") == 6742839
+    assert calculate_2("pqrstuv") == 5714438
