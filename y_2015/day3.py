@@ -49,15 +49,3 @@ def calculate_2(i: str) -> int:
             grid[(rx, ry)] = 1
         s_moves = (s_moves + 1) % 2
     return len(grid)
-
-
-def main():
-    """"""
-    x = load_input(3)
-
-    print(f"sol 1: {sum(calculate_1(i) for i in x)}")
-    print(f"sol 1: {sum(calculate_2(i) for i in x)}")
-
-
-if __name__ == "__main__":
-    main()

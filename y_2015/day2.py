@@ -19,15 +19,3 @@ def calculate_2(i: str) -> int:
     l, w, h = measures
     small_perimeter = sum(2 * x for x in sorted(measures)[:-1])
     return small_perimeter + l * w * h
-
-
-def main():
-    """"""
-    x = load_input(2)
-
-    print(f"sol 1: {sum(calculate_1(i) for i in x)}")
-    print(f"sol 1: {sum(calculate_2(i) for i in x)}")
-
-
-if __name__ == "__main__":
-    main()
