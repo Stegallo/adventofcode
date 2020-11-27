@@ -1,3 +1,9 @@
+try:
+    from common import load_input
+except:
+    pass
+
+
 OPERATIONS = {"(": 1, ")": -1}
 
 
@@ -15,11 +21,10 @@ def calculate_2(i: str) -> int:
 
 def main():
     """"""
-    with open("y_2015/input_day1.txt") as f:
-        x = f.read()
+    x = load_input(1)
 
-    print(f"sol 1: {calculate_1(x)}")
-    print(f"sol 2: {calculate_2(x)}")
+    print(f"sol 1: {sum(calculate_1(i) for i in x)}")
+    print(f"sol 2: {sum(calculate_2(i) for i in x)}")
 
 
 if __name__ == "__main__":
