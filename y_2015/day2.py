@@ -1,4 +1,7 @@
-def get_measures(i: str) -> tuple:
+from typing import List
+
+
+def get_measures(i: str) -> List:
     return [int(x) for x in i.split("x")]
 
 

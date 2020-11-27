@@ -1,10 +1,11 @@
 from collections import defaultdict
+from typing import DefaultDict, List
 
 OPERATIONS = {">": (1, 0), "<": (-1, 0), "^": (0, 1), "v": (0, -1)}
 
 
-def deliver(i: str, actors: list) -> int:
-    grid = defaultdict(int)
+def deliver(i: str, actors: List) -> int:
+    grid: DefaultDict[tuple, int] = defaultdict(int)
     actor_location = [[1, 1] for i in actors]
     grid[(1, 1)] = 1
     current_actor = 0
