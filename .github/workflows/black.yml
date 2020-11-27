@@ -12,7 +12,8 @@ jobs:
       - uses: actions/setup-python@v1
         with:
           python-version: 3.x
-      - run: pip install black
+      - run: pip install black isort
+      - run: isort .
       - run: black .
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3

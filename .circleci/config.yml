@@ -25,6 +25,14 @@ jobs:
           name: Send to codecov
           command: |
             bash <(curl -s https://codecov.io/bash) -Z
+      - run:
+          name: Run flake8
+          command: |
+            python -m flake8 .
+      - run:
+          name: Run mypy
+          command: |
+            python -m mypy .
 workflows:
   CI:
     jobs:
