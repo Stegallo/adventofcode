@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  hello:
+  Tests:
     docker:
       - image: stefanogallotti/adventofcode
     steps:
@@ -21,7 +21,11 @@ jobs:
           name: Send coverage to Code Climate
           command: |
             ./cc-test-reporter after-build --exit-code $?
+      - run:
+          name: Send to codecov
+          command: |
+            bash <(curl -s https://codecov.io/bash) -Z
 workflows:
-  hello:
+  CI:
     jobs:
       - hello
