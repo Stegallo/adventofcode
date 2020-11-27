@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  Tests:
+  tests:
     docker:
       - image: stefanogallotti/adventofcode
     steps:
@@ -28,4 +28,4 @@ jobs:
 workflows:
   CI:
     jobs:
-      - hello
+      - tests
