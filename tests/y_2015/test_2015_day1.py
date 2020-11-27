@@ -16,3 +16,4 @@ def test_calculate_1():
 def test_calculate_2():
     assert calculate_2(")") == 1
     assert calculate_2("()())") == 5
+    assert calculate_2("(") == -1
