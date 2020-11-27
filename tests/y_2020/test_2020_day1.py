@@ -1,6 +1,6 @@
-import y_2020.day1
+from y_2020.day1 import dummy
 
 
 def test_dummy():
     "placeholder"
-    assert True
+    assert dummy() == 0
