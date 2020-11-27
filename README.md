@@ -1,6 +1,6 @@
 # adventofcode
 
-to run the 2020 environment:
+to run the adventofcode environment:
 ```
-sh y_2020/docker/run.sh
+sh docker/run.sh
 ```
