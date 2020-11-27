@@ -1,21 +1,27 @@
 version: 2.1
 
-orbs:
-  python: circleci/python@0.2.1
-
 jobs:
-  build-and-test:
-    executor: python/default
+  hello:
+    docker:
+      - image: stefanogallotti/adventofcode
     steps:
       - checkout
-      - python/load-cache
-      - python/install-deps
-      - python/save-cache
       - run:
-          command: ./manage.py test
-          name: Test
-
+         name: Setup Code Climate test-reporter
+         command: |
+          # download test reporter as a static binary
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+            ./cc-test-reporter before-build
+      - run:
+          name: Run tests
+          command: |
+            python -m pytest tests/
+      - run:
+          name: Send coverage to Code Climate
+          command: |
+            ./cc-test-reporter after-build --exit-code $?
 workflows:
-  main:
+  hello:
     jobs:
-      - build-and-test
+      - hello
