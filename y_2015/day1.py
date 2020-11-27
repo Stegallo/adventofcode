@@ -11,3 +11,4 @@ def calculate_2(i: str) -> int:
         result += OPERATIONS[x]
         if result == -1:
             return j
+    return -1
