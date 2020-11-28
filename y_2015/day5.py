@@ -6,8 +6,8 @@ def calculate_1(i: str) -> int:
     vowels_count = 0
     twice = False
     contains_bad_string = False
-    for l in i:
-        if l in ["a", "e", "i", "o", "u"]:
+    for letter in i:
+        if letter in ["a", "e", "i", "o", "u"]:
             vowels_count += 1
     for j, l in enumerate(i):
         if j == 0:
