@@ -1,5 +1,6 @@
-from y_2015.day6 import calculate_1, calculate_2, parse, defaultdict
 from unittest.mock import patch
+
+from y_2015.day6 import calculate_1, calculate_2, defaultdict, parse
 
 
 def test_parse():

@@ -1,6 +1,6 @@
+import re
 from collections import defaultdict
 from typing import DefaultDict
-import re
 
 GRID: DefaultDict[tuple, int] = defaultdict(int)
 
