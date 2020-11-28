@@ -6,8 +6,8 @@ GRID: DefaultDict[tuple, int] = defaultdict(int)
 
 
 def parse(i):
-    command = i[: re.search(" \d", i).start()]
-    positions = re.findall("[\d]+,[\d]+", i)
+    command = i[: re.search(" \d", i).start()]  # noqa W605
+    positions = re.findall("[\d]+,[\d]+", i)  # noqa W605
     return (
         command,
         tuple([int(x) for x in positions[0].split(",")]),
