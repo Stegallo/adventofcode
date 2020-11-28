@@ -20,8 +20,12 @@ def main():
 
     day = importlib.import_module(f"day{args.day}")
 
-    print(f"sol 1: {sum(day.calculate_1(i) for i in x)}")
-    print(f"sol 2: {sum(day.calculate_2(i) for i in x)}")
+    if day == 6:
+        print(f"sol 1: {day.calculate_1(x)}")
+        print(f"sol 2: {day.calculate_2(x)}")
+    else:
+        print(f"sol 1: {sum(day.calculate_1(i) for i in x)}")
+        print(f"sol 2: {sum(day.calculate_2(i) for i in x)}")
 
 
 if __name__ == "__main__":

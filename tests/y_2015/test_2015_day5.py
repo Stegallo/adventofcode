@@ -25,6 +25,6 @@ def test_repeated():
 def test_calculate_2():
     assert calculate_2("qjhvhtzxzqqjkmpb") == 1
     assert calculate_2("xxyxx") == 1
-    assert repeated("aaaa") == 1
+    assert calculate_2("aaaa") == 1
     assert calculate_2("uurcxstgmygtbstg") == 0
     assert calculate_2("ieodomkazucvgmuy") == 0
