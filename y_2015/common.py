@@ -20,7 +20,7 @@ def main():
 
     day = importlib.import_module(f"day{args.day}")
 
-    if day == 6:
+    if args.day in (6, 7):
         print(f"sol 1: {day.calculate_1(x)}")
         print(f"sol 2: {day.calculate_2(x)}")
     else:
