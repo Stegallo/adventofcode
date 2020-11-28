@@ -1,4 +1,4 @@
-from y_2015.day5 import calculate_1, calculate_2, twiced, repeated
+from y_2015.day5 import calculate_1, calculate_2, repeated, twiced
 
 
 def test_calculate_1():

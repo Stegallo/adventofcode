@@ -26,11 +26,7 @@ def twiced(i: str) -> bool:
             pairs[(i[j - 1], l)] += 1
             continue
 
-        if (
-            i[j - 2] != i[j - 1]
-            or i[j - 1] != i[j]
-            or (j > 2 and i[j - 3] == i[j - 2])
-        ):
+        if i[j - 2] != i[j - 1] or i[j - 1] != i[j] or (j > 2 and i[j - 3] == i[j - 2]):
             pairs[(i[j - 1], l)] += 1
 
     return any(pairs[j] > 1 for j in pairs)
