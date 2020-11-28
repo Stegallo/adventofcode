@@ -3,12 +3,9 @@ from typing import DefaultDict
 
 
 def calculate_1(i: str) -> int:
-    vowels_count = 0
     twice = False
     contains_bad_string = False
-    for letter in i:
-        if letter in ["a", "e", "i", "o", "u"]:
-            vowels_count += 1
+    vowels_count = sum(1 for letter in i if letter in ["a", "e", "i", "o", "u"])
     for j, l in enumerate(i):
         if j == 0:
             continue
@@ -21,7 +18,6 @@ def calculate_1(i: str) -> int:
 
 def twiced(i: str) -> bool:
     pairs: DefaultDict[tuple, int] = defaultdict(int)
-    twice = False
     for j, l in enumerate(i):
         if j == 0:
             continue
@@ -30,15 +26,14 @@ def twiced(i: str) -> bool:
             pairs[(i[j - 1], l)] += 1
             continue
 
-        if not (i[j - 2] == i[j - 1] and i[j - 1] == i[j]) or (
-            j > 2 and i[j - 3] == i[j - 2]
+        if (
+            i[j - 2] != i[j - 1]
+            or i[j - 1] != i[j]
+            or (j > 2 and i[j - 3] == i[j - 2])
         ):
             pairs[(i[j - 1], l)] += 1
 
-    for j in pairs:
-        if pairs[j] > 1:
-            twice = True
-    return twice
+    return any(pairs[j] > 1 for j in pairs)
 
 
 def repeated(i: str) -> int:
