@@ -130,7 +130,7 @@ def parse(i):
     if "LSHIFT" in x or "RSHIFT" in x:
         opcode = "LSHIFT" if "LSHIFT" in x else "RSHIFT"
         first = x[: re.search(f" {opcode}", x).start()]
-        second = x[re.search(f" {opcode}", x).start() + 8 :]
+        second = x[re.search(f" {opcode}", x).start() + len(opcode) + 2 :]
 
         return [i[re.search(" ->", i).start() + 4 :], f"{opcode}", first, second]
 
