@@ -1,5 +1,3 @@
-from unittest.mock import patch
-
 from y_2015.day7 import calculate_1, calculate_2, inner_1, parse
 
 
@@ -82,4 +80,20 @@ def test_calculate_1():
 
 
 def test_calculate_2():
-    assert True
+    assert (
+        calculate_2(
+            [
+                "123 -> x",
+                "456 -> y",
+                "x AND y -> d",
+                "x OR y -> e",
+                "x LSHIFT 2 -> f",
+                "y RSHIFT 2 -> g",
+                "NOT x -> h",
+                "NOT y -> i",
+                "1 -> a",
+                "0 -> b",
+            ]
+        )
+        == 1
+    )

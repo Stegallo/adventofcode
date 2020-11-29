@@ -1,40 +1,33 @@
-from collections import defaultdict
-from typing import DefaultDict
 import re
 
 
 def parse(i):
     x = i[: re.search(" ->", i).start()]
     if "AND" in x:
-        # print(re.search(" AND", x).start())
         first = x[: re.search(" AND", x).start()]
         second = x[re.search(" AND", x).start() + 5 :]
 
         return [i[re.search(" ->", i).start() + 4 :], "AND", first, second]
 
     if "OR" in x:
-        # print(re.search(" OR", x).start())
         first = x[: re.search(" OR", x).start()]
         second = x[re.search(" OR", x).start() + 4 :]
 
         return [i[re.search(" ->", i).start() + 4 :], "OR", first, second]
 
     if "LSHIFT" in x:
-        # print(re.search(" LSHIFT", x).start())
         first = x[: re.search(" LSHIFT", x).start()]
         second = x[re.search(" LSHIFT", x).start() + 8 :]
 
         return [i[re.search(" ->", i).start() + 4 :], "LSHIFT", first, second]
 
     if "RSHIFT" in x:
-        # print(re.search(" RSHIFT", x).start())
         first = x[: re.search(" RSHIFT", x).start()]
         second = x[re.search(" RSHIFT", x).start() + 8 :]
 
         return [i[re.search(" ->", i).start() + 4 :], "RSHIFT", first, second]
 
     if "NOT" in x:
-        # print(re.search("NOT", x).start())
         return [
             i[re.search(" ->", i).start() + 4 :],
             "NOT",
@@ -54,12 +47,11 @@ def evaluate(i):
                 no_evaluated = False
 
                 if i[j][0] == "AND":
-                    # breakpoint()
                     try:
                         i[j] = [int(i[i[j][1]][0]) & int(i[i[j][2]][0])]
                     except ValueError:
                         pass
-                    except KeyError as e:
+                    except KeyError:
                         first = None
                         second = None
                         try:
@@ -83,7 +75,7 @@ def evaluate(i):
                         i[j] = [int(i[i[j][1]][0]) | int(i[i[j][2]][0])]
                     except ValueError:
                         pass
-                    except KeyError as e:
+                    except KeyError:
                         first = None
                         second = None
                         try:
@@ -107,7 +99,7 @@ def evaluate(i):
                         i[j] = [int(i[i[j][1]][0]) << int(i[j][2])]
                     except ValueError:
                         pass
-                    except KeyError as e:
+                    except KeyError:
                         first = None
                         second = None
                         try:
@@ -131,7 +123,7 @@ def evaluate(i):
                         i[j] = [int(i[i[j][1]][0]) >> int(i[j][2])]
                     except ValueError:
                         pass
-                    except KeyError as e:
+                    except KeyError:
                         first = None
                         second = None
                         try:
@@ -155,7 +147,7 @@ def evaluate(i):
                         i[j] = [int(i[i[j][1]][0]) ^ 65535]
                     except ValueError:
                         pass
-                    except KeyError as e:
+                    except KeyError:
                         first = None
                         try:
                             first = int(i[j][1])
@@ -181,7 +173,6 @@ def inner_1(lista):
     result = {}
     parsedl = [parse(i) for i in lista]
     for i in parsedl:
-        # print(i)
         result[i[0]] = i[1:]
     result = evaluate(result)
     return result
@@ -189,7 +180,6 @@ def inner_1(lista):
 
 def calculate_1(x: list) -> int:
     result = inner_1(x)
-    # print(result)
     return result["a"]
 
 
@@ -197,15 +187,12 @@ def inner_2(lista):
     result = {}
     parsedl = [parse(i) for i in lista]
     for i in parsedl:
-        # print(i)
         result[i[0]] = i[1:]
-    print(result["b"])
     result["b"] = ["46065"]
     result = evaluate(result)
     return result
 
 
 def calculate_2(x: str) -> int:
-    # print(x["b"])
     result = inner_2(x)
-    return 0
+    return result["a"]
