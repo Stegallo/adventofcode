@@ -65,7 +65,6 @@ class Link:
             return UnaryLink(rule[0], op1)
         # breakpoint()
         raise Exception("not expected")
-        print(rule)
         ...
 
     def get_value(self):
@@ -76,13 +75,16 @@ class DirectLink(Link):
     """"""
 
     def __init__(self, op1):
+        self._cached_result = None
         # print(f"{op1=}")
         # breakpoint()
         self._op1 = op1
 
     def get_value(self):
         # print("direct")
-        return self._op1.content.get_value()
+        if not self._cached_result:
+            self._cached_result = self._op1.content.get_value()
+        return self._cached_result
 
 
 class ValueLink(Link):
@@ -99,25 +101,31 @@ class BinaryLink(Link):
     """"""
 
     def __init__(self, operator, op1, op2):
+        self._cached_result = None
         self._operator = operator
         self._op1 = op1
         self._op2 = op2
 
     def get_value(self):
         # print(self._operator)
-        return BIN_OPERATORS[self._operator](
-            self._op1.get_value(), self._op2.get_value()
-        )
+        if not self._cached_result:
+            self._cached_result = BIN_OPERATORS[self._operator](
+                self._op1.get_value(), self._op2.get_value()
+            )
+        return self._cached_result
 
 
 class UnaryLink(Link):
     def __init__(self, operator, op1):
+        self._cached_result = None
         self._operator = operator
         self._op1 = op1
 
     def get_value(self):
         # print(self._operator)
-        return UN_OPERATORS[self._operator](self._op1.get_value())
+        if not self._cached_result:
+            self._cached_result = UN_OPERATORS[self._operator](self._op1.get_value())
+        return self._cached_result
 
 
 WIRING = defaultdict(Container)
@@ -287,36 +295,19 @@ def evaluate(i):
                     pass
         if no_evaluated:
             solved = True
-    print(i)
+    # print(i)
     return {k: int(v[0]) for k, v in i.items()}
 
 
 def inner_1(lista):
-    print()
     global WIRING
+    WIRING = defaultdict(Container)
     parsedl = [parse(i) for i in lista]
-    # result = {i[0]: Link.create_link(i[1:]) for i in parsedl}
     for i in parsedl:
-        # print(f"{i=}")
-        # breakpoint()
         temp = WIRING[i[0]]
         temp.content = Link.create_link(i[1:])
-        # if i[0] in ("bn", "bl"):
-        #     breakpoint()
-        # print(f"{WIRING=}")
-    # tipi = {k: type(v) for k, v in WIRING.items()}
-    for k, v in WIRING.items():
-        print(k)
-        #     if k == "bn":
-        # breakpoint()
-        print(v.content.get_value())
-    # print(tipi)
 
     result = {k: v.content.get_value() for k, v in WIRING.items()}
-    # breakpoint()
-    # result = evaluate(result)
-    # x = WIRING["a"]
-    # breakpoint()
     return result
 
 
@@ -326,10 +317,14 @@ def calculate_1(x: list) -> int:
 
 
 def inner_2(lista):
+    global WIRING
+    WIRING = defaultdict(Container)
     parsedl = [parse(i) for i in lista]
-    result = {i[0]: i[1:] for i in parsedl}
-    result["b"] = ["46065"]
-    result = evaluate(result)
+    for i in parsedl:
+        temp = WIRING[i[0]]
+        temp.content = Link.create_link(i[1:])
+    WIRING["b"].content._value = 46065
+    result = {k: v.content.get_value() for k, v in WIRING.items()}
     return result
 
 
