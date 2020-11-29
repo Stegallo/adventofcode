@@ -193,6 +193,19 @@ def calculate_1(x: list) -> int:
     return result["a"]
 
 
-def calculate_2(x: str) -> int:
+def inner_2(lista):
+    result = {}
+    parsedl = [parse(i) for i in lista]
+    for i in parsedl:
+        # print(i)
+        result[i[0]] = i[1:]
+    print(result["b"])
+    result["b"] = ["46065"]
+    result = evaluate(result)
+    return result
 
+
+def calculate_2(x: str) -> int:
+    # print(x["b"])
+    result = inner_2(x)
     return 0
