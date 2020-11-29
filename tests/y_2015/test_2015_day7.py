@@ -123,22 +123,21 @@ def test_calculate_1():
     )
 
 
-#
-# def test_calculate_2():
-#     assert (
-#         calculate_2(
-#             [
-#                 "123 -> x",
-#                 "456 -> y",
-#                 "x AND y -> d",
-#                 "x OR y -> e",
-#                 "x LSHIFT 2 -> f",
-#                 "y RSHIFT 2 -> g",
-#                 "NOT x -> h",
-#                 "NOT y -> i",
-#                 "1 -> a",
-#                 "0 -> b",
-#             ]
-#         )
-#         == 1
-#     )
+def test_calculate_2():
+    assert (
+        calculate_2(
+            [
+                "123 -> x",
+                "456 -> y",
+                "x AND y -> d",
+                "x OR y -> e",
+                "x LSHIFT 2 -> f",
+                "y RSHIFT 2 -> g",
+                "NOT x -> h",
+                "NOT y -> i",
+                "1 -> a",
+                "0 -> b",
+            ]
+        )
+        == 1
+    )
