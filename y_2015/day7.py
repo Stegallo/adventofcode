@@ -65,8 +65,6 @@ class Link:
                 op1 = DirectLink(WIRING[rule[1]])
             return UnaryLink(rule[0], op1)
 
-        raise Exception("operator not expected")
-
 
 class DirectLink(Link):
     """"""
