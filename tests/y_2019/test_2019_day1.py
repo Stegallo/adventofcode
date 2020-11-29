@@ -19,4 +19,4 @@ def test_inner_2():
 
 
 def test_calculate_2():
-    assert calculate_1(["14"]) == 2
+    assert calculate_2(["100756"]) == 50346
