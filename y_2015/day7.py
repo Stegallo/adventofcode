@@ -123,17 +123,14 @@ def parse(i):
     if opcode_match := re.findall("|".join(BIN_OPERATORS), x):
         opcode = opcode_match[0]
         first = x[: re.search(f" {opcode}", x).start()]
-        second = x[re.search(f" {opcode}", x).start() + len(opcode) + 2 :]
+        second = x[re.search(f"{opcode}", x).start() + len(opcode) + 1 :]
 
         return [i[re.search(" ->", i).start() + 4 :], f"{opcode}", first, second]
 
     if opcode_match := re.findall("|".join(UN_OPERATORS), x):
         opcode = opcode_match[0]
-        return [
-            i[re.search(" ->", i).start() + 4 :],
-            f"{opcode}",
-            x[re.search(f"{opcode}", x).start() + 4 :],
-        ]
+        second = x[re.search(f"{opcode}", x).start() + len(opcode) + 1 :]
+        return [i[re.search(" ->", i).start() + 4 :], f"{opcode}", second]
 
     return [i[re.search(" ->", i).start() + 4 :], i[: re.search(" ->", i).start()]]
 
