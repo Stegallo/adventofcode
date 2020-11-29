@@ -170,10 +170,8 @@ def evaluate(i):
 
 
 def inner_1(lista):
-    result = {}
     parsedl = [parse(i) for i in lista]
-    for i in parsedl:
-        result[i[0]] = i[1:]
+    result = {i[0]: i[1:] for i in parsedl}
     result = evaluate(result)
     return result
 
@@ -184,10 +182,8 @@ def calculate_1(x: list) -> int:
 
 
 def inner_2(lista):
-    result = {}
     parsedl = [parse(i) for i in lista]
-    for i in parsedl:
-        result[i[0]] = i[1:]
+    result = {i[0]: i[1:] for i in parsedl}
     result["b"] = ["46065"]
     result = evaluate(result)
     return result
