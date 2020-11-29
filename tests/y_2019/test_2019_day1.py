@@ -1,4 +1,4 @@
-from y_2019.day1 import inner_1, inner_2, calculate_1, calculate_2
+from y_2019.day1 import calculate_1, calculate_2, inner_1, inner_2
 
 
 def test_inner_1():
