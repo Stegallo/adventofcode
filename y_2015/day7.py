@@ -120,25 +120,19 @@ WIRING = defaultdict(Container)
 
 def parse(i):
     x = i[: re.search(" ->", i).start()]
-    if "AND" in x or "OR" in x:
-        opcode = "AND" if "AND" in x else "OR"
+    if opcode_match := re.findall("|".join(BIN_OPERATORS), x):
+        opcode = opcode_match[0]
         first = x[: re.search(f" {opcode}", x).start()]
         second = x[re.search(f" {opcode}", x).start() + len(opcode) + 2 :]
 
         return [i[re.search(" ->", i).start() + 4 :], f"{opcode}", first, second]
 
-    if "LSHIFT" in x or "RSHIFT" in x:
-        opcode = "LSHIFT" if "LSHIFT" in x else "RSHIFT"
-        first = x[: re.search(f" {opcode}", x).start()]
-        second = x[re.search(f" {opcode}", x).start() + 8 :]
-
-        return [i[re.search(" ->", i).start() + 4 :], f"{opcode}", first, second]
-
-    if "NOT" in x:
+    if opcode_match := re.findall("|".join(UN_OPERATORS), x):
+        opcode = opcode_match[0]
         return [
             i[re.search(" ->", i).start() + 4 :],
-            "NOT",
-            x[re.search("NOT", x).start() + 4 :],
+            f"{opcode}",
+            x[re.search(f"{opcode}", x).start() + 4 :],
         ]
 
     return [i[re.search(" ->", i).start() + 4 :], i[: re.search(" ->", i).start()]]
