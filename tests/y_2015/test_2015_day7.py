@@ -13,19 +13,21 @@ def test_parse():
 
 
 def test_inner_1_value():
-    assert (
-        inner_1(
-            [
-                "123 -> x",
-                "456 -> y",
-            ]
+    with patch("y_2015.day7.WIRING", defaultdict(Container)):
+        assert (
+            inner_1(
+                [
+                    "123 -> x",
+                    "456 -> y",
+                ]
+            )
+            == {"x": 123, "y": 456}
         )
-        == {"x": 123, "y": 456}
-    )
 
 
 def test_inner_1_direct():
-    assert inner_1(["123 -> x", "x -> y"]) == {"x": 123, "y": 123}
+    with patch("y_2015.day7.WIRING", defaultdict(Container)):
+        assert inner_1(["123 -> x", "x -> y"]) == {"x": 123, "y": 123}
 
 
 def test_inner_1_binary():
@@ -42,53 +44,55 @@ def test_inner_1_unary():
 
 
 def test_inner_1():
-    assert inner_1(
-        [
-            "123 -> x",
-            "456 -> y",
-            "x AND y -> d",
-            "x OR y -> e",
-            "x LSHIFT 2 -> f",
-            "y RSHIFT 2 -> g",
-            "NOT x -> h",
-            "NOT y -> i",
-        ]
-    ) == {
-        "d": 72,
-        "e": 507,
-        "f": 492,
-        "g": 114,
-        "h": 65412,
-        "i": 65079,
-        "x": 123,
-        "y": 456,
-    }
+    with patch("y_2015.day7.WIRING", defaultdict(Container)):
+        assert inner_1(
+            [
+                "123 -> x",
+                "456 -> y",
+                "x AND y -> d",
+                "x OR y -> e",
+                "x LSHIFT 2 -> f",
+                "y RSHIFT 2 -> g",
+                "NOT x -> h",
+                "NOT y -> i",
+            ]
+        ) == {
+            "d": 72,
+            "e": 507,
+            "f": 492,
+            "g": 114,
+            "h": 65412,
+            "i": 65079,
+            "x": 123,
+            "y": 456,
+        }
 
 
 def test_inner_1_bis():
-    assert inner_1(
-        [
-            "123 -> x",
-            "456 -> y",
-            "x AND y -> d",
-            "x OR y -> e",
-            "x LSHIFT 2 -> f",
-            "y RSHIFT 2 -> g",
-            "NOT x -> h",
-            "NOT y -> i",
-            "x AND 456 -> j",
-        ]
-    ) == {
-        "d": 72,
-        "e": 507,
-        "f": 492,
-        "g": 114,
-        "h": 65412,
-        "i": 65079,
-        "x": 123,
-        "y": 456,
-        "j": 72,
-    }
+    with patch("y_2015.day7.WIRING", defaultdict(Container)):
+        assert inner_1(
+            [
+                "123 -> x",
+                "456 -> y",
+                "x AND y -> d",
+                "x OR y -> e",
+                "x LSHIFT 2 -> f",
+                "y RSHIFT 2 -> g",
+                "NOT x -> h",
+                "NOT y -> i",
+                "x AND 456 -> j",
+            ]
+        ) == {
+            "d": 72,
+            "e": 507,
+            "f": 492,
+            "g": 114,
+            "h": 65412,
+            "i": 65079,
+            "x": 123,
+            "y": 456,
+            "j": 72,
+        }
 
 
 def test_inner_1_not_existing():
@@ -105,39 +109,41 @@ def test_inner_1_not_existing():
 
 
 def test_calculate_1():
-    assert (
-        calculate_1(
-            [
-                "123 -> x",
-                "456 -> y",
-                "x AND y -> d",
-                "x OR y -> e",
-                "x LSHIFT 2 -> f",
-                "y RSHIFT 2 -> g",
-                "NOT x -> h",
-                "NOT y -> i",
-                "1 -> a",
-            ]
+    with patch("y_2015.day7.WIRING", defaultdict(Container)):
+        assert (
+            calculate_1(
+                [
+                    "123 -> x",
+                    "456 -> y",
+                    "x AND y -> d",
+                    "x OR y -> e",
+                    "x LSHIFT 2 -> f",
+                    "y RSHIFT 2 -> g",
+                    "NOT x -> h",
+                    "NOT y -> i",
+                    "1 -> a",
+                ]
+            )
+            == 1
         )
-        == 1
-    )
 
 
 def test_calculate_2():
-    assert (
-        calculate_2(
-            [
-                "123 -> x",
-                "456 -> y",
-                "x AND y -> d",
-                "x OR y -> e",
-                "x LSHIFT 2 -> f",
-                "y RSHIFT 2 -> g",
-                "NOT x -> h",
-                "NOT y -> i",
-                "1 -> a",
-                "0 -> b",
-            ]
+    with patch("y_2015.day7.WIRING", defaultdict(Container)):
+        assert (
+            calculate_2(
+                [
+                    "123 -> x",
+                    "456 -> y",
+                    "x AND y -> d",
+                    "x OR y -> e",
+                    "x LSHIFT 2 -> f",
+                    "y RSHIFT 2 -> g",
+                    "NOT x -> h",
+                    "NOT y -> i",
+                    "1 -> a",
+                    "0 -> b",
+                ]
+            )
+            == 1
         )
-        == 1
-    )

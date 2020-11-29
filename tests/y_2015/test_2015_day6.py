@@ -36,3 +36,8 @@ def test_calculate_2_first():
 def test_calculate_2_second():
     with patch("y_2015.day6.GRID", defaultdict(int)):
         assert calculate_2(["toggle 0,0 through 999,999"]) == 2000000
+
+
+def test_calculate_2_all_on_turn_off():
+    with patch("y_2015.day6.GRID", defaultdict(int)):
+        assert calculate_2(["turn off 499,499 through 500,500"]) == 0
