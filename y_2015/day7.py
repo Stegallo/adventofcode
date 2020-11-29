@@ -65,7 +65,6 @@ class Link:
             return UnaryLink(rule[0], op1)
         # breakpoint()
         raise Exception("not expected")
-        ...
 
     def get_value(self):
         ...
@@ -307,8 +306,7 @@ def inner_1(lista):
         temp = WIRING[i[0]]
         temp.content = Link.create_link(i[1:])
 
-    result = {k: v.content.get_value() for k, v in WIRING.items()}
-    return result
+    return {k: v.content.get_value() for k, v in WIRING.items()}
 
 
 def calculate_1(x: list) -> int:
@@ -324,8 +322,7 @@ def inner_2(lista):
         temp = WIRING[i[0]]
         temp.content = Link.create_link(i[1:])
     WIRING["b"].content._value = 46065
-    result = {k: v.content.get_value() for k, v in WIRING.items()}
-    return result
+    return {k: v.content.get_value() for k, v in WIRING.items()}
 
 
 def calculate_2(x: str) -> int:
