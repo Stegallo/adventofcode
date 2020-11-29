@@ -3,7 +3,7 @@ def inner_1(i):
 
 
 def calculate_1(x):
-    return sum(i for i in [inner_1(int(i)) for i in x])
+    return sum(inner_1(int(i)) for i in x)
 
 
 def inner_2(i):
@@ -13,4 +13,4 @@ def inner_2(i):
 
 
 def calculate_2(x):
-    return sum(i for i in [inner_2(int(i)) for i in x])
+    return sum(inner_2(int(i)) for i in x)
