@@ -1,5 +1,127 @@
 import re
 
+from collections import defaultdict
+
+
+def bitand(x, y):
+    return x & y
+
+
+def bitor(x, y):
+    return x | y
+
+
+def lshift(x, y):
+    return x << y
+
+
+def rshift(x, y):
+    return x >> y
+
+
+def bitnot(x):
+    return x ^ 65535
+
+
+BIN_OPERATORS = {"AND": bitand, "OR": bitor, "LSHIFT": lshift, "RSHIFT": rshift}
+UN_OPERATORS = {"NOT": bitnot}
+
+
+class Container:
+    content = None
+
+
+class Link:
+    """docstring for Link"""
+
+    @staticmethod
+    def create_link(rule):
+        if len(rule) == 1:
+            try:
+                value = int(rule[0])
+                return ValueLink(value)
+            except ValueError:
+                pass
+            return DirectLink(WIRING[rule[0]])
+        if rule[0] in BIN_OPERATORS:
+            try:
+                value = int(rule[1])
+                op1 = ValueLink(value)
+            except ValueError:
+                op1 = DirectLink(WIRING[rule[1]])
+            try:
+                value = int(rule[2])
+                op2 = ValueLink(value)
+            except ValueError:
+                op2 = DirectLink(WIRING[rule[2]])
+
+            return BinaryLink(rule[0], op1, op2)
+        if rule[0] in UN_OPERATORS:
+            try:
+                value = int(rule[1])
+                op1 = ValueLink(value)
+            except ValueError:
+                op1 = DirectLink(WIRING[rule[1]])
+            return UnaryLink(rule[0], op1)
+        # breakpoint()
+        raise Exception("not expected")
+        print(rule)
+        ...
+
+    def get_value(self):
+        ...
+
+
+class DirectLink(Link):
+    """"""
+
+    def __init__(self, op1):
+        # print(f"{op1=}")
+        # breakpoint()
+        self._op1 = op1
+
+    def get_value(self):
+        # print("direct")
+        return self._op1.content.get_value()
+
+
+class ValueLink(Link):
+    """"""
+
+    def __init__(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+
+class BinaryLink(Link):
+    """"""
+
+    def __init__(self, operator, op1, op2):
+        self._operator = operator
+        self._op1 = op1
+        self._op2 = op2
+
+    def get_value(self):
+        # print(self._operator)
+        return BIN_OPERATORS[self._operator](
+            self._op1.get_value(), self._op2.get_value()
+        )
+
+
+class UnaryLink(Link):
+    def __init__(self, operator, op1):
+        self._operator = operator
+        self._op1 = op1
+
+    def get_value(self):
+        # print(self._operator)
+        return UN_OPERATORS[self._operator](self._op1.get_value())
+
+
+WIRING = defaultdict(Container)
+
 
 def parse(i):
     x = i[: re.search(" ->", i).start()]
@@ -170,9 +292,31 @@ def evaluate(i):
 
 
 def inner_1(lista):
+    print()
+    global WIRING
     parsedl = [parse(i) for i in lista]
-    result = {i[0]: i[1:] for i in parsedl}
-    result = evaluate(result)
+    # result = {i[0]: Link.create_link(i[1:]) for i in parsedl}
+    for i in parsedl:
+        # print(f"{i=}")
+        # breakpoint()
+        temp = WIRING[i[0]]
+        temp.content = Link.create_link(i[1:])
+        # if i[0] in ("bn", "bl"):
+        #     breakpoint()
+        # print(f"{WIRING=}")
+    # tipi = {k: type(v) for k, v in WIRING.items()}
+    for k, v in WIRING.items():
+        print(k)
+        #     if k == "bn":
+        # breakpoint()
+        print(v.content.get_value())
+    # print(tipi)
+
+    result = {k: v.content.get_value() for k, v in WIRING.items()}
+    # breakpoint()
+    # result = evaluate(result)
+    # x = WIRING["a"]
+    # breakpoint()
     return result
 
 
