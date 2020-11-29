@@ -120,29 +120,19 @@ WIRING = defaultdict(Container)
 
 def parse(i):
     x = i[: re.search(" ->", i).start()]
-    if "AND" in x:
-        first = x[: re.search(" AND", x).start()]
-        second = x[re.search(" AND", x).start() + 5 :]
+    if "AND" in x or "OR" in x:
+        opcode = "AND" if "AND" in x else "OR"
+        first = x[: re.search(f" {opcode}", x).start()]
+        second = x[re.search(f" {opcode}", x).start() + len(opcode) + 2 :]
 
-        return [i[re.search(" ->", i).start() + 4 :], "AND", first, second]
+        return [i[re.search(" ->", i).start() + 4 :], f"{opcode}", first, second]
 
-    if "OR" in x:
-        first = x[: re.search(" OR", x).start()]
-        second = x[re.search(" OR", x).start() + 4 :]
+    if "LSHIFT" in x or "RSHIFT" in x:
+        opcode = "LSHIFT" if "LSHIFT" in x else "RSHIFT"
+        first = x[: re.search(f" {opcode}", x).start()]
+        second = x[re.search(f" {opcode}", x).start() + 8 :]
 
-        return [i[re.search(" ->", i).start() + 4 :], "OR", first, second]
-
-    if "LSHIFT" in x:
-        first = x[: re.search(" LSHIFT", x).start()]
-        second = x[re.search(" LSHIFT", x).start() + 8 :]
-
-        return [i[re.search(" ->", i).start() + 4 :], "LSHIFT", first, second]
-
-    if "RSHIFT" in x:
-        first = x[: re.search(" RSHIFT", x).start()]
-        second = x[re.search(" RSHIFT", x).start() + 8 :]
-
-        return [i[re.search(" ->", i).start() + 4 :], "RSHIFT", first, second]
+        return [i[re.search(" ->", i).start() + 4 :], f"{opcode}", first, second]
 
     if "NOT" in x:
         return [
