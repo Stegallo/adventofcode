@@ -11,7 +11,7 @@ def test_load_input_string():
 
 def test_load_input_multiline():
     with patch("y_2020.common.open") as open_patch:
-        open_patch().__enter__().read = lambda: "hello\nworld"
+        open_patch().__enter__().read = lambda: "hello\nworld\n"
         assert load_input(0) == ["hello", "world"]
 
 
