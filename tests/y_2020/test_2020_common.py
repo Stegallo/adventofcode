@@ -1,5 +1,5 @@
 from y_2020.common import load_input, main
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 import contextlib
 
 
