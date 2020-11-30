@@ -20,4 +20,4 @@ def test_main():
         patches.enter_context(patch("y_2020.common.argparse"))
         patches.enter_context(patch("y_2020.common.open"))
         patches.enter_context(patch("y_2020.common.importlib"))
-        assert main() == None
+        assert main() is None
