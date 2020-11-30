@@ -1,6 +1,7 @@
-from y_2019.common import load_input, main
-from unittest.mock import patch
 import contextlib
+from unittest.mock import patch
+
+from y_2019.common import load_input, main
 
 
 def test_load_input_string():
