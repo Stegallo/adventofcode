@@ -5,13 +5,8 @@ def extract(i):
 def valid1(i):
     min, max, char, pwd = extract(i)
 
-    c = 0
-    for k in pwd:
-        if k == char:
-            c += 1
-    if c >= min and c <= max:
-        return True
-    return False
+    c = pwd.count(char)
+    return c >= min and c <= max
 
 
 def valid2(i):
@@ -23,24 +18,14 @@ def valid2(i):
         one = 1
     if pwd[max - 1] == char:
         two = 1
-    if one + two == 1:
-        return True
-    return False
+    return one + two == 1
 
 
 def calculate_1(x):
     y = [i.split(" ") for i in x]
-    c = 0
-    for i in y:
-        if valid1(i):
-            c += 1
-    return c
+    return sum(1 for i in y if valid1(i))
 
 
 def calculate_2(x):
     y = [i.split(" ") for i in x]
-    c = 0
-    for i in y:
-        if valid2(i):
-            c += 1
-    return c
+    return sum(1 for i in y if valid2(i))
