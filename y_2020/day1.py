@@ -1,5 +1,9 @@
+def transform_int(x):
+    return [int(i) for i in x]
+
+
 def calculate_1(x):
-    y = [int(i) for i in x]
+    y = transform_int(x)
 
     for i in y:
         for j in y:
@@ -10,7 +14,7 @@ def calculate_1(x):
 
 
 def calculate_2(x):
-    y = [int(i) for i in x]
+    y = transform_int(x)
 
     for i in y:
         for j in y:
