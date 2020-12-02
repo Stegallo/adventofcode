@@ -12,13 +12,7 @@ def valid1(i):
 def valid2(i):
     min, max, char, pwd = extract(i)
 
-    one = 0
-    two = 0
-    if pwd[min - 1] == char:
-        one = 1
-    if pwd[max - 1] == char:
-        two = 1
-    return one + two == 1
+    return (pwd[min - 1] == char) != (pwd[max - 1] == char)
 
 
 def calculate_1(x):
