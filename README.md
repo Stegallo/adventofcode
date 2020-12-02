@@ -1,6 +1,7 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Sourcery](https://img.shields.io/badge/Sourcery-enabled-brightgreen)](https://sourcery.ai)  
-
+<a href="https://codeclimate.com/github/Stegallo/adventofcode/test_coverage"><img src="https://api.codeclimate.com/v1/badges/d3a26d2fed4f5d3b04c7/test_coverage" /></a>
+<a href="https://codeclimate.com/github/Stegallo/adventofcode/maintainability"><img src="https://api.codeclimate.com/v1/badges/d3a26d2fed4f5d3b04c7/maintainability" /></a>
 # adventofcode
 
 to run the adventofcode environment:
