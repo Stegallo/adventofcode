@@ -1,3 +1,5 @@
+[![Sourcery](https://img.shields.io/badge/Sourcery-enabled-brightgreen)](https://sourcery.ai)  [![Gitter](https://badges.gitter.im/sourcery-ai/sourcery.svg)](https://gitter.im/sourcery-ai/sourcery)
+
 # adventofcode
 
 to run the adventofcode environment:
