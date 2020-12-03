@@ -29,10 +29,10 @@ jobs:
           name: Run flake8
           command: |
             python -m flake8 .
-      - run:
-          name: Run mypy
-          command: |
-            python -m mypy y_2015/*.py && python -m mypy y_2019/*.py  && python -m mypy y_2020/*.py
+      # - run:
+      #     name: Run mypy
+      #     command: |
+      #       python -m mypy y_2015/*.py && python -m mypy y_2019/*.py  && python -m mypy y_2020/*.py
 workflows:
   CI:
     jobs:
