@@ -1,7 +1,4 @@
-try:
-    from utils import prod
-except Exception:
-    from .utils import prod
+from .utils import prod
 
 
 def calculate_1(x, a=3, b=1):
