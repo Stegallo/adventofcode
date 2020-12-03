@@ -18,5 +18,4 @@ def calculate_1(x, a=3, b=1):
 
 def calculate_2(x):
     rules = [(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)]
-    i = prod([calculate_1(x, *a) for a in rules])
-    return i
+    return prod([calculate_1(x, *a) for a in rules])

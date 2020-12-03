@@ -1,8 +1,5 @@
 def sum(x):
-    c = 0
-    for i in x:
-        c += i
-    return c
+    return sum(x)
 
 
 def prod(x):
