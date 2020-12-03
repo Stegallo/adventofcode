@@ -1,18 +1,17 @@
 try:
     from utils import prod
-except:
+except Exception:
     from .utils import prod
 
 
 def calculate_1(x, a=3, b=1):
+    width = len(x[0])
     pos = (0, 0)
     c = 0
-    while True:
-        pos = ((pos[0] + a) % len(x[0]), pos[1] + b)
-        if pos[1] >= len(x):
-            break
+    while pos[1] < len(x):
         if x[pos[1]][pos[0]] == "#":
             c += 1
+        pos = ((pos[0] + a) % width, pos[1] + b)
     return c
 
 
