@@ -1,6 +1,3 @@
-import re
-
-
 def calculate_1(x, a=3, b=1):
     pos = (0, 0)
     c = 0
