@@ -1,6 +1,10 @@
+import re
+
+
 def extract(x):
-    i = x.split(" ")
-    return int(i[0].split("-")[0]), int(i[0].split("-")[1]), i[1].split(":")[0], i[2]
+    regex = "([\d]+)-([\d]+) ([\D]): ([\D]*)$"
+    elements = re.findall(regex, x)[0]
+    return int(elements[0]), int(elements[1]), elements[2], elements[3]
 
 
 def valid1(i):
