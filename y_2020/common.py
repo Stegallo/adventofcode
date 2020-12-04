@@ -18,7 +18,7 @@ def main():
 
     x = load_input(args.day)
 
-    day = importlib.import_module(f"day{args.day}")
+    day = importlib.import_module(f"y_2020.day{args.day}")
 
     print(f"sol 1: {day.calculate_1(x)}")
     print(f"sol 2: {day.calculate_2(x)}")
