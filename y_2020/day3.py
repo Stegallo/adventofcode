@@ -1,14 +1,20 @@
 from .utils import prod
+from typing import NamedTuple
 
 
 def calculate_1(x, a=3, b=1):
+    class Pos(NamedTuple):
+        x: int
+        y: int
+
     width = len(x[0])
-    pos = (0, 0)
+    lenght = len(x)
+    pos = Pos(0, 0)
     c = 0
-    while pos[1] < len(x):
-        if x[pos[1]][pos[0]] == "#":
+    while pos.y < lenght:
+        if x[pos.y][pos.x] == "#":
             c += 1
-        pos = ((pos[0] + a) % width, pos[1] + b)
+        pos = Pos((pos.x + a) % width, pos.y + b)
     return c
 
 
