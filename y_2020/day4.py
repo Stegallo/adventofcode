@@ -16,9 +16,9 @@ def hgt_validation_func(content):
 
 
 FIELDS = {
-    "byr": ValidationRule("([\d][\d][\d][\d])$", lambda x: 1920 <= int(x) <= 2002),
-    "iyr": ValidationRule("([\d][\d][\d][\d])$", lambda x: 2010 <= int(x) <= 2020),
-    "eyr": ValidationRule("([\d][\d][\d][\d])$", lambda x: 2020 <= int(x) <= 2030),
+    "byr": ValidationRule("([\d]{4})$", lambda x: 1920 <= int(x) <= 2002),
+    "iyr": ValidationRule("([\d]{4})$", lambda x: 2010 <= int(x) <= 2020),
+    "eyr": ValidationRule("([\d]{4})$", lambda x: 2020 <= int(x) <= 2030),
     "hgt": ValidationRule("([\d]+)([\D]*)$", hgt_validation_func),
     "hcl": ValidationRule("(#[\d|a-f]{6})$", lambda x: True if x else False),
     "ecl": ValidationRule("(.*)", lambda x: x in ECL),
