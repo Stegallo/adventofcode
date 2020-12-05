@@ -1,87 +1,88 @@
 import re
+from typing import NamedTuple
 
 ECL = ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
+
+
+class ValidationRule(NamedTuple):
+    regex: str
+    validation_func: str
+
+
+def hgt_validation_func(content):
+    if content[1] == "cm":
+        return int(content[0]) >= 150 and int(content[0]) <= 193
+    if content[1] == "in":
+        return int(content[0]) >= 59 and int(content[0]) <= 76
+    return False
+
+
 FIELDS = {
-    "byr": "([\d][\d][\d][\d])$",
-    "iyr": "([\d][\d][\d][\d])$",
-    "eyr": "([\d][\d][\d][\d])$",
-    "hgt": "([\d]+)([\D]*)$",
-    "hcl": "(#[\d|a-f]{6})$",
-    "ecl": "(.*)",
-    "pid": "(^[\d|\w]{9}$)",
+    "byr": ValidationRule(
+        "([\d][\d][\d][\d])$", lambda x: int(x) >= 1920 and int(x) <= 2002
+    ),
+    "iyr": ValidationRule(
+        "([\d][\d][\d][\d])$", lambda x: int(x) >= 2010 and int(x) <= 2020
+    ),
+    "eyr": ValidationRule(
+        "([\d][\d][\d][\d])$", lambda x: int(x) >= 2020 and int(x) <= 2030
+    ),
+    "hgt": ValidationRule("([\d]+)([\D]*)$", hgt_validation_func),
+    "hcl": ValidationRule("(#[\d|a-f]{6})$", lambda x: True if x else False),
+    "ecl": ValidationRule("(.*)", lambda x: x in ECL),
+    "pid": ValidationRule("(^[\d|\w]{9}$)", lambda x: True if x else False)
     # "cid"
 }
 
 
-def collapse_strings(x):
-    pl = [[]]
+def collapse_strings(x: list):
+    p_list = [[]]
     for i in x:
-        p = p = pl[-1]
+        p = p_list[-1]
         if len(i) != 0:
             p.append(i)
         else:
-            pl.append([])
-    return [" ".join(i) for i in pl]
+            p_list.append([])
+    return [" ".join(i) for i in p_list]
 
 
-def dict_from_string(x):
+def dict_from_string(x: str) -> dict:
     el_list = x.split(":")
     return {el_list[0]: el_list[1]}
 
 
-def get_passports(x):
-    passport_strings = collapse_strings(x)
-    passport_list = []
-    for passport_string in passport_strings:
-        passport_dict = {}
-        elements = passport_string.split(" ")
+def get_passports(x: list) -> list:
+    p_strings = collapse_strings(x)
+    p_list = []
+    for p_string in p_strings:
+        p_dict = {}
+        elements = p_string.split(" ")
         for element in elements:
-            passport_dict = {**passport_dict, **dict_from_string(element)}
-        passport_list.append(passport_dict)
-    return passport_list
+            p_dict = {**p_dict, **dict_from_string(element)}
+        p_list.append(p_dict)
+    return p_list
 
 
-def validate_element(element, value):
-    if not (parse := re.findall(FIELDS[element], value)):
+def validate_element(element: str, value: str) -> bool:
+    if not (parse := re.findall(FIELDS[element].regex, value)):
         return False
-    content = parse[0]
-    if element == "byr":
-        return int(content) >= 1920 and int(content) <= 2002
-    if element == "iyr":
-        return int(content) >= 2010 and int(content) <= 2020
-    if element == "eyr":
-        return int(content) >= 2020 and int(content) <= 2030
-    if element == "hgt":
-        if content[1] == "cm":
-            return int(content[0]) >= 150 and int(content[0]) <= 193
-        if content[1] == "in":
-            return int(content[0]) >= 59 and int(content[0]) <= 76
-    if element == "hcl":
-        if content:
-            return True
-    if element == "ecl":
-        return content in ECL
-    if element == "pid":
-        if content:
-            return True
-
-    return False
+    return FIELDS[element].validation_func(parse[0])
 
 
-def validate(passport, skip_elements_validation=False):
+def validate(passport: dict, skip_elements_validation: bool = False) -> bool:
     return all(
         f in passport and (skip_elements_validation or validate_element(f, passport[f]))
         for f in FIELDS
     )
 
 
-def calculate_1(x):
+def calculate_1(x: list) -> None:
     passports = get_passports(x)
     return sum(
         validate(passport, skip_elements_validation=True) for passport in passports
     )
 
 
-def calculate_2(x):
+def calculate_2(x: list) -> None:
     passports = get_passports(x)
     return sum(validate(passport) for passport in passports)
