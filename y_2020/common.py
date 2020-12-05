@@ -8,6 +8,7 @@ class AoCDay(ABC):
     Abstract class Day
     """
 
+    @abstractmethod
     def __init__(self, day):
         self._input_data = self._preprocess_input(load_input(day))
 
@@ -42,15 +43,9 @@ def main():
     parser.add_argument("day", type=int, help="day as a number")
     args = parser.parse_args()
 
-    day = importlib.import_module(f"y_2020.day{args.day}")
-    try:
-        Day = getattr(day, f"Day{args.day}")
-        day = Day(args.day)
-        day.solve()
-    except AttributeError:
-        x = load_input(args.day)
-        print(f"sol 1: {day.calculate_1(x)}")
-        print(f"sol 2: {day.calculate_2(x)}")
+    module = importlib.import_module(f"y_2020.day{args.day}")
+    day = getattr(module, f"Day")()
+    day.solve()
 
 
 if __name__ == "__main__":

@@ -1,8 +1,8 @@
-from y_2020.day1 import Day1
+from y_2020.day1 import Day
 from unittest.mock import patch, mock_open
 
 with patch("builtins.open", mock_open(read_data="")):
-    day = Day1(1)
+    day = Day()
 
 
 def test_calculate_1():

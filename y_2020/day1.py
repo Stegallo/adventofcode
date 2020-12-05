@@ -1,7 +1,10 @@
 from .common import AoCDay
 
 
-class Day1(AoCDay):
+class Day(AoCDay):
+    def __init__(self):
+        super().__init__(1)
+
     def _preprocess_input(self, input_data):
         return [int(i) for i in input_data]
 
