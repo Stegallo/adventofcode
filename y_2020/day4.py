@@ -44,12 +44,10 @@ def dict_from_string(x: str) -> dict:
 
 
 def get_passports(x: list) -> list:
-    p_strings = collapse_strings(x)
     p_list = []
-    for p_string in p_strings:
+    for p_string in collapse_strings(x):
         p_dict = {}
-        elements = p_string.split(" ")
-        for element in elements:
+        for element in p_string.split(" "):
             p_dict = {**p_dict, **dict_from_string(element)}
         p_list.append(p_dict)
     return p_list
