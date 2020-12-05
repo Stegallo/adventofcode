@@ -26,7 +26,7 @@ def collapse_strings(x):
 
 def get_passports(x):
     pl = collapse_strings(x)
-    l = []
+    passport_list = []
     for passport in pl:
         x = {}
         elements = passport.split(" ")
@@ -34,8 +34,8 @@ def get_passports(x):
             el_list = element.split(":")
             n = {el_list[0]: el_list[1]}
             x = {**x, **n}
-        l.append(x)
-    return l
+        passport_list.append(x)
+    return passport_list
 
 
 def validate_1(passport):
@@ -70,10 +70,7 @@ def validate_element(element, value):
 
 
 def validate_2(passport):
-    return not any(
-        f not in passport or not validate_element(f, passport[f])
-        for f in FIELDS
-    )
+    return all(f in passport and validate_element(f, passport[f]) for f in FIELDS)
 
 
 def calculate_1(x):
