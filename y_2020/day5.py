@@ -5,7 +5,7 @@ def decode_seat(x):
 
 
 def calculate_1(x):
-    return max([decode_seat(i) for i in x])
+    return max(decode_seat(i) for i in x)
 
 
 def calculate_2(x):
