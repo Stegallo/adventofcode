@@ -24,17 +24,21 @@ def collapse_strings(x):
     return [" ".join(i) for i in pl]
 
 
+def dict_from_string(x):
+    el_list = x.split(":")
+    n = {el_list[0]: el_list[1]}
+    return n
+
+
 def get_passports(x):
-    pl = collapse_strings(x)
+    passport_strings = collapse_strings(x)
     passport_list = []
-    for passport in pl:
-        x = {}
-        elements = passport.split(" ")
+    for passport_string in passport_strings:
+        passport_dict = {}
+        elements = passport_string.split(" ")
         for element in elements:
-            el_list = element.split(":")
-            n = {el_list[0]: el_list[1]}
-            x = {**x, **n}
-        passport_list.append(x)
+            passport_dict = {**passport_dict, **dict_from_string(element)}
+        passport_list.append(passport_dict)
     return passport_list
 
 
