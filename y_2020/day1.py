@@ -1,25 +1,27 @@
-def transform_int(x):
-    return [int(i) for i in x]
+from .common import AoCDay
 
 
-def calculate_1(x):
-    y = transform_int(x)
+class Day1(AoCDay):
+    def _preprocess_input(self, input_data):
+        return [int(i) for i in input_data]
 
-    for i in y:
-        for j in y:
-            if (i + j) == 2020:
-                return i * j
+    def _calculate_1(self):
+        y = self._input_data
 
-    return 0
+        for i in y:
+            for j in y:
+                if (i + j) == 2020:
+                    return i * j
 
+        return 0
 
-def calculate_2(x):
-    y = transform_int(x)
+    def _calculate_2(self):
+        y = self._input_data
 
-    for i in y:
-        for j in y:
-            for k in y:
-                if (i + j + k) == 2020:
-                    return i * j * k
+        for i in y:
+            for j in y:
+                for k in y:
+                    if (i + j + k) == 2020:
+                        return i * j * k
 
-    return 0
+        return 0
