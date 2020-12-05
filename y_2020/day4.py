@@ -26,8 +26,7 @@ def collapse_strings(x):
 
 def dict_from_string(x):
     el_list = x.split(":")
-    n = {el_list[0]: el_list[1]}
-    return n
+    return {el_list[0]: el_list[1]}
 
 
 def get_passports(x):
