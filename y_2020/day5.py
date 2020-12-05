@@ -1,7 +1,5 @@
 def decode_seat(x):
-    row = sum(2 ** (6 - c) for c, value in enumerate(x[:7]) if value == "B")
-    column = sum(2 ** (2 - c) for c, value in enumerate(x[7:]) if value == "R")
-    return row * 8 + column
+    return int("".join(["1" if i in ["B", "R"] else "0" for i in x]), 2)
 
 
 def calculate_1(x):
