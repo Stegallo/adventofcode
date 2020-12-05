@@ -38,10 +38,6 @@ def get_passports(x):
     return passport_list
 
 
-def validate_1(passport):
-    return all(f in passport for f in FIELDS)
-
-
 def validate_element(element, value):
     if not (parse := re.findall(FIELDS[element], value)):
         return False
@@ -69,15 +65,20 @@ def validate_element(element, value):
     return False
 
 
-def validate_2(passport):
-    return all(f in passport and validate_element(f, passport[f]) for f in FIELDS)
+def validate(passport, skip_elements_validation=False):
+    return all(
+        f in passport and (skip_elements_validation or validate_element(f, passport[f]))
+        for f in FIELDS
+    )
 
 
 def calculate_1(x):
     passports = get_passports(x)
-    return sum(validate_1(passport) for passport in passports)
+    return sum(
+        validate(passport, skip_elements_validation=True) for passport in passports
+    )
 
 
 def calculate_2(x):
     passports = get_passports(x)
-    return sum(validate_2(passport) for passport in passports)
+    return sum(validate(passport) for passport in passports)
