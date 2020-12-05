@@ -39,12 +39,7 @@ def get_passports(x):
 
 
 def validate_1(passport):
-    result = True
-    for f in FIELDS:
-        if f not in passport:
-            result = False
-
-    return result
+    return all(f in passport for f in FIELDS)
 
 
 def validate_element(element, value):
@@ -75,27 +70,17 @@ def validate_element(element, value):
 
 
 def validate_2(passport):
-    result = True
-    for f in FIELDS:
-        if f not in passport or not validate_element(f, passport[f]):
-            result = False
-
-    return result
+    return not any(
+        f not in passport or not validate_element(f, passport[f])
+        for f in FIELDS
+    )
 
 
 def calculate_1(x):
     passports = get_passports(x)
-    c = 0
-    for passport in passports:
-        c += validate_1(passport)
-
-    return c
+    return sum(validate_1(passport) for passport in passports)
 
 
 def calculate_2(x):
     passports = get_passports(x)
-    c = 0
-    for passport in passports:
-        c += validate_2(passport)
-
-    return c
+    return sum(validate_2(passport) for passport in passports)
