@@ -1,8 +1,8 @@
 from y_2020.day4 import (
     calculate_1,
     calculate_2,
-    get_passports,
     collapse_strings,
+    get_passports,
     validate_element,
 )
 
