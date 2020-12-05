@@ -10,23 +10,15 @@ class ValidationRule(NamedTuple):
 
 
 def hgt_validation_func(content):
-    if content[1] == "cm":
-        return int(content[0]) >= 150 and int(content[0]) <= 193
-    if content[1] == "in":
-        return int(content[0]) >= 59 and int(content[0]) <= 76
-    return False
+    return (content[1] == "cm" and 150 <= int(content[0]) <= 193) or (
+        content[1] == "in" and 59 <= int(content[0]) <= 76
+    )
 
 
 FIELDS = {
-    "byr": ValidationRule(
-        "([\d][\d][\d][\d])$", lambda x: int(x) >= 1920 and int(x) <= 2002
-    ),
-    "iyr": ValidationRule(
-        "([\d][\d][\d][\d])$", lambda x: int(x) >= 2010 and int(x) <= 2020
-    ),
-    "eyr": ValidationRule(
-        "([\d][\d][\d][\d])$", lambda x: int(x) >= 2020 and int(x) <= 2030
-    ),
+    "byr": ValidationRule("([\d][\d][\d][\d])$", lambda x: 1920 <= int(x) <= 2002),
+    "iyr": ValidationRule("([\d][\d][\d][\d])$", lambda x: 2010 <= int(x) <= 2020),
+    "eyr": ValidationRule("([\d][\d][\d][\d])$", lambda x: 2020 <= int(x) <= 2030),
     "hgt": ValidationRule("([\d]+)([\D]*)$", hgt_validation_func),
     "hcl": ValidationRule("(#[\d|a-f]{6})$", lambda x: True if x else False),
     "ecl": ValidationRule("(.*)", lambda x: x in ECL),
