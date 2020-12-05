@@ -1,5 +1,6 @@
-from y_2020.day5 import calculate_1, calculate_2, decode_seat
 from unittest.mock import patch
+
+from y_2020.day5 import calculate_1, calculate_2, decode_seat
 
 
 def test_calculate_1():
