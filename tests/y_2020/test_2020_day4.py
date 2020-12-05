@@ -19,7 +19,8 @@ def test_collapse_strings():
             "hcl:#cfa07d byr:1929",
         ]
     ) == [
-        "ecl:gry pid:860033327 eyr:2020 hcl:#fffffd byr:1937 iyr:2017 cid:147 hgt:183cm",
+        "ecl:gry pid:860033327 eyr:2020 hcl:#fffffd "
+        "byr:1937 iyr:2017 cid:147 hgt:183cm",
         "iyr:2013 ecl:amb cid:350 eyr:2023 pid:028048884 hcl:#cfa07d byr:1929",
     ]
 
@@ -114,7 +115,8 @@ def test_calculate_2():
                 "pid:545766238 ecl:hzl",
                 "eyr:2022",
                 "",
-                "iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719",
+                "iyr:2010 hgt:158cm hcl:#b6652a ecl:blu "
+                "byr:1944 eyr:2021 pid:093154719",
             ]
         )
         == 4
@@ -122,22 +124,22 @@ def test_calculate_2():
 
 
 def test_validate_element():
-    assert validate_element("byr", "2002") == True
-    assert validate_element("byr", "2003") == False
+    assert validate_element("byr", "2002") is True
+    assert validate_element("byr", "2003") is False
 
-    assert validate_element("hgt", "60in") == True
-    assert validate_element("hgt", "190cm") == True
+    assert validate_element("hgt", "60in") is True
+    assert validate_element("hgt", "190cm") is True
 
-    assert validate_element("hgt", "190in") == False
-    assert validate_element("hgt", "190") == False
+    assert validate_element("hgt", "190in") is False
+    assert validate_element("hgt", "190") is False
 
-    assert validate_element("hcl", "#123abc") == True
-    assert validate_element("hcl", "#123abz") == False
-    assert validate_element("hcl", "123abc") == False
-    assert validate_element("hcl", "dab227") == False
+    assert validate_element("hcl", "#123abc") is True
+    assert validate_element("hcl", "#123abz") is False
+    assert validate_element("hcl", "123abc") is False
+    assert validate_element("hcl", "dab227") is False
 
-    assert validate_element("ecl", "brn") == True
-    assert validate_element("ecl", "wat") == False
+    assert validate_element("ecl", "brn") is True
+    assert validate_element("ecl", "wat") is False
 
-    assert validate_element("pid", "000000001") == True
-    assert validate_element("pid", "0123456789") == False
+    assert validate_element("pid", "000000001") is True
+    assert validate_element("pid", "0123456789") is False
