@@ -3,7 +3,7 @@ import argparse
 import importlib
 
 
-class AoCDay:
+class AoCDay(ABC):
     """
     Abstract class Day
     """
@@ -23,7 +23,6 @@ class AoCDay:
     def _calculate_2(self):
         ...
 
-    @abstractmethod
     def solve(self):
         print(f"sol 1: {self._calculate_1()}")
         print(f"sol 2: {self._calculate_2()}")
