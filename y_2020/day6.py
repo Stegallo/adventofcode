@@ -15,9 +15,8 @@ class Day(AoCDay):
         c = 0
         for i in self._input_data:
             d = defaultdict(int)
-            for j in i:
-                if j != " ":
-                    d[j] += 1
+            for j in i.replace(" ", ""):
+                d[j] += 1
             c += len(d)
 
         return c
@@ -27,9 +26,8 @@ class Day(AoCDay):
         for i in self._input_data:
             users = i.count(" ") + 1
             d = defaultdict(int)
-            for j in i:
-                if j != " ":
-                    d[j] += 1
+            for j in i.replace(" ", ""):
+                d[j] += 1
             for k, v in d.items():
                 if v == users:
                     c += 1
