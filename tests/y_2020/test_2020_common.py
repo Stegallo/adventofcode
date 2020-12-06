@@ -1,7 +1,7 @@
 import contextlib
 from unittest.mock import patch
 
-from y_2020.common import load_input, main
+from y_2020.common import load_input, main, AoCDay
 
 
 def test_load_input_string():
@@ -22,3 +22,22 @@ def test_main():
         patches.enter_context(patch("y_2020.common.open"))
         patches.enter_context(patch("y_2020.common.importlib"))
         assert main() is None
+
+
+class TestAoCDay(AoCDay):
+    def __init__(self):
+        pass
+
+    def _calculate_1(self):
+        pass
+
+    def _calculate_2(self):
+        pass
+
+    def _preprocess_input(self):
+        pass
+
+
+def test_AoCDay():
+    test_aoc_day = TestAoCDay()
+    assert test_aoc_day.solve() is None
