@@ -14,15 +14,21 @@ class AoCDay(ABC):
 
     @abstractmethod
     def _preprocess_input(self, input_data):
-        ...
+        """
+        preprocessing of the input
+        """
 
     @abstractmethod
     def _calculate_1(self):
-        ...
+        """
+        _calculate_1
+        """
 
     @abstractmethod
     def _calculate_2(self):
-        ...
+        """
+        _calculate_2
+        """
 
     def solve(self):
         print(f"sol 1: {self._calculate_1()}")
