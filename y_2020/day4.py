@@ -34,24 +34,24 @@ class Day(AoCDay):
     def __init__(self):
         super().__init__(4)
 
-    def _preprocess_input(self, input_data):
+    def _preprocess_input(self):
         p_list = []
-        for p_string in collapse_strings(input_data):
+        for p_string in collapse_strings(self._input_data):
             p_dict = {}
             for element in p_string.split(" "):
                 p_dict = {**p_dict, **dict_from_string(element)}
             p_list.append(p_dict)
-        return p_list
+        self.__passport_list = p_list
 
     def _calculate_1(self):
-        passports = self._input_data
+        passports = self.__passport_list
         return sum(
             self.__validate(passport, skip_elements_validation=True)
             for passport in passports
         )
 
     def _calculate_2(self):
-        passports = self._input_data
+        passports = self.__passport_list
         return sum(self.__validate(passport) for passport in passports)
 
     @staticmethod

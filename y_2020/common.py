@@ -10,10 +10,11 @@ class AoCDay(ABC):
 
     @abstractmethod
     def __init__(self, day):
-        self._input_data = self._preprocess_input(load_input(day))
+        self._input_data = load_input(day)
+        self._preprocess_input()
 
     @abstractmethod
-    def _preprocess_input(self, input_data):
+    def _preprocess_input(self):
         """
         preprocessing of the input
         """

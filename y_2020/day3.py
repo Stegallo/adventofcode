@@ -13,8 +13,8 @@ class Day(AoCDay):
     def __init__(self):
         super().__init__(3)
 
-    def _preprocess_input(self, input_data):
-        return input_data
+    def _preprocess_input(self):
+        return
 
     def _calculate_1(self, a=3, b=1):
         x = self._input_data
