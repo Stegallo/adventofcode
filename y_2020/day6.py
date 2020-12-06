@@ -27,9 +27,4 @@ class Day(AoCDay):
         return sum(len(i.answers) for i in self._input_data)
 
     def _calculate_2(self):
-        c = 0
-        for i in self._input_data:
-            for k, v in i.answers.items():
-                if v == i.size:
-                    c += 1
-        return c
+        return sum(v == i.size for i in self._input_data for k, v in i.answers.items())
