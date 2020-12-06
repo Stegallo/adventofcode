@@ -9,10 +9,7 @@ class Day(AoCDay):
         super().__init__(6)
 
     def _preprocess_input(self, input_data):
-        p_list = []
-        for p_string in collapse_strings(input_data):
-            p_list.append(p_string)
-        return p_list
+        return [p_string for p_string in collapse_strings(input_data)]
 
     def _calculate_1(self):
         c = 0
@@ -33,8 +30,8 @@ class Day(AoCDay):
             for j in i:
                 if j != " ":
                     d[j] += 1
-            for k in d:
-                if d[k] == users:
+            for k, v in d.items():
+                if v == users:
                     c += 1
 
         return c
