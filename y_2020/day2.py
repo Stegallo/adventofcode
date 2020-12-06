@@ -7,14 +7,14 @@ class Day(AoCDay):
     def __init__(self):
         super().__init__(2)
 
-    def _preprocess_input(self, input_data):
-        return [self.__extract(i) for i in input_data]
+    def _preprocess_input(self):
+        self.__password_list = [self.__extract(i) for i in self._input_data]
 
     def _calculate_1(self):
-        return sum(self.__valid_1(i) for i in self._input_data)
+        return sum(self.__valid_1(i) for i in self.__password_list)
 
     def _calculate_2(self):
-        return sum(self.__valid_2(i) for i in self._input_data)
+        return sum(self.__valid_2(i) for i in self.__password_list)
 
     @staticmethod
     def __extract(x):
