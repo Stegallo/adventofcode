@@ -10,7 +10,6 @@ class Day(AoCDay):
     def _preprocess_input(self, input_data):
         x = []
         for i in input_data:
-            # print(i)
             x.append(self.extract(i))
         return x
 
