@@ -1,7 +1,7 @@
-import re
-from .common import AoCDay
-from .utils import collapse_strings, dict_from_string
 from collections import defaultdict
+
+from .common import AoCDay
+from .utils import collapse_strings
 
 
 class Day(AoCDay):
@@ -9,7 +9,7 @@ class Day(AoCDay):
         super().__init__(6)
 
     def _preprocess_input(self, input_data):
-        return [p_string for p_string in collapse_strings(input_data)]
+        return collapse_strings(input_data)
 
     def _calculate_1(self):
         c = 0
