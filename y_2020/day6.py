@@ -1,4 +1,4 @@
-from collections import defaultdict
+from collections import Counter
 from typing import NamedTuple
 
 from .common import AoCDay
@@ -6,7 +6,7 @@ from .utils import collapse_strings
 
 
 class UserGroup(NamedTuple):
-    answers: defaultdict
+    answers: Counter
     size: int
 
 
@@ -15,13 +15,10 @@ class Day(AoCDay):
         super().__init__(6)
 
     def _preprocess_input(self, input_data):
-        result = []
-        for i in collapse_strings(input_data):
-            d = defaultdict(int)
-            for j in i.replace(" ", ""):
-                d[j] += 1
-            result.append(UserGroup(d, i.count(" ") + 1))
-        return result
+        return [
+            UserGroup(Counter(i.replace(" ", "")), i.count(" ") + 1)
+            for i in collapse_strings(input_data)
+        ]
 
     def _calculate_1(self):
         return sum(len(i.answers) for i in self._input_data)
