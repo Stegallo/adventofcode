@@ -24,10 +24,7 @@ class Day(AoCDay):
         return result
 
     def _calculate_1(self):
-        c = 0
-        for i in self._input_data:
-            c += len(i.answers)
-        return c
+        return sum(len(i.answers) for i in self._input_data)
 
     def _calculate_2(self):
         c = 0
