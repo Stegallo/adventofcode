@@ -8,10 +8,7 @@ class Day(AoCDay):
         super().__init__(2)
 
     def _preprocess_input(self, input_data):
-        x = []
-        for i in input_data:
-            x.append(self.extract(i))
-        return x
+        return [self.extract(i) for i in input_data]
 
     def _calculate_1(self):
         x = self._input_data
