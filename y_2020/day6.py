@@ -1,7 +1,13 @@
 from collections import defaultdict
+from typing import NamedTuple
 
 from .common import AoCDay
 from .utils import collapse_strings
+
+
+class UserGroup(NamedTuple):
+    answers: defaultdict
+    size: int
 
 
 class Day(AoCDay):
@@ -9,27 +15,24 @@ class Day(AoCDay):
         super().__init__(6)
 
     def _preprocess_input(self, input_data):
-        return collapse_strings(input_data)
+        result = []
+        for i in collapse_strings(input_data):
+            d = defaultdict(int)
+            for j in i.replace(" ", ""):
+                d[j] += 1
+            result.append(UserGroup(d, i.count(" ") + 1))
+        return result
 
     def _calculate_1(self):
         c = 0
         for i in self._input_data:
-            d = defaultdict(int)
-            for j in i.replace(" ", ""):
-                d[j] += 1
-            c += len(d)
-
+            c += len(i.answers)
         return c
 
     def _calculate_2(self):
         c = 0
         for i in self._input_data:
-            users = i.count(" ") + 1
-            d = defaultdict(int)
-            for j in i.replace(" ", ""):
-                d[j] += 1
-            for k, v in d.items():
-                if v == users:
+            for k, v in i.answers.items():
+                if v == i.size:
                     c += 1
-
         return c
