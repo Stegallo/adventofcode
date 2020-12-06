@@ -44,8 +44,13 @@ def main():
     args = parser.parse_args()
 
     module = importlib.import_module(f"y_2020.day{args.day}")
-    day = getattr(module, f"Day")()
+    # try:
+    day = getattr(module, "Day")()
     day.solve()
+    # except AttributeError:
+    #     x = load_input(args.day)
+    #     print(f"sol 1: {module.calculate_1(x)}")
+    #     print(f"sol 2: {module.calculate_2(x)}")
 
 
 if __name__ == "__main__":
