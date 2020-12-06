@@ -1,7 +1,7 @@
 import contextlib
 from unittest.mock import patch
 
-from y_2020.common import load_input, main, AoCDay
+from y_2020.common import AoCDay, load_input, main
 
 
 def test_load_input_string():
