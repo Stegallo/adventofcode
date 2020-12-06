@@ -11,12 +11,10 @@ class Day(AoCDay):
         return [self.__extract(i) for i in input_data]
 
     def _calculate_1(self):
-        x = self._input_data
-        return sum(1 for i in x if self.__valid1(i))
+        return sum(self.__valid_1(i) for i in self._input_data)
 
     def _calculate_2(self):
-        x = self._input_data
-        return sum(1 for i in x if self.__valid2(i))
+        return sum(self.__valid_2(i) for i in self._input_data)
 
     @staticmethod
     def __extract(x):
@@ -25,14 +23,14 @@ class Day(AoCDay):
         return int(elements[0]), int(elements[1]), elements[2], elements[3]
 
     @staticmethod
-    def __valid1(i):
+    def __valid_1(i):
         min, max, char, pwd = i
 
         c = pwd.count(char)
         return c >= min and c <= max
 
     @staticmethod
-    def __valid2(i):
+    def __valid_2(i):
         min, max, char, pwd = i
 
         return (pwd[min - 1] == char) != (pwd[max - 1] == char)
