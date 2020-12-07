@@ -16,12 +16,12 @@ copy the input of the day inside the file
 y_20xy/input_day<day>.txt
 ```
 
-inside the container, run the command (only for year 2020)
+inside the container, run the command (for years after 2019)
 ```
 python -m y_20xy <day>
 ```
 
-inside the container, run the command (for years before 2020)
+inside the container, run the command (for years before 2019)
 ```
 python y_20xy/common.py <day>
 ```
