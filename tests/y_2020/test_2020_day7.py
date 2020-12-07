@@ -76,14 +76,6 @@ def test_calculate_1():
 
 def test_calculate_2():
     day._Day__rules = {
-        # "light#red": BagRule(
-        #     rules=[{"bright#white": 1}, {"muted#yellow": 2}], cache={},extension={}
-        # ),
-        # "dark#orange": BagRule(
-        #     rules=[{"bright#white": 3}, {"muted#yellow": 4}], cache={},extension={}
-        # ),
-        # "bright#white": BagRule(rules=[{"shiny#gold": 1}], cache={},extension={}),
-        # "muted#yellow": BagRule(rules=[{"shiny#gold": 2}, {"faded#blue": 9}], cache={},extension={}),
         "shiny#gold": BagRule(
             rules=[{"dark#olive": 1}, {"vibrant#plum": 2}], cache={}, extension={}
         ),
