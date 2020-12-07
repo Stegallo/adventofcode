@@ -21,58 +21,80 @@ def test__preprocess_input():
     ]
     day._preprocess_input()
     assert day._Day__rules == {
-        "bright#white": BagRule(rules=["shiny#gold"], cache={}),
-        "dark#olive": BagRule(rules=["faded#blue", "dotted#black"], cache={}),
-        "dark#orange": BagRule(rules=["bright#white", "muted#yellow"], cache={}),
-        "dotted#black": BagRule(rules=["no#other"], cache={}),
-        "faded#blue": BagRule(rules=["no#other"], cache={}),
-        "light#red": BagRule(rules=["bright#white", "muted#yellow"], cache={}),
-        "muted#yellow": BagRule(rules=["shiny#gold", "faded#blue"], cache={}),
-        "shiny#gold": BagRule(rules=["dark#olive", "vibrant#plum"], cache={}),
-        "vibrant#plum": BagRule(rules=["faded#blue", "dotted#black"], cache={}),
-        "no#other": BagRule(rules=[], cache={}),
+        "light#red": BagRule(
+            rules=[{"bright#white": 1}, {"muted#yellow": 2}], cache={}, extension={}
+        ),
+        "dark#orange": BagRule(
+            rules=[{"bright#white": 3}, {"muted#yellow": 4}], cache={}, extension={}
+        ),
+        "bright#white": BagRule(rules=[{"shiny#gold": 1}], cache={}, extension={}),
+        "muted#yellow": BagRule(
+            rules=[{"shiny#gold": 2}, {"faded#blue": 9}], cache={}, extension={}
+        ),
+        "shiny#gold": BagRule(
+            rules=[{"dark#olive": 1}, {"vibrant#plum": 2}], cache={}, extension={}
+        ),
+        "dark#olive": BagRule(
+            rules=[{"faded#blue": 3}, {"dotted#black": 4}], cache={}, extension={}
+        ),
+        "vibrant#plum": BagRule(
+            rules=[{"faded#blue": 5}, {"dotted#black": 6}], cache={}, extension={}
+        ),
+        "faded#blue": BagRule(rules=[{"no#other": 0}], cache={}, extension={}),
+        "dotted#black": BagRule(rules=[{"no#other": 0}], cache={}, extension={}),
+        "no#other": BagRule(rules=[], cache={}, extension={}),
     }
-
-
-def test_calculate_1_simplified():
-    return
-    print()
-    day._Day__rules = {
-        # "bright#white": BagRule(rules=["shiny#gold"], cache={}),
-        # "dark#olive": BagRule(rules=["faded#blue", "dotted#black"], cache={}),
-        # "dark#orange": BagRule(rules=["bright#white", "muted#yellow"], cache={}),
-        "dotted#black": BagRule(rules=["no#other"], cache={}),
-        "faded#blue": BagRule(rules=["no#other"], cache={}),
-        # "light#red": BagRule(rules=["bright#white", "muted#yellow"], cache={}),
-        # "muted#yellow": BagRule(rules=["shiny#gold", "faded#blue"], cache={}),
-        # "shiny#gold": BagRule(rules=["dark#olive", "vibrant#plum"], cache={}),
-        "vibrant#plum": BagRule(rules=["faded#blue", "dotted#black"], cache={}),
-        "no#other": BagRule(rules=[], cache={}),
-    }
-    assert day._calculate_1() == 4
 
 
 def test_calculate_1():
-    # return
-    print()
     day._Day__rules = {
-        "bright#white": BagRule(rules=["shiny#gold"], cache={}),
-        "dark#olive": BagRule(rules=["faded#blue", "dotted#black"], cache={}),
-        "dark#orange": BagRule(rules=["bright#white", "muted#yellow"], cache={}),
-        "dotted#black": BagRule(rules=["no#other"], cache={}),
-        "faded#blue": BagRule(rules=["no#other"], cache={}),
-        "light#red": BagRule(rules=["bright#white", "muted#yellow"], cache={}),
-        "muted#yellow": BagRule(rules=["shiny#gold", "faded#blue"], cache={}),
-        "shiny#gold": BagRule(rules=["dark#olive", "vibrant#plum"], cache={}),
-        "vibrant#plum": BagRule(rules=["faded#blue", "dotted#black"], cache={}),
-        "no#other": BagRule(rules=[], cache={}),
+        "light#red": BagRule(
+            rules=[{"bright#white": 1}, {"muted#yellow": 2}], cache={}, extension={}
+        ),
+        "dark#orange": BagRule(
+            rules=[{"bright#white": 3}, {"muted#yellow": 4}], cache={}, extension={}
+        ),
+        "bright#white": BagRule(rules=[{"shiny#gold": 1}], cache={}, extension={}),
+        "muted#yellow": BagRule(
+            rules=[{"shiny#gold": 2}, {"faded#blue": 9}], cache={}, extension={}
+        ),
+        "shiny#gold": BagRule(
+            rules=[{"dark#olive": 1}, {"vibrant#plum": 2}], cache={}, extension={}
+        ),
+        "dark#olive": BagRule(
+            rules=[{"faded#blue": 3}, {"dotted#black": 4}], cache={}, extension={}
+        ),
+        "vibrant#plum": BagRule(
+            rules=[{"faded#blue": 5}, {"dotted#black": 6}], cache={}, extension={}
+        ),
+        "faded#blue": BagRule(rules=[{"no#other": 0}], cache={}, extension={}),
+        "dotted#black": BagRule(rules=[{"no#other": 0}], cache={}, extension={}),
+        "no#other": BagRule(rules=[], cache={}, extension={}),
     }
     assert day._calculate_1() == 4
 
 
-#
-#
-# def test_calculate_2():
-#     print()
-#     day._Day__input == []
-#     assert day._calculate_2() == 0
+def test_calculate_2():
+    day._Day__rules = {
+        # "light#red": BagRule(
+        #     rules=[{"bright#white": 1}, {"muted#yellow": 2}], cache={},extension={}
+        # ),
+        # "dark#orange": BagRule(
+        #     rules=[{"bright#white": 3}, {"muted#yellow": 4}], cache={},extension={}
+        # ),
+        # "bright#white": BagRule(rules=[{"shiny#gold": 1}], cache={},extension={}),
+        # "muted#yellow": BagRule(rules=[{"shiny#gold": 2}, {"faded#blue": 9}], cache={},extension={}),
+        "shiny#gold": BagRule(
+            rules=[{"dark#olive": 1}, {"vibrant#plum": 2}], cache={}, extension={}
+        ),
+        "dark#olive": BagRule(
+            rules=[{"faded#blue": 3}, {"dotted#black": 4}], cache={}, extension={}
+        ),
+        "vibrant#plum": BagRule(
+            rules=[{"faded#blue": 5}, {"dotted#black": 6}], cache={}, extension={}
+        ),
+        "faded#blue": BagRule(rules=[{"no#other": 0}], cache={}, extension={}),
+        "dotted#black": BagRule(rules=[{"no#other": 0}], cache={}, extension={}),
+        "no#other": BagRule(rules=[], cache={}, extension={}),
+    }
+    assert day._calculate_2() == 32
