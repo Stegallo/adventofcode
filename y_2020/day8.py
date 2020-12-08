@@ -1,7 +1,7 @@
-from .common import AoCDay
 from collections import defaultdict
 from typing import NamedTuple
 
+from .common import AoCDay
 
 class Operation(NamedTuple):
     acc_action: callable
