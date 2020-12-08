@@ -1,6 +1,6 @@
 from unittest.mock import mock_open, patch
 
-from y_2020.day7 import Day, BagRule
+from y_2020.day7 import BagRule, Day
 
 with patch("builtins.open", mock_open(read_data="")):
     day = Day()

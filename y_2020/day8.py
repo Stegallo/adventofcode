@@ -1,6 +1,7 @@
-from .common import AoCDay
 from collections import defaultdict
 from typing import NamedTuple
+
+from .common import AoCDay
 
 #
 # OPERATIONS= {

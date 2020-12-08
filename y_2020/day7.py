@@ -1,5 +1,6 @@
-from .common import AoCDay
 from typing import NamedTuple
+
+from .common import AoCDay
 
 
 class BagRule(NamedTuple):
