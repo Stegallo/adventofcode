@@ -20,13 +20,10 @@ class Day(AoCDay):
             c = 4
             while True:
                 try:
-                    if i[c - 2] + "#" + i[c - 1] == "no#other":
-                        needed_count = 0
-                    else:
-                        needed_count = int(i[c - 3])
+                    needed_count = 0 if i[c - 2] + "#" + i[c - 1] == "no#other" else int(i[c - 3])
                 except Exception:
                     ...
-                if i[c] == "bag." or i[c] == "bags.":
+                if i[c] in ["bag.", "bags."]:
                     x[bag_color].rules.append({i[c - 2] + "#" + i[c - 1]: needed_count})
                     break
                 if i[c] in ["bag,", "bags,"]:
@@ -37,13 +34,13 @@ class Day(AoCDay):
         self.__rules["no#other"] = BagRule([], {}, {})
 
     def _calculate_1(self):
-        c = 0
         for k, bagrules in self.__rules.items():
             self.enhance1(bagrules)
-        for k, bagrule in self.__rules.items():
-            if "shiny#gold" in bagrule.extension:
-                c += 1
-        return c
+        return sum(
+            1
+            for k, bagrule in self.__rules.items()
+            if "shiny#gold" in bagrule.extension
+        )
 
     def _calculate_2(self):
         c = 0
