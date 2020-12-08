@@ -3,6 +3,7 @@ from typing import NamedTuple
 
 from .common import AoCDay
 
+
 class Operation(NamedTuple):
     acc_action: callable
     move_action: callable
