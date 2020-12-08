@@ -20,7 +20,9 @@ class Day(AoCDay):
             c = 4
             while True:
                 try:
-                    needed_count = 0 if i[c - 2] + "#" + i[c - 1] == "no#other" else int(i[c - 3])
+                    needed_count = (
+                        0 if i[c - 2] + "#" + i[c - 1] == "no#other" else int(i[c - 3])
+                    )
                 except Exception:
                     ...
                 if i[c] in ["bag.", "bags."]:

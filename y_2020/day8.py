@@ -36,8 +36,6 @@ class Day(AoCDay):
         infinite_loop = False
         instruction_pointer = 0
         while instruction_pointer < len(local_instructions):
-            val = local_instructions[instruction_pointer]
-
             if instruction_count[instruction_pointer] > 0:
                 infinite_loop = True
                 break
