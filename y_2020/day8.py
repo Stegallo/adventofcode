@@ -3,12 +3,16 @@ from typing import NamedTuple
 
 from .common import AoCDay
 
-#
-# OPERATIONS= {
-#
-# "acc":
-# "jmp":
-# "nop":
+class Operation(NamedTuple):
+    acc_action: callable
+    move_action: callable
+
+
+OPERATIONS = {
+    "acc": Operation(lambda x: x, lambda x: 1),
+    "jmp": Operation(lambda x: 0, lambda x: x),
+    "nop": Operation(lambda x: 0, lambda x: 1),
+}
 
 
 class Instruction(NamedTuple):
@@ -25,8 +29,6 @@ class Day(AoCDay):
             Instruction(i.split(" ")[0], int((i.split(" "))[1]))
             for i in self._input_data
         ]
-        # self.__accumulator = 0
-        # self.__instruction_count = defaultdict(int)
 
     def _execute(self, local_instructions=None):
         if not local_instructions:
@@ -35,21 +37,21 @@ class Day(AoCDay):
         instruction_count = defaultdict(int)
 
         infinite_loop = False
-        instruction_pointer = 0
-        while instruction_pointer < len(local_instructions):
-            if instruction_count[instruction_pointer] > 0:
+        instr_pointer = 0
+        while instr_pointer < len(local_instructions):
+            if instruction_count[instr_pointer] > 0:
                 infinite_loop = True
                 break
-            instruction_count[instruction_pointer] += 1
+            instruction_count[instr_pointer] += 1
 
-            current_instruction = local_instructions[instruction_pointer]
-            if current_instruction.operation == "acc":
-                accumulator += current_instruction.argument
-                instruction_pointer += 1
-            elif current_instruction.operation == "jmp":
-                instruction_pointer += current_instruction.argument
-            elif current_instruction.operation == "nop":
-                instruction_pointer += 1
+            curr_instruction = local_instructions[instr_pointer]
+            accumulator += OPERATIONS[curr_instruction.operation].acc_action(
+                curr_instruction.argument
+            )
+            instr_pointer += OPERATIONS[curr_instruction.operation].move_action(
+                curr_instruction.argument
+            )
+
         if not infinite_loop:
             return accumulator, infinite_loop
         return accumulator, infinite_loop
