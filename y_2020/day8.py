@@ -40,9 +40,9 @@ class Day(AoCDay):
             if current_instruction.operation == "acc":
                 self.__accumulator += current_instruction.argument
                 instruction_pointer += 1
-            if current_instruction.operation == "jmp":
+            elif current_instruction.operation == "jmp":
                 instruction_pointer += current_instruction.argument
-            if current_instruction.operation == "nop":
+            elif current_instruction.operation == "nop":
                 instruction_pointer += 1
         return self.__accumulator
 
@@ -80,9 +80,9 @@ class Day(AoCDay):
                 if current_instruction.operation == "acc":
                     self.__accumulator += current_instruction.argument
                     instruction_pointer += 1
-                if current_instruction.operation == "jmp":
+                elif current_instruction.operation == "jmp":
                     instruction_pointer += current_instruction.argument
-                if current_instruction.operation == "nop":
+                elif current_instruction.operation == "nop":
                     instruction_pointer += 1
-            if infinite_loop == False:
+            if not infinite_loop:
                 return self.__accumulator
