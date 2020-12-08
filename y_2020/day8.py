@@ -64,15 +64,15 @@ class Day(AoCDay):
     def _calculate_2(self):
         for attempt in range(len(self.__instructions)):
             local_instructions = list(self.__instructions)
-            if local_instructions[attempt].operation == "nop":
-                local_instructions[attempt] = Instruction(
-                    "jmp", local_instructions[attempt].argument
-                )
-            elif local_instructions[attempt].operation == "jmp":
-                local_instructions[attempt] = Instruction(
-                    "nop", local_instructions[attempt].argument
-                )
-
+            local_instructions[attempt] = self.__swap(local_instructions[attempt])
             execution_result = self._execute(local_instructions)
             if not execution_result[1]:
                 return execution_result[0]
+
+    @staticmethod
+    def __swap(instruction: Instruction):
+        if instruction.operation == "nop":
+            return Instruction("jmp", instruction.argument)
+        if instruction.operation == "jmp":
+            return Instruction("nop", instruction.argument)
+        return instruction
