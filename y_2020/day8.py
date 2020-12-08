@@ -54,8 +54,8 @@ class Day(AoCDay):
         return accumulator, infinite_loop
 
     def _calculate_1(self):
-        x = self._execute()
-        return x[0]
+        execution_result = self._execute()
+        return execution_result[0]
 
     def _calculate_2(self):
         for attempt in range(len(self.__instructions)):
@@ -69,6 +69,6 @@ class Day(AoCDay):
                     "nop", local_instructions[attempt].argument
                 )
 
-            x = self._execute(local_instructions)
-            if not x[1]:
-                return x[0]
+            execution_result = self._execute(local_instructions)
+            if not execution_result[1]:
+                return execution_result[0]
