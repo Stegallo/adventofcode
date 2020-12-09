@@ -1,5 +1,3 @@
-import re
-
 from .common import AoCDay
 
 
@@ -22,9 +20,9 @@ class Day(AoCDay):
                     if i == x:
                         correct = True
                         break
-                if correct == True:
+                if correct:
                     break
-            if correct == False:
+            if not correct:
                 break
 
         self.__problem_1_result = i
@@ -34,12 +32,12 @@ class Day(AoCDay):
         if not val:
             val = self.__problem_1_result
         c = 0
-        l = {}
-        for i in self.__input:
-            l[i] = []
+        range = {}
+        for start_range in self.__input:
+            range[start_range] = []
             for j in self.__input[c:]:
-                l[i].append(j)
-                if sum(l[i]) == val:
-                    return i + max(l[i])
+                range[start_range].append(j)
+                if sum(range[start_range]) == val:
+                    return start_range + max(range[start_range])
             c += 1
         return 0
