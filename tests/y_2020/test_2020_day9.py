@@ -9,26 +9,26 @@ with patch("builtins.open", mock_open(read_data="")):
 def test__preprocess_input():
     print()
     day._input_data = [
-        35,
-        20,
-        15,
-        25,
-        47,
-        40,
-        62,
-        55,
-        65,
-        95,
-        102,
-        117,
-        150,
-        182,
-        127,
-        219,
-        299,
-        277,
-        309,
-        576,
+        "35",
+        "20",
+        "15",
+        "25",
+        "47",
+        "40",
+        "62",
+        "55",
+        "65",
+        "95",
+        "102",
+        "117",
+        "150",
+        "182",
+        "127",
+        "219",
+        "299",
+        "277",
+        "309",
+        "576",
     ]
     day._preprocess_input()
     assert day._Day__input == [
@@ -84,5 +84,26 @@ def test_calculate_1():
 
 def test_calculate_2():
     print()
-    day._Day__input == []
-    assert day._calculate_2() == 0
+    day._Day__input == [
+        35,
+        20,
+        15,
+        25,
+        47,
+        40,
+        62,
+        55,
+        65,
+        95,
+        102,
+        117,
+        150,
+        182,
+        127,
+        219,
+        299,
+        277,
+        309,
+        576,
+    ]
+    assert day._calculate_2(127) == 62
