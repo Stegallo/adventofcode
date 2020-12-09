@@ -31,13 +31,11 @@ class Day(AoCDay):
     def _calculate_2(self, val=None):
         if not val:
             val = self.__problem_1_result
-        c = 0
         range = {}
-        for start_range in self.__input:
+        for c, start_range in enumerate(self.__input):
             range[start_range] = []
             for j in self.__input[c:]:
                 range[start_range].append(j)
                 if sum(range[start_range]) == val:
                     return start_range + max(range[start_range])
-            c += 1
         return 0
