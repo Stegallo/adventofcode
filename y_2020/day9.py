@@ -9,10 +9,8 @@ class Day(AoCDay):
         self.__input = [int(i) for i in self._input_data]
 
     def _calculate_1(self, size=25):
-        c = 0
-        for i in self.__input[size:]:
+        for c, i in enumerate(self.__input[size:]):
             temp = self.__input[c : size + c]
-            c += 1
             correct = False
             for j in temp:
                 for k in temp:
