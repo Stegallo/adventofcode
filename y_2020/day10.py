@@ -26,10 +26,7 @@ class Day(AoCDay):
         d = defaultdict(int)
         counter = 1
         for i in range(1, len(y)):
-            if y[i] == y[i - 1] + 1:
-                contiguous = True
-            else:
-                contiguous = False
+            contiguous = y[i] == y[i - 1] + 1
             if contiguous:
                 counter += 1
             else:
@@ -42,5 +39,5 @@ class Day(AoCDay):
                 x = (2 ** (i - 2) - 1) ** d[i]
             elif i > 2:
                 x = (2 ** (i - 2)) ** d[i]
-            res = res * x
+            res *= x
         return res
