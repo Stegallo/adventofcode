@@ -1,5 +1,3 @@
-import re
-
 from .common import AoCDay
 from collections import defaultdict
 
