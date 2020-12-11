@@ -192,12 +192,10 @@ class Day(AoCDay):
                 adj_map = [1 if i == "#" else 0 for i in adj]
 
                 temp = self.__input[i][j]
-                if self.__input[i][j] == "L":
-                    if sum(adj_map) == 0:
-                        temp = "#"
-                if self.__input[i][j] == "#":
-                    if sum(adj_map) >= 5:
-                        temp = "L"
+                if self.__input[i][j] == "L" and sum(adj_map) == 0:
+                    temp = "#"
+                if self.__input[i][j] == "#" and sum(adj_map) >= 5:
+                    temp = "L"
                 new_seating[i].append(temp)
 
         self.__input = []
