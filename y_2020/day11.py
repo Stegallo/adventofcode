@@ -77,7 +77,6 @@ class Day(AoCDay):
         for i in range(len(self.__input)):
             new_seating.append([])
             for j in range(len(self.__input[i])):
-                local_pos = self.__input[i][j]
 
                 # check 8 seats:
                 u = i - 1
