@@ -1,5 +1,3 @@
-import re
-
 from .common import AoCDay
 
 DIRECTIONS = ["N", "E", "S", "W"]
