@@ -88,14 +88,14 @@ class Day(AoCDay):
                 if i[1] == 90:
                     waypoint_pos = (pos[0] + increment[1], pos[1] - increment[0])
                 if i[1] == 180:
-                    waypoint_pos = (pos[0] - increment[0], pos[1] + increment[1])
+                    waypoint_pos = (pos[0] - increment[0], pos[1] - increment[1])
                 if i[1] == 270:
                     waypoint_pos = (pos[0] - increment[1], pos[1] + increment[0])
             if i[0] == "R":
                 if i[1] == 90:
                     waypoint_pos = (pos[0] - increment[1], pos[1] + increment[0])
                 if i[1] == 180:
-                    waypoint_pos = (pos[0] - increment[0], pos[1] + increment[1])
+                    waypoint_pos = (pos[0] - increment[0], pos[1] - increment[1])
                 if i[1] == 270:
                     waypoint_pos = (pos[0] + increment[1], pos[1] - increment[0])
 
