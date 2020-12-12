@@ -2,7 +2,7 @@ from unittest.mock import mock_open, patch
 
 from y_2020.day11 import Day
 
-with patch("builtins.open", mock_open(read_data="")):
+with patch("builtins.open", mock_open(read_data="\n")):
     day = Day()
 
 
@@ -35,7 +35,7 @@ def test__preprocess_input():
     ]
 
 
-def test_iteration_1():
+def test__iterate_adjacent_1():
     print()
     day._Day__input = [
         "L.LL.LL.LL",
@@ -49,7 +49,7 @@ def test_iteration_1():
         "L.LLLLLL.L",
         "L.LLLLL.LL",
     ]
-    day._iteration()
+    day._Day__iterate_adjacent()
     assert day._Day__input == [
         "#.##.##.##",
         "#######.##",
@@ -64,7 +64,7 @@ def test_iteration_1():
     ]
 
 
-def test_iteration_2():
+def test__iterate_adjacent_2():
     print()
     day._Day__input = [
         "#.##.##.##",
@@ -78,7 +78,7 @@ def test_iteration_2():
         "#.######.#",
         "#.#####.##",
     ]
-    day._iteration()
+    day._Day__iterate_adjacent()
     assert day._Day__input == [
         "#.LL.L#.##",
         "#LLLLLL.L#",
@@ -110,7 +110,7 @@ def test_calculate_1():
     assert day._calculate_1() == 37
 
 
-def test_second_iteration_1():
+def test__iterate_visible_1():
     print()
     day._Day__input = [
         "L.LL.LL.LL",
@@ -124,7 +124,7 @@ def test_second_iteration_1():
         "L.LLLLLL.L",
         "L.LLLLL.LL",
     ]
-    day._second_iteration()
+    day._Day__iterate_visible()
     assert day._Day__input == [
         "#.##.##.##",
         "#######.##",
@@ -139,7 +139,7 @@ def test_second_iteration_1():
     ]
 
 
-def test_second_iteration_2():
+def test__Day__iterate_visible_2():
     print()
     day._Day__input = [
         "#.##.##.##",
@@ -153,7 +153,7 @@ def test_second_iteration_2():
         "#.######.#",
         "#.#####.##",
     ]
-    day._second_iteration()
+    day._Day__iterate_visible()
     assert day._Day__input == [
         "#.LL.LL.L#",
         "#LLLLLL.LL",
