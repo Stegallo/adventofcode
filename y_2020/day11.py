@@ -28,8 +28,7 @@ class Day(AoCDay):
         c6 = self.__input[d][l] if d <= self.__lenght - 1 and l >= 0 else None
         c7 = self.__input[i][l] if l >= 0 else None
         c8 = self.__input[u][l] if u >= 0 and l >= 0 else None
-        adj = [c1, c2, c3, c4, c5, c6, c7, c8]
-        return adj
+        return [c1, c2, c3, c4, c5, c6, c7, c8]
 
     def __generate_visible(self, i, j):
         u = i - 1
@@ -117,8 +116,7 @@ class Day(AoCDay):
                 l8 = l8 - 1
                 c8 = self.__input[u8][l8] if u8 >= 0 and l8 >= 0 else None
 
-        adj = [c1, c2, c3, c4, c5, c6, c7, c8]
-        return adj
+        return [c1, c2, c3, c4, c5, c6, c7, c8]
 
     def __iterate(self, proximity, seats_leave):
         new_seating = []
@@ -128,12 +126,13 @@ class Day(AoCDay):
                 adj = proximity(i, j)
 
                 temp = self.__input[i][j]
-                if self.__input[i][j] == "L":
-                    if sum(i == "#" for i in adj) == 0:
-                        temp = "#"
-                if self.__input[i][j] == "#":
-                    if sum(i == "#" for i in adj) >= seats_leave:
-                        temp = "L"
+                if self.__input[i][j] == "L" and sum(i == "#" for i in adj) == 0:
+                    temp = "#"
+                if (
+                    self.__input[i][j] == "#"
+                    and sum(i == "#" for i in adj) >= seats_leave
+                ):
+                    temp = "L"
                 new_seating[i].append(temp)
 
         self.__input = ["".join(i) for i in new_seating]
@@ -145,8 +144,8 @@ class Day(AoCDay):
         self.__iterate(self.__generate_visible, 5)
 
     def count_after_iterations(self, iteration_function):
+        before = str(self.__input)
         while True:
-            before = str(self.__input)
             iteration_function()
             if before == str(self.__input):
                 break
