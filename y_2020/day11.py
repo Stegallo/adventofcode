@@ -144,8 +144,8 @@ class Day(AoCDay):
         self.__iterate(self.__generate_visible, 5)
 
     def count_after_iterations(self, iteration_function):
+        before = str(self.__input)
         while True:
-            before = str(self.__input)
             iteration_function()
             if before == str(self.__input):
                 break
