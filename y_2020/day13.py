@@ -75,9 +75,7 @@ class Day(AoCDay):
             solved = True
 
             for c, i in enumerate(next_dep):
-                # print(
-                #     f"{time=},{next_dep=},{time + increment + c=}, {next_dep[0] + c=}, {i=}"
-                # )
+                print(f"{time=},{next_dep=}, {next_dep[0] + c=}, {i=}")
                 if next_dep[0] + c != i:
                     if i is not None:
                         solved = False
@@ -88,13 +86,14 @@ class Day(AoCDay):
 
             # if solved or time > 1000:  # 1068790:
             # if solved or time > 1068790:
-            if solved:  # or time > 3500:
+            if solved:  # or
+                # if time > 90:
                 # if True:
                 break
-            # print(f"{time=},{next_dep=},{increment=}\n")
+            print(f"{time=},{next_dep=},{increment=}\n")
             if time > mark:
                 print(f"{time=}, {mark=}")
                 mark = mark + 10 * 1000 * 1000
             time += increment
-        print(f"{next_dep=}, {time + increment=}")
+        print(f"\n{next_dep=}, {time + increment=}")
         return next_dep[0]

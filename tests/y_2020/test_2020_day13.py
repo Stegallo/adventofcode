@@ -77,4 +77,3 @@ def test_calculate_2_6():
     print()
     day._Day__input = ["", "1789,37,47,1889"]
     assert day._calculate_2() == 1_202_161_486
-    # 217_500_000
