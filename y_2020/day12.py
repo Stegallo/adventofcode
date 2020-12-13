@@ -21,12 +21,6 @@ class Day(AoCDay):
                 return DIRECTIONS[(c + x * DEGREES[degree]) % 4]
 
     def _calculate_1(self):
-        # return
-        # info(self.__input)
-        # # print(*self._input_data, sep="\n")
-        # # y = [int(i) for i in self._input_data.split(",")]
-        # # print(sum(y))
-        # self.__input
         pos = (0, 0)
 
         direction = "E"
@@ -37,7 +31,6 @@ class Day(AoCDay):
             "S": (-1, 0),
         }
         for i in self.__input:
-            print(f"{i=}")
             if i[0] == "F":
                 pos = (
                     pos[0] + MOVES[direction][0] * i[1],
@@ -55,19 +48,15 @@ class Day(AoCDay):
                 direction = self._rotate(direction, i[1], "L")
             if i[0] == "R":
                 direction = self._rotate(direction, i[1], "R")
-            print(f"{direction=},{pos=}")
-        print()
+
         return abs(pos[0]) + abs(pos[1])
 
     def _calculate_2(self):
         waypoint_pos = (1, 10)
         pos = (0, 0)
         for i in self.__input:
-            print(f"{i=}")
             increment = (waypoint_pos[0] - pos[0], waypoint_pos[1] - pos[1])
-            print(f",{pos=}, {waypoint_pos=}, {increment=}")
             if i[0] == "F":
-                print(f",{pos=}, {waypoint_pos=}, {increment=}")
                 for j in range(i[1]):
                     pos = (
                         pos[0] + increment[0],  # - pos[0],
@@ -97,6 +86,4 @@ class Day(AoCDay):
                 if i[1] == 270:
                     waypoint_pos = (pos[0] + increment[1], pos[1] - increment[0])
 
-            print(f"{pos=}, {waypoint_pos=}")
-        print()
         return abs(pos[0]) + abs(pos[1])
