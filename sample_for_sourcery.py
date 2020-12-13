@@ -7,8 +7,8 @@ class Sample:
             self.__input += 1
 
     def run(self, function):
+        before = str(self.__input)
         while True:
-            before = str(self.__input)
             function()
             if before == str(self.__input):
                 break
