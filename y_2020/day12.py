@@ -57,7 +57,7 @@ class Day(AoCDay):
         for i in self.__input:
             increment = (waypoint_pos[0] - pos[0], waypoint_pos[1] - pos[1])
             if i[0] == "F":
-                for j in range(i[1]):
+                for _ in range(i[1]):
                     pos = (
                         pos[0] + increment[0],  # - pos[0],
                         pos[1] + increment[1],  # - pos[1],
