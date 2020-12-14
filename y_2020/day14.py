@@ -1,5 +1,6 @@
-from .common import AoCDay
 import copy
+
+from .common import AoCDay
 
 
 class Day(AoCDay):
