@@ -1,5 +1,3 @@
-import re
-
 from .common import AoCDay
 
 from collections import defaultdict
@@ -40,20 +38,4 @@ class Day(AoCDay):
         return spoken
 
     def _calculate_2(self):
-
         return self._calculate_1(30000000)
-
-
-def info(x):
-    print(f"{len(x)=}")
-    hf = len(x) // 2 + 1
-    try:
-        print(f"{x[+0]=}")
-        print(f"{x[hf]=}")
-        print(f"{x[-1]=}")
-    except:
-        ...
-
-    # regex = "([\d]+)-([\d]+) ([\D]): ([\D]*)$"
-    # fa = re.findall(regex, x[0])[0]
-    # # print(*fa, sep="\n")
