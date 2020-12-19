@@ -21,3 +21,4 @@ class Sample:
 
 s = Sample()
 s.main()
+print('END')
