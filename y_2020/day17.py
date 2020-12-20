@@ -11,7 +11,7 @@ class Day(AoCDay):
 
     def _preprocess_input(self):
         self.__width = 0
-        for i in self._input_data:
+        for _ in self._input_data:
             self.__width = len(self._input_data[0])
             break
         self.__height = len(self._input_data)
@@ -124,7 +124,7 @@ class Day(AoCDay):
         self.__4dworld = new_world
 
     def _calculate_1(self):
-        for i in range(NUM_ITERATIONS):
+        for _ in range(NUM_ITERATIONS):
             self.__iteration3d()
 
         res = 0
@@ -136,7 +136,7 @@ class Day(AoCDay):
         return res
 
     def _calculate_2(self):
-        for i in range(NUM_ITERATIONS):
+        for _ in range(NUM_ITERATIONS):
             self.__iteration4d()
 
         res = 0

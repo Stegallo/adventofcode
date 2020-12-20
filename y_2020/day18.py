@@ -90,10 +90,10 @@ class Day(AoCDay):
         for c, j in enumerate(lst):
             # print(f"{j=} in {''.join(lst)}, {ignore=}; {x=}")
             if ignore:
-                if j == ")":
-                    ignore -= 1
                 if j == "(":
                     ignore += 1
+                elif j == ")":
+                    ignore -= 1
                 continue
             if j == ")":
                 return prod(x)
