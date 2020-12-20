@@ -14,7 +14,7 @@ def test__preprocess_input():
         "###",
     ]
     day._preprocess_input()
-    assert day._Day__world == [
+    assert day._Day__3dworld == [
         [
             [".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
             [".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
@@ -247,8 +247,8 @@ def test_iteration():
         "###",
     ]
     day._preprocess_input()
-    day._Day__iteration()
-    assert True or day._Day__world == [
+    day._Day__iteration3d()
+    assert True or day._Day__3dworld == [
         [
             [".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
             [".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
