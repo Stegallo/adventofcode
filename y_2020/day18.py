@@ -26,7 +26,7 @@ class Day(AoCDay):
 
     def calc(self, lst):
         # global GLOBAL_POINTER
-        print(lst)
+        # print(lst)
         print()
         result = 0
         op = None
@@ -37,7 +37,7 @@ class Day(AoCDay):
         ignore = 0
         # breakpoint()
         for c, j in enumerate(lst):
-            print(f"{j=} in {''.join(lst)}, {ignore=}")
+            # print(f"{j=} in {''.join(lst)}, {ignore=}; {x=}")
             if ignore:
                 if j == ")":
                     ignore -= 1
@@ -58,7 +58,7 @@ class Day(AoCDay):
                         a = self.calc(lst[c + 1 :])
                     else:
                         a = int(j)
-                        x.append(a)
+                    x.append(a)
                     op_n = 1
                 else:
                     if j == "(":
@@ -69,13 +69,13 @@ class Day(AoCDay):
                         b = int(j)
                     if op == "+":
                         a = x[-1]
-                        print(f"{a=}, {b=}")
+                        # print(f"{a=}, {b=}")
                         a = OPS[op](a, b)
                         x[-1] = a
                     else:
                         x.append(b)
                         # breakpoint()
-                print(f"{x=}")
+                # print(f"{x=}")
 
         return prod(x)
 
@@ -88,12 +88,6 @@ class Day(AoCDay):
             result += self.calc(express)
 
         return result
-
-    def __addparmult(self, express):
-        print("".join(express))
-        for i in express:
-            if i == "+":
-                print(i)
 
     def _calculate_2(self):
         print(self.__input)
