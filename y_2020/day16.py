@@ -10,7 +10,7 @@ class Day(AoCDay):
 
     def _calculate_1(self):
         # info(self._input_data)
-        return 0
+        # return 0
         rules = {}
         # yours = []
         others = []

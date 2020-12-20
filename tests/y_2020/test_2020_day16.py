@@ -47,4 +47,4 @@ def test_calculate_2():
         "15,1,5",
         "5,14,9",
     ]
-    assert day._calculate_2() == 0
+    assert day._calculate_2() == 1
