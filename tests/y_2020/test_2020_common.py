@@ -24,9 +24,9 @@ def test_main():
         assert main() is None
 
 
-class TestAoCDay(AoCDay):
+class MockAoCDay(AoCDay):
     def __init__(self):
-        pass
+        super().__init__(0)
 
     def _calculate_1(self):
         pass
@@ -39,5 +39,8 @@ class TestAoCDay(AoCDay):
 
 
 def test_AoCDay():
-    test_aoc_day = TestAoCDay()
-    assert test_aoc_day.solve() is None
+    print()
+    with patch("y_2020.common.open") as open_patch:
+        open_patch().__enter__().read = lambda: "hello\nworld\n"
+        mock_aoc_day = MockAoCDay()
+    assert mock_aoc_day.solve() is None
