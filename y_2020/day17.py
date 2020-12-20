@@ -1,6 +1,6 @@
 import copy
-from .common import AoCDay
 
+from .common import AoCDay
 
 NUM_ITERATIONS = 6
 

@@ -1,7 +1,7 @@
 import argparse
 import importlib
-from datetime import datetime
 from abc import ABC, abstractmethod
+from datetime import datetime
 
 
 class StopWatch:
