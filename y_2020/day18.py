@@ -1,5 +1,3 @@
-import re
-
 from .common import AoCDay
 from .utils import prod
 
@@ -28,7 +26,6 @@ class Day(AoCDay):
         # global GLOBAL_POINTER
         # print(lst)
         # print()
-        result = 0
         op = None
         op_n = 0
         a = 0
@@ -83,7 +80,6 @@ class Day(AoCDay):
         # global GLOBAL_POINTER
         # print(lst)
         # print()
-        result = 0
         op = None
         op_n = 0
         a = 0

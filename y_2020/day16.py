@@ -38,7 +38,7 @@ class Day(AoCDay):
             if other:
                 others.append(i.split(","))
 
-        print(rules)
+        # print(rules)
         # print(yours)
         # print(others)
         result = 0
@@ -56,7 +56,7 @@ class Day(AoCDay):
                         if a <= int(j) <= b:
                             valid = True
                 if not valid:
-                    print(f"not valid: {j=}")
+                    # print(f"not valid: {j=}")
                     result += int(j)
         return result
 
@@ -90,13 +90,13 @@ class Day(AoCDay):
             if other:
                 others.append(i.split(","))
 
-        print(rules)
+        # print(rules)
         # discard invalid
-        print(f"{len(others)=}")
+        # print(f"{len(others)=}")
         valid_others = [i for i in others if is_valid(i, rules)]
-        print(f"{len(valid_others)=}")
-        for k in rules:
-            print(f"{k=}")
+        # print(f"{len(valid_others)=}")
+        # for k in rules:
+        #     print(f"{k=}")
         locations = []
         for p in valid_others[0]:
             locations.append([r for r in rules])
@@ -128,7 +128,7 @@ class Day(AoCDay):
                 locations[p] = new_poss_loc
                 # print(f"{locations[p]=}")
         # print("\n\n")
-        print(f"{locations=}")
+        # print(f"{locations=}")
         iters = 0
         while iters < 100:
             for ci, i in enumerate(locations):
@@ -150,17 +150,17 @@ class Day(AoCDay):
                         # print(f"{x=}")
                         locations[cj] = x
             iters += 1
-        print(f"{locations=}")
-
-        print(f"{len(locations)=}")
-        print(f"{len(yours)=}")
-
-        print(f"{yours=}")
+        # print(f"{locations=}")
+        #
+        # print(f"{len(locations)=}")
+        # print(f"{len(yours)=}")
+        #
+        # print(f"{yours=}")
         result = 1
         for c, i in enumerate(locations):
-            print(f"{i=}, {c=}")
+            # print(f"{i=}, {c=}")
             if "departure" in i[0]:
-                print(yours[c])
+                # print(yours[c])
                 result *= int(yours[c])
         return result
 

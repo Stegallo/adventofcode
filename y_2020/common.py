@@ -1,6 +1,21 @@
 import argparse
 import importlib
+from datetime import datetime
 from abc import ABC, abstractmethod
+
+
+class StopWatch:
+    def __init__(self):
+        self.__start_time = None
+
+    def start(self):
+        self.__start_time = datetime.now()
+
+    def lap(self):
+        return datetime.now() - self.__start_time
+
+    def stop(self):
+        return datetime.now() - self.__start_time
 
 
 class AoCDay(ABC):
@@ -12,6 +27,7 @@ class AoCDay(ABC):
     def __init__(self, day):
         self._input_data = load_input(day)
         self._preprocess_input()
+        self.__stop_watch = StopWatch()
 
     @abstractmethod
     def _preprocess_input(self):
@@ -32,8 +48,10 @@ class AoCDay(ABC):
         """
 
     def solve(self):
-        print(f"sol 1: {self._calculate_1()}")
-        print(f"sol 2: {self._calculate_2()}")
+        self.__stop_watch.start()
+        print(f"sol 1: {self._calculate_1()} Time taken: {self.__stop_watch.lap()}")
+
+        print(f"sol 2: {self._calculate_2()} Time taken: {self.__stop_watch.stop()}")
 
 
 def load_input(day):
