@@ -1,5 +1,3 @@
-import re
-
 from .common import AoCDay
 
 
@@ -14,17 +12,17 @@ class Day(AoCDay):
         # info(self._input_data)
         return 0
         rules = {}
-        yours = []
+        # yours = []
         others = []
         rules_flag = True
-        your = False
+        # your = False
         other = False
         for i in self.__input:
             # print(i)
             if i == "":
                 rules_flag = False
             if i == "your ticket:":
-                your = True
+                # your = True
                 continue
             if i == "nearby tickets:":
                 other = True
@@ -34,9 +32,9 @@ class Day(AoCDay):
                 # print(i[: i.index(":")])
                 # print(i[i.index(":") + 2 :].split(" or "))
                 rules[i[: i.index(":")]] = i[i.index(":") + 2 :].split(" or ")
-            if your:
-                # print(i.split())
-                yours = i.split(",")
+            # if your:
+            #     # print(i.split())
+            #     yours = i.split(",")
             if other:
                 others.append(i.split(","))
 
@@ -182,65 +180,3 @@ def is_valid(i, rules):
         if not valid:
             return False
     return valid
-
-
-def info(x):
-    print(f"{len(x)=}")
-    hf = len(x) // 2 + 1
-    try:
-        print(f"{x[+0]=}")
-        print(f"{x[hf]=}")
-        print(f"{x[-1]=}")
-    except:
-        ...
-
-    # regex = "([\d]+)-([\d]+) ([\D]): ([\D]*)$"
-    # fa = re.findall(regex, x[0])[0]
-    # # print(*fa, sep="\n")
-
-
-[
-    ["zone"],
-    ["departure time"],
-    ["departure platform"],
-    ["train"],
-    ["arrival track"],
-    ["departure track"],
-    ["arrival station"],
-    ["seat"],
-    ["price"],
-    ["wagon"],
-    ["route"],
-    ["type"],
-    ["row"],
-    ["departure location"],
-    ["class"],
-    ["departure date"],
-    ["arrival location"],
-    ["arrival platform"],
-    ["duration"],
-    ["departure station"],
-]
-
-[
-    103,
-    79,
-    61,
-    97,
-    109,
-    67,
-    89,
-    83,
-    59,
-    53,
-    139,
-    131,
-    101,
-    113,
-    149,
-    127,
-    71,
-    73,
-    107,
-    137,
-]

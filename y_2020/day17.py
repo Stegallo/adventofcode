@@ -1,4 +1,3 @@
-import re
 import copy
 from .common import AoCDay
 
@@ -105,7 +104,7 @@ class Day(AoCDay):
             for cj, j in enumerate(i):
                 for ck, k in enumerate(j):
                     active_nb = self.count_active_nb3d(ci, cj, ck)
-                    if k == "#" and not active_nb in [2, 3]:
+                    if k == "#" and active_nb not in [2, 3]:
                         new_world[ci][cj][ck] = "."
                     if k == "." and active_nb in [3]:
                         new_world[ci][cj][ck] = "#"
@@ -118,7 +117,7 @@ class Day(AoCDay):
                 for cj, j in enumerate(i):
                     for ck, k in enumerate(j):
                         active_nb = self.count_active_nb4d(ch, ci, cj, ck)
-                        if k == "#" and not active_nb in [2, 3]:
+                        if k == "#" and active_nb not in [2, 3]:
                             new_world[ch][ci][cj][ck] = "."
                         if k == "." and active_nb in [3]:
                             new_world[ch][ci][cj][ck] = "#"
