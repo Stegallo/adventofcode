@@ -486,5 +486,10 @@ def test_calculate_1():
 
 def test_calculate_2():
     print()
-    day._Day__input = []
-    assert day._calculate_2() == 0
+    day._input_data = [
+        ".#.",
+        "..#",
+        "###",
+    ]
+    day._preprocess_input()
+    assert day._calculate_2() == 848
