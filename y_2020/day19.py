@@ -35,9 +35,7 @@ class Day(AoCDay):
             return r[0]
         options = []
         for alternative in r:
-            option = ""
-            for x in alternative.split(" "):
-                option += self.build_regex(int(x))
+            option = "".join(self.build_regex(int(x)) for x in alternative.split(" "))
             options.append(option)
         return "(" + "|".join(options) + ")"
 
