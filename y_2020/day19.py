@@ -88,23 +88,37 @@ class Day(AoCDay):
 
     def is_valid(self, msg, rule_list=["0"]):
         # breakpoint()
-        # print(f"\n{rule_list=} ... {msg=}")
+        # print(f"\n{rule_list=} ... {msg=}  ... ")
         if len(rule_list) == 1:
-            if rule_list[0] in ["a", "b", "c"]:
+            if rule_list[0].isalpha():
                 return msg == rule_list[0]
-            alternative = "".join(
-                self.__rules[rule_list[0]].replace('"', "").split(" ")
-            )
-            if self.cache.get(msg, {}).get(alternative) is True:
+            # breakpoint()
+            single_alternative = self.__rules[rule_list[0]].replace('"', "").split(" ")
+
+            # print(f"{single_alternative=}")
+            if self.cache.get(msg, {}).get("#".join(single_alternative)) is True:
+                # print("is valid")
                 valid = True
-            elif self.cache.get(msg, {}).get(alternative) is False:
+            elif self.cache.get(msg, {}).get("#".join(single_alternative)) is False:
+                # print("is not valid")
                 valid = False
             else:
-                valid = self.is_valid(msg, alternative)
-                self.cache[msg][alternative] = valid
+                valid = self.is_valid(msg, single_alternative)
+                # self.cache[msg]["#".join(single_alternative)] = valid
+                # print(f"is {valid}")
             return valid
         alternative_valid = False
-        for alternative in "".join(rule_list).split("|"):
+        # print("reaching here!!!")
+        # print(f'{"#".join(rule_list)=}')
+        # print(f'{rule_list=}; {"#".join(rule_list).split("|")=}')
+        for alternative_x in "#".join(rule_list).split("|"):
+            alternative = alternative_x
+            if alternative_x[0] == "#":
+                alternative = alternative_x[1:]
+            if alternative_x[-1] == "#":
+                alternative = alternative_x[:-1]
+            # alternative = alternative_x.replace("#", "")
+            # print(f"{alternative=}")
             # print(f"{self.cache=}")
             # print(f"{msg}; {self.cache.get(msg, {}).get(alternative)=}")
             if self.cache.get(msg, {}).get(alternative) is True:
@@ -113,18 +127,17 @@ class Day(AoCDay):
             if self.cache.get(msg, {}).get(alternative) is False:
                 continue
             # print(f"{alternative=}")
-            # print(f"{alternative=}, {msg}")
+            # print(f"{alternative=}, {msg=}")
             original_msg = msg
-            if len(alternative) > len(msg):
+            if len(alternative.split("#")) > len(msg):
                 continue
             # print(f"{alternative=}, {msg}")
             valid = True
-            for rule_key in alternative:
+            for rule_key in alternative.split("#"):
                 # print(f"{rule_key=}, {msg=}")
                 # breakpoint()
                 inner_valid = False
                 for i in range(len(msg)):
-
                     if self.is_valid(msg[: i + 1], [rule_key]):
                         # print(f"{valid=}")
                         inner_valid = True
@@ -136,18 +149,25 @@ class Day(AoCDay):
                     break
             if valid:
                 alternative_valid = True
-                self.cache[original_msg][alternative] = True
+                # self.cache[original_msg][alternative] = True
                 break
-            self.cache[original_msg][alternative] = False
+            # self.cache[original_msg][alternative] = False
 
         return alternative_valid
 
     def _calculate_1(self):
-        # print(f"{self.rules=}")
+        # print(f"{(self.__rules)=}")
         c = 0
-        breakpoint()
-        for i in self.__messages:
-            c += self.is_valid(i + "c")
+        # x = {}
+        # breakpoint()
+        for k, i in enumerate(self.__messages):
+            # print(i)
+            valid = self.is_valid(i + "c")
+            # print(f"{i} is {valid} {k=}")
+            # print(k)
+            c += valid
+            # x[i] = (valid, len(i))
+        # print(x)
         return c
 
     def _calculate_2(self):
