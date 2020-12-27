@@ -33,10 +33,7 @@ class Day(AoCDay):
         r = self.__rules[rule]
         if len(r) == 1 and r[0].isalpha():
             return r[0]
-        options = []
-        for alternative in r:
-            option = "".join(self.build_regex(int(x)) for x in alternative.split(" "))
-            options.append(option)
+        options = ["".join(self.build_regex(int(j)) for j in i.split(" ")) for i in r]
         return "(" + "|".join(options) + ")"
 
     def _calculate_1(self):
