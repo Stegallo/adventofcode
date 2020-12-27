@@ -1,4 +1,5 @@
 from unittest.mock import mock_open, patch
+
 from y_2020.day19 import Day
 
 with patch("builtins.open", mock_open(read_data="0: 0")):
