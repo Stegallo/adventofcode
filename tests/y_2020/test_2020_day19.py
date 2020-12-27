@@ -1,5 +1,4 @@
 from unittest.mock import mock_open, patch
-from collections import defaultdict
 from y_2020.day19 import Day
 
 with patch("builtins.open", mock_open(read_data="0: 0")):
@@ -103,7 +102,7 @@ def test_calculate_2_logic1():
     assert day._calculate_1() == 3
 
 
-def test_calculate_2_logic1():
+def test_calculate_2():
     print()
     day._input_data = [
         "42: 9 14 | 10 1",

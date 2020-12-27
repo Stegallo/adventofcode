@@ -1,5 +1,4 @@
 import re
-from collections import defaultdict
 from .common import AoCDay
 
 
@@ -38,27 +37,17 @@ class Day(AoCDay):
         for alternative in r:
             option = ""
             for x in alternative.split(" "):
-                if x == " ":
-                    continue
                 option += self.build_regex(int(x))
             options.append(option)
         return "(" + "|".join(options) + ")"
 
     def _calculate_1(self):
         rexp = re.compile("^" + self.build_regex() + "$")
-        c = 0
-        for k, i in enumerate(self.__messages):
-            valid = 1 if rexp.match(i) else 0
-            c += valid
-        return c
+        return sum(1 if rexp.match(i) else 0 for i in self.__messages)
 
     def _calculate_2(self):
         R = 6
         self.__rules[8] = [" ".join(["42"] * k) for k in range(1, R)]
         self.__rules[11] = [" ".join(["42"] * k + ["31"] * k) for k in range(1, R)]
         rexp = re.compile("^" + self.build_regex() + "$")
-        c = 0
-        for k, i in enumerate(self.__messages):
-            valid = 1 if rexp.match(i) else 0
-            c += valid
-        return c
+        return sum(1 if rexp.match(i) else 0 for i in self.__messages)
