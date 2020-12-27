@@ -53,5 +53,12 @@ class Day(AoCDay):
         return c
 
     def _calculate_2(self):
-        print(self.__rules)
-        return 0
+        R = 6
+        self.__rules[8] = [" ".join(["42"] * k) for k in range(1, R)]
+        self.__rules[11] = [" ".join(["42"] * k + ["31"] * k) for k in range(1, R)]
+        rexp = re.compile("^" + self.build_regex() + "$")
+        c = 0
+        for k, i in enumerate(self.__messages):
+            valid = 1 if rexp.match(i) else 0
+            c += valid
+        return c
