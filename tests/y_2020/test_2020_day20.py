@@ -1,6 +1,6 @@
 from unittest.mock import mock_open, patch
 
-from y_2020.day20 import Day, Tile
+from y_2020.day20 import Day, Tile, flip, rotate90, rotate180, rotate270
 
 with patch("builtins.open", mock_open(read_data="")):
     day = Day()
@@ -321,7 +321,60 @@ def test_calculate_1():
     assert day._calculate_1() == 20899048083289
 
 
+def test_rot_fun():
+    print()
+    tile = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+    assert list(flip(tile)) == [[7, 8, 9], [4, 5, 6], [1, 2, 3]]
+
+    # print(*list(rotate90(tile)), sep="\n")
+    assert list(rotate90(tile)) == [[7, 4, 1], [8, 5, 2], [9, 6, 3]]
+
+    # print(*list(rotate180(tile)), sep="\n")
+    assert list(rotate180(tile)) == [[9, 8, 7], [6, 5, 4], [3, 2, 1]]
+
+    # print(*list(rotate270(tile)), sep="\n")
+    assert list(rotate270(tile)) == [[3, 6, 9], [2, 5, 8], [1, 4, 7]]
+
+    tile = [
+        [1, 2, 3, 4],
+        ["a", "b", "c", "d"],
+        [1, 2, 3, 4],
+        ["a", "b", "c", "d"],
+    ]
+    assert list(flip(tile)) == [
+        ["a", "b", "c", "d"],
+        [1, 2, 3, 4],
+        ["a", "b", "c", "d"],
+        [1, 2, 3, 4],
+    ]
+
+    # print(*list(rotate90(tile)), sep="\n")
+    assert list(rotate90(tile)) == [
+        ["a", 1, "a", 1],
+        ["b", 2, "b", 2],
+        ["c", 3, "c", 3],
+        ["d", 4, "d", 4],
+    ]
+
+    # print(*list(rotate180(tile)), sep="\n")
+    assert list(rotate180(tile)) == [
+        ["d", "c", "b", "a"],
+        [4, 3, 2, 1],
+        ["d", "c", "b", "a"],
+        [4, 3, 2, 1],
+    ]
+
+    # print(*list(rotate270(tile)), sep="\n")
+    assert list(rotate270(tile)) == [
+        [4, "d", 4, "d"],
+        [3, "c", 3, "c"],
+        [2, "b", 2, "b"],
+        [1, "a", 1, "a"],
+    ]
+
+
 def test_calculate_2():
     print()
-    day._Day__input = []
+    day._input_data = T1_INPUT
+    day._preprocess_input(True)
     assert day._calculate_2() == 0
