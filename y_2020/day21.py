@@ -25,8 +25,6 @@ class Day(AoCDay):
             for ingr in i[0]:
                 self.__possible_allers[ingr] |= allergens
 
-        self.__safe = self.safe_ingredients()
-
     def safe_ingredients(self):
         safe = []
 
@@ -50,10 +48,8 @@ class Day(AoCDay):
 
         return safe
 
-    # safe = safe_ingredients(recipes, possible_allers, recipes_with)
-
     def _calculate_1(self):
-        print(f"{self.__possible_allers=}")
+        self.__safe = self.safe_ingredients()
         return sum(ingr in r[0] for r in self.__recipes for ingr in self.__safe)
 
     def simplify(self):
@@ -75,13 +71,9 @@ class Day(AoCDay):
         return assigned
 
     def _calculate_2(self):
-        print(f"{self.__possible_allers=}")
-        print(f"{self.__safe=}")
         for ingr in self.__safe:
             del self.__possible_allers[ingr]
 
         assigned = self.simplify()
-        print(f"{sorted(assigned)=}")
-        print(f"{assigned=}")
         lst = ",".join(map(assigned.get, sorted(assigned)))
         return lst
