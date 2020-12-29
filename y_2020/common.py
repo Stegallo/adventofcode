@@ -9,6 +9,11 @@ YEAR = 2020
 URL = "https://adventofcode.com/{:d}/day/{:d}/{:s}"
 
 
+class WebSite:
+    def __init__(self):
+        ...
+
+
 class StopWatch:
     def __init__(self):
         self.__start_time = None
@@ -33,6 +38,7 @@ class AoCDay(ABC):
         self._input_data = load_input(day)
         self._preprocess_input()
         self.__stop_watch = StopWatch()
+        self.__web_site = WebSite()
 
     @abstractmethod
     def _preprocess_input(self):
@@ -54,9 +60,14 @@ class AoCDay(ABC):
 
     def solve(self):
         self.__stop_watch.start()
-        print(f"sol 1: {self._calculate_1()} Time taken: {self.__stop_watch.lap()}")
-
-        print(f"sol 2: {self._calculate_2()} Time taken: {self.__stop_watch.stop()}")
+        sol_1 = self._calculate_1()
+        print(f"sol 1: {sol_1} Time taken: {self.__stop_watch.lap()}")
+        # if not submitted already -> submit
+        # self.__web_site.sumbit_response(sol_1)
+        sol_2 = self._calculate_2()
+        print(f"sol 2: {sol_2} Time taken: {self.__stop_watch.stop()}")
+        # if not submitted already -> submit
+        # self.__web_site.sumbit_response(sol_2)
 
 
 def log(msg):
