@@ -8,61 +8,6 @@ import copy
 from operator import itemgetter
 
 
-class Tile:
-    def __init__(self, borders):
-        self.n_border = borders[0]
-        self.e_border = borders[1]
-        self.s_border = borders[2]
-        self.w_border = borders[3]
-
-    def flip(self):
-        return Tile(
-            [
-                self.s_border,
-                "".join(reversed(list(self.e_border))),
-                self.n_border,
-                "".join(reversed(list(self.w_border))),
-            ]
-        )
-
-    def rotate90(self):
-        return Tile(
-            [
-                "".join(reversed(list(self.w_border))),
-                self.n_border,
-                "".join(reversed(list(self.e_border))),
-                self.s_border,
-            ]
-        )
-
-    def rotate180(self):
-        return Tile(
-            [
-                "".join(reversed(list(self.s_border))),
-                "".join(reversed(list(self.w_border))),
-                "".join(reversed(list(self.n_border))),
-                "".join(reversed(list(self.e_border))),
-            ]
-        )
-
-    def rotate270(self):
-        return Tile(
-            [
-                self.e_border,
-                "".join(reversed(list(self.s_border))),
-                self.w_border,
-                "".join(reversed(list(self.n_border))),
-            ]
-        )
-
-
-class SetEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, set):
-            return list(obj)
-        return json.JSONEncoder.default(self, obj)
-
-
 class Day(AoCDay):
     def __init__(self):
         super().__init__(20)

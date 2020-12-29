@@ -173,7 +173,6 @@ def test__preprocess_input():
 
     day._input_data = T1_INPUT
     day._preprocess_input()
-    print(day._Day__tiles)
     assert day._Day__tiles == {
         2311: [
             "..##.#..#.",
