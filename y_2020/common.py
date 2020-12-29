@@ -65,11 +65,11 @@ def log(msg):
 
 def load_input(day):
 
-    session = requests.Session()
-    log(f"Getting input for year 2020 day {day}... ")
-
     file_name = f"y_2020/input_day{day}.txt"
     if not os.path.isfile(file_name):
+        session = requests.Session()
+        log(f"File {file_name} not found locally.")
+        log(f"Getting input for year 2020 day {day}... ")
 
         with open("session_cookie") as f:
             cookie = f.read().rstrip()
