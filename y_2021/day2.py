@@ -2,8 +2,8 @@ from .common import AoCDay
 
 
 class Day(AoCDay):
-    def __init__(self):
-        super().__init__(2)
+    def __init__(self, test=0):
+        super().__init__(__name__.split(".")[1].replace("day", ""), test)
 
     def _preprocess_input(self):
         self.__input_data = [i for i in self._input_data]
