@@ -23,7 +23,7 @@ class Board:
         self.__elements: Dict[int, Element] = {}
 
     def __repr__(self):
-        return "\n".join([str([row for row in rows]) for rows in self._Board__rows])
+        return "\n".join([str([row for row in rows]) for rows in self.__rows])
 
     def add_row(self, row_board):
         self.__rows.append([])
@@ -60,28 +60,16 @@ class Day(AoCDay):
 
     def _preprocess_input(self):
         self.__input_data = [i for i in self._input_data]
-        # self.__input_data = [int(i) for i in self._input_data]
-        print(f"len of input = {len(self.__input_data)}")
-        try:
-            print(f"first value = {self.__input_data[0]}")
-            print(f"mid value = {self.__input_data[len(self.__input_data)//2]}")
-            print(f"last value = {self.__input_data[-1]}")
-        except:
-            ...
         self.__extracts = self.__input_data[0].split(",")
         self.__boards = []
-        # board_index = -1
+
         for row_board in self.__input_data[1:]:
             if row_board == "":
                 # new board!
                 board = Board()
-                # board_index += 1
                 self.__boards.append(board)
             else:
                 board.add_row(row_board)
-                # self.__boards[board_index].append(
-                #     [{int(j): 0} for j in row_board.split()]
-                # )
 
     def _calculate_1(self):
         boards = self.__boards
