@@ -2,13 +2,56 @@ from .common import AoCDay
 
 
 class Element:
-    def __init__(self):
-        ...
+    def __init__(self, raw_element: str):
+        self.__element_number = int(raw_element)
+        self.__called: bool = False
+
+    def call(self):
+        self.__called = True
+
+    def called(self):
+        return self.__called
+
+    def __repr__(self):
+        return str(f"({self.__element_number}; {self.__called})")
 
 
 class Board:
     def __init__(self):
-        ...
+        self.__rows = []
+        self.__columns = []
+        self.__elements: Dict[int, Element] = {}
+
+    def __repr__(self):
+        return "\n".join([str([row for row in rows]) for rows in self._Board__rows])
+
+    def add_row(self, row_board):
+        self.__rows.append([])
+        for column, raw_element in enumerate(row_board.split()):
+            element = Element(raw_element)
+            self.__elements[int(raw_element)] = element
+            self.__rows[-1].append(element)
+            if column >= len(self.__columns):
+                self.__columns.append([])
+            self.__columns[column].append(element)
+
+    def winner(self):
+        for i in self.__rows:
+            if all([j.called() for j in i]):
+                return True
+        for i in self.__columns:
+            if all([j.called() for j in i]):
+                return True
+        return False
+
+    def flag(self, number: int):
+        if self.__elements.get(number):
+            self.__elements.get(number).call()
+
+    def sum_unmarked(self):
+        return sum(
+            [key for key, value in self.__elements.items() if not value.called()]
+        )
 
 
 class Day(AoCDay):
@@ -27,152 +70,48 @@ class Day(AoCDay):
             ...
         self.__extracts = self.__input_data[0].split(",")
         self.__boards = []
-        board_index = -1
+        # board_index = -1
         for row_board in self.__input_data[1:]:
             if row_board == "":
-                board_index += 1
-                self.__boards.append([])
+                # new board!
+                board = Board()
+                # board_index += 1
+                self.__boards.append(board)
             else:
-                self.__boards[board_index].append(
-                    [{int(j): 0} for j in row_board.split()]
-                )
+                board.add_row(row_board)
+                # self.__boards[board_index].append(
+                #     [{int(j): 0} for j in row_board.split()]
+                # )
 
     def _calculate_1(self):
         boards = self.__boards
-        print(boards)
-        # for i in input_data[:2]:
-        for i in self.__extracts:
-            print(i)
-            # flag()
-            for board in boards:
-                # print(f"{line=}")
-                for line in board:
-                    # print(f"{pos=}")
-                    for elem in line:
-                        # print(f"{elem=}")
-                        if int(i) in elem:
-                            elem[int(i)] = 1
-            # check_winner()
-            found = False
-            winner_board = None
-            total_boards = len(boards)
-            for board in boards:
-                for line in board:
-                    if sum(sum(elem.values()) for elem in line) == 5:
-                        print("winner")
-                        found = True
-                        break
-                        raise Exception()
-                    if found:
-                        break
 
-                    # for elem in line:
-                    #     print(sum(elem.values()))
-                for column in range(5):
-                    sum_v = 0
-                    for line in board:
-                        sum_v += sum(line[column].values())
-                    if sum_v == 5:
-                        print("winner")
-                        found = True
-                        break
-                        raise Exception()
-                    if found:
-                        break
-                if found:
+        for i in self.__extracts:
+            for board in boards:
+                board.flag(int(i))
+
+            for board in boards:
+                if is_winner := board.winner():
+                    winner_board = board
                     break
-            if found:
-                winner_board = board
+            if is_winner:
                 break
 
-        # print(board)
-        score = 0
-        for line in board:
-            for elem in line:
-                if sum(elem.values()) == 0:
-                    score += sum(elem.keys())
-        print(f"{score=}")
-
-        result = score * int(i)
-
-        return result
+        return board.sum_unmarked() * int(i)
 
     def _calculate_2(self):
         boards = self.__boards
-        print(boards)
-        # for i in input_data[:2]:
+
         for i in self.__extracts:
-            print(i)
-            # flag()
             for board in boards:
-                # print(f"{line=}")
-                for line in board:
-                    # print(f"{pos=}")
-                    for elem in line:
-                        # print(f"{elem=}")
-                        if int(i) in elem:
-                            elem[int(i)] = 1
-            # check_winner()
+                board.flag(int(i))
 
-            winner_board = None
-            # total_boards = len(boards)
             for board in boards:
-                found = False
-                for line in board:
-                    if sum(sum(elem.values()) for elem in line) == 5:
-                        print("winner")
-                        found = True
-                        break
-                        raise Exception()
-                if found:
-                    try:
-                        boards.remove(board)
-                        print(f"board removed {board}")
-                        continue
-                    except Exception:
-                        print("board not exists")
-                    # break
+                if board.winner():
+                    boards.remove(board)
 
-                # for elem in line:
-                #     print(sum(elem.values()))
-                for column in range(5):
-                    sum_v = 0
-                    for line in board:
-                        sum_v += sum(line[column].values())
-                    if sum_v == 5:
-                        print("winner")
-                        found = True
-                        break
-                        raise Exception()
-                    if found:
-                        break
-                if found:
-                    try:
-                        boards.remove(board)
-                        print(f"board removed {board}")
-                    except Exception:
-                        print("board not exists")
-                    # break
-                # if found:
-                #     break
-            # if found:
-            #     boards.remove(board)
-            print(f"{len(boards)=}")
             if len(boards) == 0:
                 winner_board = board
                 break
-        print(winner_board)
-        score = 0
-        print(board)
 
-        if not winner_board:
-            winner_board = board
-        for line in winner_board:
-            for elem in line:
-                if sum(elem.values()) == 0:
-                    score += sum(elem.keys())
-        print(f"{score=}; {i=}")
-
-        result = score * int(i)
-
-        return result
+        return board.sum_unmarked() * int(i)
