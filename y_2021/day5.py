@@ -1,17 +1,18 @@
 from collections import defaultdict
+from typing import Dict
 
 from .common import AoCDay
 
 
 class Day(AoCDay):
-    def __init__(self, test=0):
+    def __init__(self, test: int = 0) -> None:
         super().__init__(__name__.split(".")[1].replace("day", ""), test)
 
-    def _preprocess_input(self):
+    def _preprocess_input(self) -> None:
         self.__input_data = list(self._input_data)
 
-    def _calculate_1(self):
-        tabs = defaultdict(int)
+    def _calculate_1(self) -> int:
+        tabs: Dict = defaultdict(int)
         for move in self.__input_data:
             start = move.split(" -> ")[0].split(",")
             end = move.split(" -> ")[1].split(",")
@@ -26,8 +27,8 @@ class Day(AoCDay):
 
         return sum(i >= 2 for i in tabs.values())
 
-    def _calculate_2(self):
-        tabs = defaultdict(int)
+    def _calculate_2(self) -> int:
+        tabs: Dict = defaultdict(int)
         for move in self.__input_data:
             start = move.split(" -> ")[0].split(",")
             end = move.split(" -> ")[1].split(",")

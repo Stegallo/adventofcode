@@ -2,19 +2,20 @@ import argparse
 import importlib
 from abc import ABC, abstractmethod
 from datetime import datetime
+from typing import Any, List, Optional
 
 
 class StopWatch:
-    def __init__(self):
-        self.__start_time = None
+    def __init__(self) -> None:
+        self.__start_time: Optional[datetime] = None
 
-    def start(self):
+    def start(self) -> None:
         self.__start_time = datetime.now()
 
-    def lap(self):
+    def lap(self) -> Any:
         return datetime.now() - self.__start_time
 
-    def stop(self):
+    def stop(self) -> Any:
         return datetime.now() - self.__start_time
 
 
@@ -24,37 +25,37 @@ class AoCDay(ABC):
     """
 
     @abstractmethod
-    def __init__(self, day, test):
+    def __init__(self, day: int, test: int) -> None:
         self._input_data = load_input(day, test)
         self._preprocess_input()
         self.__stop_watch = StopWatch()
 
     @abstractmethod
-    def _preprocess_input(self):
+    def _preprocess_input(self) -> None:
         """
         preprocessing of the input
         """
 
     @abstractmethod
-    def _calculate_1(self):
+    def _calculate_1(self) -> int:
         """
         _calculate_1
         """
 
     @abstractmethod
-    def _calculate_2(self):
+    def _calculate_2(self) -> int:
         """
         _calculate_2
         """
 
-    def solve(self):
+    def solve(self) -> None:
         self.__stop_watch.start()
         print(f"sol 1: {self._calculate_1()} Time taken: {self.__stop_watch.lap()}")
 
         print(f"sol 2: {self._calculate_2()} Time taken: {self.__stop_watch.stop()}")
 
 
-def load_input(day, test):
+def load_input(day: int, test: int) -> List:
     file_name = f"y_2021/input_day{day}{'_test'if test else ''}.txt"
     with open(file_name) as f:
         x = (f.read()).split("\n")
@@ -63,7 +64,7 @@ def load_input(day, test):
     return x
 
 
-def main():
+def main() -> None:
     """"""
     parser = argparse.ArgumentParser()
     parser.add_argument("--day", type=int, help="day as a number")

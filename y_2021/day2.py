@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from dataclasses import dataclass
 from typing import List
 
@@ -39,31 +41,31 @@ class Position:
 
 @dataclass
 class Command:
-    move: int
+    move: str
     amount: int
 
     @staticmethod
-    def from_instruction(instruction: List):
+    def from_instruction(instruction: List) -> Command:
         return Command(instruction[0], int(instruction[1]))
 
 
 class Day(AoCDay):
-    def __init__(self, test=0):
+    def __init__(self, test: int = 0) -> None:
         super().__init__(__name__.split(".")[1].replace("day", ""), test)
 
-    def _preprocess_input(self):
+    def _preprocess_input(self) -> None:
         self.__input_data = self._input_data
 
-    def _calculate_1(self):
+    def _calculate_1(self) -> int:
         instructions = self.__input_data
         position = Position(0, 0)
         for instruction in instructions:
-            command = Command.from_instruction(instruction.split(" "))
+            command: Command = Command.from_instruction(instruction.split(" "))
             position = COMMANDS_1[command.move](command.amount, position)
 
         return position.horizontal_position * position.depth
 
-    def _calculate_2(self):
+    def _calculate_2(self) -> int:
         instructions = self.__input_data
         position = Position(0, 0, 0)
         for instruction in instructions:

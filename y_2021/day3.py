@@ -1,39 +1,41 @@
+from typing import List
+
 from .common import AoCDay
 from .utils import decimal_from_binary
 
 
 class Element:
-    def __init__(self, digit):
+    def __init__(self, digit: str) -> None:
         self.__digit = int(digit)
         self.__valid = True
 
-    def digit(self):
+    def digit(self) -> int:
         return self.__digit
 
-    def invalidate(self):
+    def invalidate(self) -> None:
         self.__valid = False
 
-    def validate(self):
+    def validate(self) -> None:
         self.__valid = True
 
-    def valid(self):
+    def valid(self) -> int:
         return self.__valid
 
 
 class Diagnostic:
-    def __init__(self):
-        self.__rows = []
-        self.__columns = []
+    def __init__(self) -> None:
+        self.__rows: List = []
+        self.__columns: List = []
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return "\n".join([str(list(rows)) for rows in self.__rows])
 
-    def reset(self):
+    def reset(self) -> None:
         for row in self.__rows:
             for element in row:
                 element.validate()
 
-    def add_row(self, number):
+    def add_row(self, number: str) -> None:
         self.__rows.append([])
         for column, digit in enumerate(number):
             element = Element(digit)
@@ -42,7 +44,7 @@ class Diagnostic:
                 self.__columns.append([])
             self.__columns[column].append(element)
 
-    def gamma(self):
+    def gamma(self) -> List:
         result = []
         for x in self.__columns:
             if sum(int(i.digit()) for i in x) > len(x) // 2:
@@ -51,7 +53,7 @@ class Diagnostic:
                 result.append(0)
         return result
 
-    def epsilon(self):
+    def epsilon(self) -> List:
         result = []
         for x in self.__columns:
             if sum(int(i.digit()) for i in x) < len(x) // 2:
@@ -60,7 +62,7 @@ class Diagnostic:
                 result.append(0)
         return result
 
-    def oxygen(self):
+    def oxygen(self) -> List:
         self.reset()
         for c, x in enumerate(self.__columns):
             keep = (
@@ -82,7 +84,7 @@ class Diagnostic:
                 break
         return rows[0]
 
-    def c02(self):
+    def c02(self) -> List:
         self.reset()
         for c, x in enumerate(self.__columns):
             keep = (
@@ -106,20 +108,20 @@ class Diagnostic:
 
 
 class Day(AoCDay):
-    def __init__(self, test=0):
+    def __init__(self, test: int = 0) -> None:
         super().__init__(__name__.split(".")[1].replace("day", ""), test)
 
-    def _preprocess_input(self):
-        self.__diagnostic = Diagnostic()
+    def _preprocess_input(self) -> None:
+        self.__diagnostic: Diagnostic = Diagnostic()
         for number in self._input_data:
             self.__diagnostic.add_row(number)
 
-    def _calculate_1(self):
+    def _calculate_1(self) -> int:
         return decimal_from_binary(self.__diagnostic.gamma()) * decimal_from_binary(
             self.__diagnostic.epsilon()
         )
 
-    def _calculate_2(self):
+    def _calculate_2(self) -> int:
         return decimal_from_binary(self.__diagnostic.oxygen()) * decimal_from_binary(
             self.__diagnostic.c02()
         )
