@@ -1,5 +1,6 @@
-from .common import AoCDay
 from collections import defaultdict
+
+from .common import AoCDay
 
 
 class Day(AoCDay):

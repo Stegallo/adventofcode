@@ -1,5 +1,6 @@
-from .common import AoCDay
 from typing import Dict
+
+from .common import AoCDay
 
 
 class Element:
