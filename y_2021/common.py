@@ -24,8 +24,8 @@ class AoCDay(ABC):
     """
 
     @abstractmethod
-    def __init__(self, day):
-        self._input_data = load_input(day)
+    def __init__(self, day, test):
+        self._input_data = load_input(day, test)
         self._preprocess_input()
         self.__stop_watch = StopWatch()
 
@@ -54,8 +54,9 @@ class AoCDay(ABC):
         print(f"sol 2: {self._calculate_2()} Time taken: {self.__stop_watch.stop()}")
 
 
-def load_input(day):
-    with open(f"y_2021/input_day{day}.txt") as f:
+def load_input(day, test):
+    file_name = f"y_2021/input_day{day}{'_test'if test else ''}.txt"
+    with open(file_name) as f:
         x = (f.read()).split("\n")
         if x[-1] == "":
             del x[-1]
@@ -65,12 +66,13 @@ def load_input(day):
 def main():
     """"""
     parser = argparse.ArgumentParser()
-    parser.add_argument("day", type=int, help="day as a number")
+    parser.add_argument("--day", type=int, help="day as a number")
+    parser.add_argument("--test", type=int, help="test flag")
     args = parser.parse_args()
 
     module = importlib.import_module(f"y_2021.day{args.day}")
 
-    day = getattr(module, "Day")()
+    day = getattr(module, "Day")(test=args.test)
     day.solve()
 
 

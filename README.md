@@ -15,10 +15,18 @@ copy the input of the day inside the file
 ```
 y_20xy/input_day<day>.txt
 ```
+you can create a test file with name
+```
+y_20xy/input_day<day>_test.txt
+```
 
 inside the container, run the command (for years after 2019)
 ```
-python -m y_20xy <day>
+python -m y_20xy --day <day>
+```
+if you want to run against the test file
+```
+python -m y_20xy --day <day> --test 1
 ```
 
 inside the container, run the command (for years before 2019)

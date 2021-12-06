@@ -7,13 +7,13 @@ from y_2021.common import AoCDay, load_input, main
 def test_load_input_string():
     with patch("y_2021.common.open") as open_patch:
         open_patch().__enter__().read = lambda: "hello"
-        assert load_input(0) == ["hello"]
+        assert load_input(0, 0) == ["hello"]
 
 
 def test_load_input_multiline():
     with patch("y_2021.common.open") as open_patch:
         open_patch().__enter__().read = lambda: "hello\nworld\n"
-        assert load_input(0) == ["hello", "world"]
+        assert load_input(0, 0) == ["hello", "world"]
 
 
 def test_main():
@@ -26,7 +26,7 @@ def test_main():
 
 class MockAoCDay(AoCDay):
     def __init__(self):
-        super().__init__(0)
+        super().__init__(0, 0)
 
     def _calculate_1(self):
         pass
