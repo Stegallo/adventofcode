@@ -11,8 +11,8 @@ class Day(AoCDay):
     def _calculate_1(self):
         data = self.__input_data
 
-        return sum([data[index] < value for index, value in enumerate(data[1:])])
+        return sum(data[index] < value for index, value in enumerate(data[1:]))
 
     def _calculate_2(self):
         data = self.__input_data
-        return sum([data[index] < value for index, value in enumerate(data[3:])])
+        return sum(data[index] < value for index, value in enumerate(data[3:]))
