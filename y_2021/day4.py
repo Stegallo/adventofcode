@@ -1,4 +1,5 @@
 from .common import AoCDay
+from typing import Dict
 
 
 class Element:
@@ -75,7 +76,6 @@ class Day(AoCDay):
 
             for board in boards:
                 if is_winner := board.winner():
-                    winner_board = board
                     break
             if is_winner:
                 break
@@ -94,7 +94,6 @@ class Day(AoCDay):
                     boards.remove(board)
 
             if len(boards) == 0:
-                winner_board = board
                 break
 
         return board.sum_unmarked() * int(i)

@@ -1,6 +1,4 @@
 from .common import AoCDay
-import copy
-from typing import Dict
 from .utils import decimal_from_binary
 
 
