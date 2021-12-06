@@ -28,7 +28,7 @@ class Diagnostic:
         self.__columns = []
 
     def __repr__(self):
-        return "\n".join([str([row for row in rows]) for rows in self.__rows])
+        return "\n".join([str(list(rows)) for rows in self.__rows])
 
     def reset(self):
         for row in self.__rows:
@@ -47,7 +47,7 @@ class Diagnostic:
     def gamma(self):
         result = []
         for x in self.__columns:
-            if sum([int(i.digit()) for i in x]) > len(x) // 2:
+            if sum(int(i.digit()) for i in x) > len(x) // 2:
                 result.append(1)
             else:
                 result.append(0)
@@ -56,7 +56,7 @@ class Diagnostic:
     def epsilon(self):
         result = []
         for x in self.__columns:
-            if sum([int(i.digit()) for i in x]) < len(x) // 2:
+            if sum(int(i.digit()) for i in x) < len(x) // 2:
                 result.append(1)
             else:
                 result.append(0)

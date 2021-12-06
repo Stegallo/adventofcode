@@ -7,7 +7,7 @@ class Day(AoCDay):
         super().__init__(__name__.split(".")[1].replace("day", ""), test)
 
     def _preprocess_input(self):
-        self.__input_data = [i for i in self._input_data]
+        self.__input_data = list(self._input_data)
 
     def _calculate_1(self):
         tabs = defaultdict(int)
@@ -23,9 +23,7 @@ class Day(AoCDay):
                 for i in range(l[0], l[1] + 1):
                     tabs[(i, int(start[1]))] += 1
 
-        result = sum(1 for i in tabs.values() if i >= 2)
-
-        return result
+        return sum(i >= 2 for i in tabs.values())
 
     def _calculate_2(self):
         tabs = defaultdict(int)
@@ -42,22 +40,9 @@ class Day(AoCDay):
                     tabs[(i, int(start[1]))] += 1
             elif abs(int(start[0]) - int(end[0])) == abs(int(start[1]) - int(end[1])):
                 # print("diagonalley")
-                if int(start[0]) > int(end[0]):
-                    # print("going left")
-                    oriz = -1
-                else:
-                    # print("going right")
-                    oriz = 1
-                if int(start[1]) > int(end[1]):
-                    # print("going down")
-                    vert = -1
-                else:
-                    # print("going up")
-                    vert = 1
-
+                oriz = -1 if int(start[0]) > int(end[0]) else 1
+                vert = -1 if int(start[1]) > int(end[1]) else 1
                 for i in range(abs(int(start[0]) - int(end[0])) + 1):
                     tabs[(int(start[0]) + i * oriz, int(start[1]) + i * vert)] += 1
 
-        result = sum(1 for i in tabs.values() if i >= 2)
-
-        return result
+        return sum(i >= 2 for i in tabs.values())

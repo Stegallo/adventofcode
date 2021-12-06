@@ -23,7 +23,7 @@ class Board:
         self.__elements: Dict[int, Element] = {}
 
     def __repr__(self):
-        return "\n".join([str([row for row in rows]) for rows in self.__rows])
+        return "\n".join([str(list(rows)) for rows in self.__rows])
 
     def add_row(self, row_board):
         self.__rows.append([])
@@ -37,21 +37,16 @@ class Board:
 
     def winner(self):
         for i in self.__rows:
-            if all([j.called() for j in i]):
+            if all(j.called() for j in i):
                 return True
-        for i in self.__columns:
-            if all([j.called() for j in i]):
-                return True
-        return False
+        return any(all(j.called() for j in i) for i in self.__columns)
 
     def flag(self, number: int):
         if self.__elements.get(number):
             self.__elements.get(number).call()
 
     def sum_unmarked(self):
-        return sum(
-            [key for key, value in self.__elements.items() if not value.called()]
-        )
+        return sum(key for key, value in self.__elements.items() if not value.called())
 
 
 class Day(AoCDay):
@@ -59,7 +54,7 @@ class Day(AoCDay):
         super().__init__(__name__.split(".")[1].replace("day", ""), test)
 
     def _preprocess_input(self):
-        self.__input_data = [i for i in self._input_data]
+        self.__input_data = list(self._input_data)
         self.__extracts = self.__input_data[0].split(",")
         self.__boards = []
 
