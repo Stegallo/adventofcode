@@ -63,6 +63,5 @@ def test_calculate_2():
 def test_complete():
     day._input_data = load_input(__name__.replace("test_2021_day", ""), 1)
     day._preprocess_input()
-    print(day._input_data)
     assert day._calculate_1() == 150
     assert day._calculate_2() == 900
