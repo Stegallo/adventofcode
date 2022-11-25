@@ -1,0 +1,31 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.4.0
+    hooks:
+      - id: end-of-file-fixer
+        exclude: "docs/.*"
+      - id: trailing-whitespace
+        args: [ --markdown-linebreak-ext=md]
+        exclude: "docs/.*"
+      - id: check-json
+        exclude: "docs/.*"
+      - id: check-yaml
+        args: [ --unsafe ]
+        exclude: "docs/.*"
+      - id: check-added-large-files
+        exclude: "docs/.*"
+      - id: check-ast
+        exclude: "docs/.*"
+  - repo: https://github.com/pycqa/flake8
+    rev: 3.8.4
+    hooks:
+      - id: flake8
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v0.991
+    hooks:
+      - id: mypy
+  - repo: https://github.com/Zac-HD/shed
+    rev: 0.10.7
+    hooks:
+      - id: shed
+        types_or: [python, markdown, rst]
