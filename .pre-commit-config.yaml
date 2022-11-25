@@ -16,14 +16,6 @@ repos:
         exclude: "docs/.*"
       - id: check-ast
         exclude: "docs/.*"
-  - repo: https://github.com/timothycrosley/isort
-    rev: 5.7.0
-    hooks:
-      - id: isort
-  - repo: https://github.com/psf/black
-    rev: 20.8b1
-    hooks:
-      - id: black
   - repo: https://github.com/pycqa/flake8
     rev: 3.8.4
     hooks:
@@ -32,3 +24,8 @@ repos:
     rev: v0.991
     hooks:
       - id: mypy
+  - repo: https://github.com/Zac-HD/shed
+    rev: 0.10.7
+    hooks:
+      - id: shed
+        types_or: [python, markdown, rst]

@@ -55,7 +55,7 @@ class AoCDay(ABC):
 
 
 def load_input(day, test):
-    file_name = f"y_2021/input_day{day}{'_test'if test else ''}.txt"
+    file_name = f"y_2022/input_day{day}{'_test'if test else ''}.txt"
     with open(file_name) as f:
         x = (f.read()).split("\n")
         if x[-1] == "":
