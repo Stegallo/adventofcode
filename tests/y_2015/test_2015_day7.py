@@ -14,15 +14,12 @@ def test_parse():
 
 def test_inner_1_value():
     with patch("y_2015.day7.WIRING", defaultdict(Container)):
-        assert (
-            inner_1(
-                [
-                    "123 -> x",
-                    "456 -> y",
-                ]
-            )
-            == {"x": 123, "y": 456}
-        )
+        assert inner_1(
+            [
+                "123 -> x",
+                "456 -> y",
+            ]
+        ) == {"x": 123, "y": 456}
 
 
 def test_inner_1_direct():
@@ -97,15 +94,12 @@ def test_inner_1_bis():
 
 def test_inner_1_not_existing():
     with patch("y_2015.day7.WIRING", defaultdict(Container)):
-        assert (
-            inner_1(
-                [
-                    "x -> y",
-                    "123 -> x",
-                ]
-            )
-            == {"x": 123, "y": 123}
-        )
+        assert inner_1(
+            [
+                "x -> y",
+                "123 -> x",
+            ]
+        ) == {"x": 123, "y": 123}
 
 
 def test_calculate_1():
