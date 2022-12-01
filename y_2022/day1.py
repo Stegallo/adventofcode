@@ -6,32 +6,19 @@ class Day(AoCDay):
         super().__init__(__name__.split(".")[1].replace("day", ""), test)
 
     def _preprocess_input(self):
-        self.__input_data = [i for i in self._input_data]
+        self.__input_data = []
+        sublist = []
+        for c, elem in enumerate(self._input_data):
+            if elem != "":
+                sublist.append(int(elem))
+                if c == len(self._input_data) - 1:
+                    self.__input_data.append(sublist)
+            else:
+                self.__input_data.append(sublist)
+                sublist = []
 
     def _calculate_1(self):
-        max = 0
-        partial = 0
-        for i in self.__input_data:
-            if i == "":
-                if partial > max:
-                    max = partial
-                partial = 0
-            else:
-                partial += int(i)
-
-        return max
+        return max(sum(i) for i in self.__input_data)
 
     def _calculate_2(self):
-        partials = []
-        partial = 0
-        counter = 0
-        for i in self.__input_data:
-            if i == "":
-                partials.append(partial)
-                partial = 0
-                counter += 1
-            else:
-                partial += int(i)
-
-        partials = sorted(partials)
-        return sum(partials[-3:])
+        return sum(sorted([sum(i) for i in self.__input_data])[-3:])
