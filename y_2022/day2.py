@@ -2,8 +2,15 @@ from dataclasses import dataclass
 
 from .common import AoCDay
 
-OPPONENT_MAP = {"A": "R", "B": "P", "C": "S"}
-PLAYER_MAP = {"X": "R", "Y": "P", "Z": "S"}
+OPPONENT_MAP = {"A": "ROCK", "B": "PAPER", "C": "SCISSORS"}
+PLAYER_MAP = {"X": "ROCK", "Y": "PAPER", "Z": "SCISSORS"}
+
+WINNING_PAIRS = [
+    # second entry defeats first
+    ("SCISSORS", "ROCK"),
+    ("PAPER", "SCISSORS"),
+    ("ROCK", "PAPER"),
+]
 
 
 @dataclass
@@ -13,16 +20,12 @@ class RPS_Round:
     opponent: str
     player: str
 
-    shape_values = {"R": 1, "P": 2, "S": 3}
+    shape_values = {"ROCK": 1, "PAPER": 2, "SCISSORS": 3}
 
     def __outcome(self):  # sourcery skip: assign-if-exp, reintroduce-else
         if self.opponent == self.player:
             return 3
-        if self.opponent == "S" and self.player == "R":
-            return 6
-        if self.opponent == "P" and self.player == "S":
-            return 6
-        if self.opponent == "R" and self.player == "P":
+        if (self.opponent, self.player) in WINNING_PAIRS:
             return 6
         return 0
 
@@ -38,23 +41,13 @@ class Day(AoCDay):
     def _preprocess_input(self):
         self.__input_data = self._input_data[0]
 
-    def __strategy(self, x):
-        if x[1] == "Y":  # draw
-            return OPPONENT_MAP[x[0]]
-        if x[1] == "X":  # lose
-            if OPPONENT_MAP[x[0]] == "R":
-                return "S"
-            if OPPONENT_MAP[x[0]] == "S":
-                return "P"
-            if OPPONENT_MAP[x[0]] == "P":
-                return "R"
-        if x[1] == "Z":  # win
-            if OPPONENT_MAP[x[0]] == "R":
-                return "P"
-            if OPPONENT_MAP[x[0]] == "S":
-                return "R"
-            if OPPONENT_MAP[x[0]] == "P":
-                return "S"
+    def __strategy(self, raw_round):
+        if raw_round[1] == "Y":  # draw
+            return OPPONENT_MAP[raw_round[0]]
+        if raw_round[1] == "X":  # lose
+            return {i[1]: i[0] for i in WINNING_PAIRS}[OPPONENT_MAP[raw_round[0]]]
+        if raw_round[1] == "Z":  # win
+            return {i[0]: i[1] for i in WINNING_PAIRS}[OPPONENT_MAP[raw_round[0]]]
 
     def _calculate_1(self):
         incr = 0
