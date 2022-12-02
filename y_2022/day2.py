@@ -11,7 +11,7 @@ class Day(AoCDay):
         super().__init__(__name__.split(".")[1].replace("day", ""), test)
 
     def _preprocess_input(self):
-        self.__input_data = [[i for i in chunk] for chunk in self._input_data][0]
+        self.__input_data = [list(chunk) for chunk in self._input_data][0]
         # self.__input_data = [[int(i) for i in chunk] for chunk in self._input_data]
         # self.__input_data = [[i for i in chunk] for chunk in self._input_data]
 
@@ -57,13 +57,12 @@ class Day(AoCDay):
                     m = "P"
                 elif MAP[r[0]] == "P":
                     m = "R"
-            else:  # win
-                if MAP[r[0]] == "R":
-                    m = "P"
-                elif MAP[r[0]] == "S":
-                    m = "R"
-                elif MAP[r[0]] == "P":
-                    m = "S"
+            elif MAP[r[0]] == "R":
+                m = "P"
+            elif MAP[r[0]] == "S":
+                m = "R"
+            elif MAP[r[0]] == "P":
+                m = "S"
             print(f"{r[1]=},{m=}")
             v = d2[m]
             p = 0
