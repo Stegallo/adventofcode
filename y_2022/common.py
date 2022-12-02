@@ -2,6 +2,7 @@ import argparse
 import importlib
 from abc import ABC, abstractmethod
 from datetime import datetime
+from typing import List
 
 
 class StopWatch:
@@ -54,13 +55,15 @@ class AoCDay(ABC):
         print(f"sol 2: {self._calculate_2()} Time taken: {self.__stop_watch.stop()}")
 
 
-def load_input(day, test):
+def load_input(day, test) -> List[List[str]]:
     file_name = f"y_2022/input_day{day}{'_test'if test else ''}.txt"
     with open(file_name) as f:
-        x = (f.read()).split("\n")
-        if x[-1] == "":
-            del x[-1]
-    return x
+        raw_string = f.read()
+        if raw_string and raw_string[-1] == "\n":
+            raw_string = raw_string[:-1]
+        chunks = raw_string.split("\n\n")
+
+    return [k.split("\n") for k in chunks]
 
 
 def main():
