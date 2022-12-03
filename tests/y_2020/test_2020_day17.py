@@ -241,7 +241,7 @@ def test__preprocess_input():
 
 def test_iteration():
     print()
-    return
+    return  # sourcery skip: remove-unreachable-code
     day._input_data = [
         ".#.",
         "..#",
@@ -476,7 +476,7 @@ def test_iteration():
 
 def test_calculate_1():
     print()
-    return
+    return  # sourcery skip: remove-unreachable-code
     day._input_data = [
         ".#.",
         "..#",
@@ -488,7 +488,7 @@ def test_calculate_1():
 
 def test_calculate_2():
     print()
-    return
+    return  # sourcery skip: remove-unreachable-code
     day._input_data = [
         ".#.",
         "..#",

@@ -15,13 +15,13 @@ def test__preprocess_input():
 
 def test_calculate_1():
     print()
-    return
+    return  # sourcery skip: remove-unreachable-code
     day._Day__input = ["0,3,6"]
     assert day._calculate_1() == 436
 
 
 def test_calculate_2():
     print()
-    return
+    return  # sourcery skip: remove-unreachable-code
     day._Day__input = ["0,3,6"]
     assert day._calculate_2() == 175594
