@@ -24,6 +24,9 @@ repos:
     rev: v0.991
     hooks:
       - id: mypy
+        verbose: true
+        args: [--show-error-codes]
+        additional_dependencies: ['types-requests']
   - repo: https://github.com/Zac-HD/shed
     rev: 0.10.7
     hooks:
