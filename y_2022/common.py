@@ -4,6 +4,8 @@ from abc import ABC, abstractmethod
 from datetime import datetime
 from typing import List
 
+from .get_file import pull_file
+
 
 class StopWatch:
     def __init__(self):
@@ -55,13 +57,25 @@ class AoCDay(ABC):
         print(f"sol 2: {self._calculate_2()} Time taken: {self.__stop_watch.stop()}")
 
 
-def load_input(day, test) -> List[List[str]]:
+def get_file_content(day: str, test):
     file_name = f"y_2022/input_day{day}{'_test'if test else ''}.txt"
-    with open(file_name) as f:
-        raw_string = f.read()
-        if raw_string and raw_string[-1] == "\n":
-            raw_string = raw_string[:-1]
-        chunks = raw_string.split("\n\n")
+    try:
+        with open(file_name) as f:
+            raw_string = f.read()
+    except FileNotFoundError:
+        pull_file(day)
+        with open(file_name) as f:
+            raw_string = f.read()
+    return raw_string
+
+
+def load_input(day, test) -> List[List[str]]:
+
+    raw_string = get_file_content(day, test)
+
+    if raw_string and raw_string[-1] == "\n":
+        raw_string = raw_string[:-1]
+    chunks = raw_string.split("\n\n")
 
     return [k.split("\n") for k in chunks]
 
