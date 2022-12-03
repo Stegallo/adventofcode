@@ -1,0 +1,16 @@
+import requests
+
+S = requests.Session()
+S.headers["User-Agent"] = "github.com/stegallo"
+URL = "https://adventofcode.com/{:d}/day/{:d}/{:s}"
+YEAR, DAY = 2022, 2
+S.cookies.set(
+    "session",
+)
+part = 1
+answer = 10310
+print("Submitting day {} part {} answer: {}\n", DAY, part, answer)
+resp = S.post(URL.format(YEAR, DAY, "answer"), data={"level": part, "answer": answer})
+if resp.status_code != 200:
+    print("ERROR: response {}, url: {}\n", resp.status_code, resp.url)
+print(resp.text.lower())
