@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import requests
 
 from .secret import SESSION
@@ -10,6 +12,5 @@ def pull_file(day: str):
     YEAR, DAY = 2022, int(day)
     S.cookies.set("session", SESSION)
     r = S.get(URL.format(YEAR, DAY, "input"))
-    r.text
     with open(f"y_{YEAR}/input_day{DAY}.txt", "w") as f:
         f.write(r.text)
