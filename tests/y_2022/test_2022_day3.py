@@ -9,6 +9,17 @@ with patch("builtins.open", mock_open(read_data="0")):
     day = Day()
 
 
+def test_get_priority():
+    assert day._Day__get_priority("p") == 16
+    assert day._Day__get_priority("L") == 38
+    assert day._Day__get_priority("P") == 42
+    assert day._Day__get_priority("v") == 22
+    assert day._Day__get_priority("t") == 20
+    assert day._Day__get_priority("s") == 19
+    assert day._Day__get_priority("r") == 18
+    assert day._Day__get_priority("Z") == 52
+
+
 def test__preprocess_input():
     day._input_data = [[]]
     day._preprocess_input()
