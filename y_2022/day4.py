@@ -1,4 +1,4 @@
-from typing import Set, Tuple
+from typing import Set
 
 from .common import AoCDay
 
@@ -10,28 +10,26 @@ class Day(AoCDay):
     def _preprocess_input(self):
         self.__input_data = self._input_data[0]
 
-    def __get_assignments(self, pair: str) -> Tuple[Set, Set]:
-        r = []
-        for k in pair.split(","):
-            a, b = k.split("-")
-            r.append(set(range(int(a), int(b) + 1)))
-        return r[0], r[1]
+    def __create_set(self, raw_range: str) -> Set:
+        range_start, range_end = raw_range.split("-")
+        return set(range(int(range_start), int(range_end) + 1))
 
     def _calculate_1(self):
-        tot = 0
-        for i in self.__input_data:
-            s, t = self.__get_assignments(i)
-            if s & t in [s, t]:
-                tot += 1
+        def overlaps(s: set, t: set) -> bool:
+            return s & t in [s, t]
 
-        return tot
+        return sum(
+            1
+            for i in self.__input_data
+            if overlaps(*(self.__create_set(k) for k in i.split(",")))
+        )
 
     def _calculate_2(self):
-        x = self.__input_data
-        tot = 0
-        for i in x:
-            s, t = self.__get_assignments(i)
-            if (s & t) != set():
-                tot += 1
+        def intersects(s: set, t: set) -> bool:
+            return s & t != set()
 
-        return tot
+        return sum(
+            1
+            for i in self.__input_data
+            if intersects(*(self.__create_set(k) for k in i.split(",")))
+        )
