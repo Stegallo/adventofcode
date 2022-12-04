@@ -14,13 +14,9 @@ class Day(AoCDay):
             y = i.split(",")
             a = y[0].split("-")
             b = y[1].split("-")
-            s = set()
-            for j in range(int(a[0]), int(a[1]) + 1):
-                s.add(j)
-            t = set()
-            for j in range(int(b[0]), int(b[1]) + 1):
-                t.add(j)
-            if (s & t) == s or (s & t) == t:
+            s = set(range(int(a[0]), int(a[1]) + 1))
+            t = set(range(int(b[0]), int(b[1]) + 1))
+            if s & t in [s, t]:
                 tot += 1
 
         return tot
@@ -32,12 +28,8 @@ class Day(AoCDay):
             y = i.split(",")
             a = y[0].split("-")
             b = y[1].split("-")
-            s = set()
-            for j in range(int(a[0]), int(a[1]) + 1):
-                s.add(j)
-            t = set()
-            for j in range(int(b[0]), int(b[1]) + 1):
-                t.add(j)
+            s = set(range(int(a[0]), int(a[1]) + 1))
+            t = set(range(int(b[0]), int(b[1]) + 1))
             if (s & t) != set():
                 tot += 1
 
