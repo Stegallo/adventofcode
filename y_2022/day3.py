@@ -10,7 +10,10 @@ class Day(AoCDay):
     def _preprocess_input(self):
         self.__input_data = self._input_data[0]
 
-    def __get_priority(self, char: str) -> int:
+    def __get_priority(
+        self,
+        char: str,
+    ) -> int:  # sourcery skip: assign-if-exp, reintroduce-else
         k = ord(char)
         if k <= 122 and k >= 97:
             return k - 96

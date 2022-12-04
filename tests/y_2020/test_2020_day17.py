@@ -249,6 +249,7 @@ def test_iteration():
     ]
     day._preprocess_input()
     day._Day__iteration3d()
+    # sourcery skip: remove-assert-true, remove-redundant-boolean
     assert True or day._Day__3dworld == [
         [
             [".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
