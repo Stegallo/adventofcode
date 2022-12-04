@@ -33,3 +33,8 @@ inside the container, run the command (for years before 2019)
 ```
 python y_20xy/common.py <day>
 ```
+
+note: to avoid tracking in git your credentials:
+```
+git update-index --assume-unchanged y_2022/secret.py
+```

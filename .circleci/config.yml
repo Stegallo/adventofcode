@@ -14,6 +14,10 @@ jobs:
             chmod +x ./cc-test-reporter
             ./cc-test-reporter before-build
       - run:
+          name: Install missing libs
+          command: |
+            python -m pip install -r docker/requirements.txt
+      - run:
           name: Run tests
           command: |
             python -m pytest --cov-report xml --cov-report term --cov .
