@@ -16,5 +16,5 @@ def test__preprocess_input():
 def test_complete():
     day._input_data = load_input(4, 1)
     day._preprocess_input()
-    assert day._calculate_1() == 0
-    assert day._calculate_2() == 0
+    assert day._calculate_1() == 2
+    assert day._calculate_2() == 4
