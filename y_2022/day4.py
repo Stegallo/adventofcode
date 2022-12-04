@@ -8,14 +8,17 @@ class Day(AoCDay):
     def _preprocess_input(self):
         self.__input_data = self._input_data[0]
 
+    def __get_assignments(self, pair: str):
+        r = []
+        for k in pair.split(","):
+            a = k.split("-")
+            r.append(set(range(int(a[0]), int(a[1]) + 1)))
+        return r
+
     def _calculate_1(self):
         tot = 0
         for i in self.__input_data:
-            y = i.split(",")
-            a = y[0].split("-")
-            b = y[1].split("-")
-            s = set(range(int(a[0]), int(a[1]) + 1))
-            t = set(range(int(b[0]), int(b[1]) + 1))
+            s, t = self.__get_assignments(i)
             if s & t in [s, t]:
                 tot += 1
 
@@ -25,11 +28,7 @@ class Day(AoCDay):
         x = self.__input_data
         tot = 0
         for i in x:
-            y = i.split(",")
-            a = y[0].split("-")
-            b = y[1].split("-")
-            s = set(range(int(a[0]), int(a[1]) + 1))
-            t = set(range(int(b[0]), int(b[1]) + 1))
+            s, t = self.__get_assignments(i)
             if (s & t) != set():
                 tot += 1
 
