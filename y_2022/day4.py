@@ -1,3 +1,5 @@
+from typing import Set, Tuple
+
 from .common import AoCDay
 
 
@@ -8,12 +10,12 @@ class Day(AoCDay):
     def _preprocess_input(self):
         self.__input_data = self._input_data[0]
 
-    def __get_assignments(self, pair: str):
+    def __get_assignments(self, pair: str) -> Tuple[Set, Set]:
         r = []
         for k in pair.split(","):
-            a = k.split("-")
-            r.append(set(range(int(a[0]), int(a[1]) + 1)))
-        return r
+            a, b = k.split("-")
+            r.append(set(range(int(a), int(b) + 1)))
+        return r[0], r[1]
 
     def _calculate_1(self):
         tot = 0
