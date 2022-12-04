@@ -14,9 +14,7 @@ class Day(AoCDay):
         k = ord(char)
         if k <= 122 and k >= 97:
             return k - 96
-        if k <= 90 and k >= 65:
-            return k - 64 + 26
-        return 0
+        return k - 64 + 26 if k <= 90 and k >= 65 else 0
 
     def _calculate_1(self):
         x = self.__input_data
