@@ -27,7 +27,7 @@ class Day(AoCDay):
 
     def __produce_output(self, stack) -> str:
         r = [
-            stack[i + 1].pop().replace("[", "").replace("]", "")
+            stack[i + 1][-1].replace("[", "").replace("]", "")
             for i in range(self.__max_rack)
         ]
 
