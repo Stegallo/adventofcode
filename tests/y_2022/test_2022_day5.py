@@ -23,7 +23,7 @@ def test__preprocess_input():
         ],
     ]
     day._preprocess_input()
-    assert day._Day__stack == {1: ["[Z]", "[N]"], 2: ["[M]", "[C]", "[D]"], 3: ["[P]"]}
+    assert day._Day__stack == {1: ["Z", "N"], 2: ["M", "C", "D"], 3: ["P"]}
     assert day._Day__max_rack == 3
 
 
