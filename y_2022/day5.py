@@ -1,3 +1,4 @@
+from collections import defaultdict
 from copy import deepcopy
 from typing import Dict, List
 
@@ -13,25 +14,17 @@ class Day(AoCDay):
 
     def __parse_stack(self) -> None:
         start = self._input_data[0]
-        self.__stack: Dict[int, List[str]] = {}
-        self.__max_rack = 0
-        for i in start[-1].strip().split("   "):
-            if not i:
-                break
-            self.__stack[int(i)] = []
-            self.__max_rack += 1
+        self.__stack: Dict[int, List[str]] = defaultdict(list)
+        self.__max_rack = sum(1 for _ in start[-1].strip().split("   "))
         for i in range(len(start) - 2, -1, -1):
             for j in range(self.__max_rack):
                 if container := start[i][j * 4 : (j + 1) * 4].strip():
-                    self.__stack[j + 1].append(container)
+                    self.__stack[j + 1].append(
+                        container.replace("[", "").replace("]", ""),
+                    )
 
     def __produce_output(self, stack) -> str:
-        r = [
-            stack[i + 1][-1].replace("[", "").replace("]", "")
-            for i in range(self.__max_rack)
-        ]
-
-        return "".join(r)
+        return "".join([stack[i + 1][-1] for i in range(self.__max_rack)])
 
     def _calculate_1(self):
         moves = self._input_data[1]
