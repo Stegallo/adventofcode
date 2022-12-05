@@ -22,24 +22,19 @@ class Day(AoCDay):
             # print(i)
             # print(start[i])
             for j in range(max_rack):
-                # print(d[str(j+1)])
-                container = start[i][j * 4 : (j + 1) * 4].strip()
-                if container:
+                if container := start[i][j * 4 : (j + 1) * 4].strip():
                     d[j + 1].append(container)
-                # print(start[i][j*4:(j+1)*4])
+                        # print(start[i][j*4:(j+1)*4])
         print(f"{d=}")
         for i in moves:
             # print(i.split(' '))
             (_, quantity, _, fro, _, to) = i.split(" ")
             print(quantity, fro, to)
-            for j in range(int(quantity)):
+            for _ in range(int(quantity)):
                 # print(j)
                 d[int(to)].append(d[int(fro)].pop())
         print(f"{d=}")
-        r = []
-        for i in range(max_rack):
-            r.append(d[i + 1].pop().replace("[", "").replace("]", ""))
-            # break
+        r = [d[i + 1].pop().replace("[", "").replace("]", "") for i in range(max_rack)]
         print("".join(r))
         # print(f"{d=}")
         # start[:-1]:
@@ -62,28 +57,23 @@ class Day(AoCDay):
             # print(i)
             # print(start[i])
             for j in range(max_rack):
-                # print(d[str(j+1)])
-                container = start[i][j * 4 : (j + 1) * 4].strip()
-                if container:
+                if container := start[i][j * 4 : (j + 1) * 4].strip():
                     d[j + 1].append(container)
-                # print(start[i][j*4:(j+1)*4])
+                        # print(start[i][j*4:(j+1)*4])
         print(f"{d=}")
         for i in moves:
             # print(i.split(' '))
             (_, quantity, _, fro, _, to) = i.split(" ")
             print(quantity, fro, to)
             t = []
-            for j in range(int(quantity)):
+            for _ in range(int(quantity)):
                 # print(j)
                 t.insert(0, d[int(fro)].pop())
             d[int(to)].extend(t)
-            # break
+                # break
         print(f"{d=}")
         # return
-        r = []
-        for i in range(max_rack):
-            r.append(d[i + 1].pop().replace("[", "").replace("]", ""))
-            # break
+        r = [d[i + 1].pop().replace("[", "").replace("]", "") for i in range(max_rack)]
         print("".join(r))
         # print(f"{d=}")
         # start[:-1]:
