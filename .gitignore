@@ -128,4 +128,4 @@ dmypy.json
 # Pyre type checker
 .pyre/
 input_day*.txt
-y_2022/secret.py
+y_2022/secret_backup.py
