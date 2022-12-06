@@ -10,10 +10,14 @@ class Day(AoCDay):
 
     def _solution(self, length: int) -> int:
         x = self.__input_data
-        for c, i in enumerate(x):
-            if len(set(x[c : c + length])) == length:
-                return c + length
-        return 0
+        return next(
+            (
+                c + length
+                for c, i in enumerate(x)
+                if len(set(x[c : c + length])) == length
+            ),
+            0,
+        )
 
     def _calculate_1(self):
         return self._solution(4)
