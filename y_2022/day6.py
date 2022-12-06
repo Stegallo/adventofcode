@@ -13,7 +13,7 @@ class Day(AoCDay):
         return next(
             (
                 c + length
-                for c, i in enumerate(x)
+                for c in range(len(x) - length)
                 if len(set(x[c : c + length])) == length
             ),
             0,
