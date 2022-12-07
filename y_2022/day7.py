@@ -15,10 +15,10 @@ def size(local_pos, folders_files, folders_dirs):
     local_size = sum(int(i.split()[0]) for i in folders_files[local_pos])
     # print(local_size)
     # print(f'{folders_dirs[local_pos]=}')
-    nested_size = 0
-    for i in folders_dirs[local_pos]:
-        # print(local_pos+'#'+i)
-        nested_size += size(local_pos + "#" + i, folders_files, folders_dirs)
+    nested_size = sum(
+        size(f"{local_pos}#{i}", folders_files, folders_dirs)
+        for i in folders_dirs[local_pos]
+    )
     sum_size = local_size + nested_size
     # print(f"{local_pos} has size {sum_size}")
     FOLDER_SIZES[local_pos] = sum_size
@@ -81,6 +81,6 @@ class Day(AoCDay):
         sorted_folder_sizes = dict(
             sorted(FOLDER_SIZES.items(), key=lambda item: item[1]),
         )
-        for k, v in sorted_folder_sizes.items():
+        for v in sorted_folder_sizes.values():
             if v > needed:
                 return v
