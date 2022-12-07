@@ -4,6 +4,7 @@ from .common import AoCDay
 
 TOT = 0
 FOLDER_SIZES = {}
+MIN_SIZE = 0
 
 
 def size(local_pos, folders_files, folders_dirs):
@@ -19,7 +20,7 @@ def size(local_pos, folders_files, folders_dirs):
         # print(local_pos+'#'+i)
         nested_size += size(local_pos + "#" + i, folders_files, folders_dirs)
     sum_size = local_size + nested_size
-    print(f"{local_pos} has size {sum_size}")
+    # print(f"{local_pos} has size {sum_size}")
     FOLDER_SIZES[local_pos] = sum_size
     if sum_size <= 100000:
         TOT += sum_size
@@ -64,25 +65,22 @@ class Day(AoCDay):
             else:
                 folders_files["#".join(current_pos)].append(i)
             # if i[0]==''
-        print(f"{current_pos=}")
-        print(f"{folders_dirs=}")
-        print(f"{folders_files=}")
+        # print(f"{current_pos=}")
+        # print(f"{folders_dirs=}")
+        # print(f"{folders_files=}")
         local_pos = "/"
-        print(f"{folders_files[local_pos]=}")
+        # print(f"{folders_files[local_pos]=}")
         size(local_pos, folders_files, folders_dirs)
-        print(FOLDER_SIZES)
+        # print(FOLDER_SIZES)
+
+        return TOT
+
+    def _calculate_2(self):
         needed = abs(70000000 - 30000000 - FOLDER_SIZES["/"])
-        print(needed)
+        # print(needed)
         sorted_folder_sizes = dict(
             sorted(FOLDER_SIZES.items(), key=lambda item: item[1]),
         )
         for k, v in sorted_folder_sizes.items():
             if v > needed:
-                print(k, v)
-                break
-        return TOT
-
-    def _calculate_2(self):
-        # x = self.__input_data
-        # print(f"{x=}")
-        return 0
+                return v
