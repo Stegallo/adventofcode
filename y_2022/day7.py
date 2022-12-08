@@ -1,4 +1,4 @@
-from typing import Any, List, Optional
+from typing import Dict, List, Optional
 
 from .common import AoCDay
 
@@ -7,8 +7,8 @@ class Folder:
     def __init__(self, name: str, parent: Optional["Folder"]) -> None:
         self.name = name
         self.parent = parent
-        self.dirs: List[Any] = []
-        self.files: List[Any] = []
+        self.dirs: List["Folder"] = []
+        self.files: List[str] = []
 
     @property
     def full_name(self):
@@ -32,11 +32,7 @@ class Day(AoCDay):
         super().__init__(__name__.split(".")[1].replace("day", ""), test)
 
     def _preprocess_input(self):
-        self.TOT = 0
-        self.FOLDER_SIZES = {}
-        self.MIN_SIZE = {}
-
-        self.folders = {}
+        self.__folders: Dict[str, Folder] = {}
         current_folder = None
         for i in self._input_data[0]:
             if i[0] == "$":
@@ -45,9 +41,9 @@ class Day(AoCDay):
                         current_folder = current_folder.parent
                     else:
                         f = Folder(i[5:], current_folder)
-                        self.folders[f.full_name] = f
+                        self.__folders[f.full_name] = f
                         if current_folder:
-                            current_folder.dirs.append(self.folders[f.full_name])
+                            current_folder.dirs.append(self.__folders[f.full_name])
                         current_folder = f
 
             elif "dir" not in i[:3]:
@@ -55,15 +51,15 @@ class Day(AoCDay):
 
     def _calculate_1(self):
         return sum(
-            i.total_size for i in self.folders.values() if i.total_size <= 100000
+            i.total_size for i in self.__folders.values() if i.total_size <= 100000
         )
 
     def _calculate_2(self):
-        needed = abs(70000000 - 30000000 - self.folders["/"].total_size)
+        needed = abs(70000000 - 30000000 - self.__folders["/"].total_size)
 
-        sorted_folder_sizes = dict(
-            sorted(self.folders.items(), key=lambda item: item[1].total_size),
+        sorted_folder = dict(
+            sorted(self.__folders.items(), key=lambda item: item[1].total_size),
         )
-        for v in sorted_folder_sizes.values():
+        for v in sorted_folder.values():
             if v.total_size > needed:
                 return v.total_size
