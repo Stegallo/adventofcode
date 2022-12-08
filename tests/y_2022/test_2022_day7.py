@@ -10,9 +10,9 @@ with patch("builtins.open", mock_open(read_data="$ ls")):
 
 
 def test__preprocess_input():
-    day._input_data = [[]]
+    day._input_data = [["$ cd /", "$ cd a"]]
     day._preprocess_input()
-    # assert day._Day__input_data == []
+    assert list(day._Day__folders.keys()) == ["/", "/#a"]
 
 
 def test_complete():
