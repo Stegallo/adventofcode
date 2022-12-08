@@ -3,12 +3,19 @@ from typing import Dict, List, Optional
 from .common import AoCDay
 
 
+class File:
+    def __init__(self, file: str) -> None:
+        raw_size, name = file.split()
+        self.size = int(raw_size)
+        self.name = name
+
+
 class Folder:
     def __init__(self, name: str, parent: Optional["Folder"]) -> None:
         self.name = name
         self.parent = parent
         self.dirs: List["Folder"] = []
-        self.files: List[str] = []
+        self.files: List[File] = []
 
     @property
     def full_name(self):
@@ -16,7 +23,7 @@ class Folder:
 
     @property
     def folder_size(self) -> int:
-        return sum(int(i.split()[0]) for i in self.files)
+        return sum(i.size for i in self.files)
 
     @property
     def nested_size(self) -> int:
@@ -47,7 +54,7 @@ class Day(AoCDay):
                         current_folder = f
 
             elif "dir" not in i[:3]:
-                current_folder.files.append(i)
+                current_folder.files.append(File(i))
 
     def _calculate_1(self):
         return sum(
