@@ -18,7 +18,7 @@ class Folder:
         self.files: List[File] = []
 
     @property
-    def full_name(self):
+    def full_name(self) -> str:
         return f"{self.parent.full_name}#{self.name}" if self.parent else self.name
 
     @property
@@ -56,17 +56,18 @@ class Day(AoCDay):
             elif "dir" not in i[:3]:
                 current_folder.files.append(File(i))
 
-    def _calculate_1(self):
+    def _calculate_1(self) -> int:
         return sum(
             i.total_size for i in self.__folders.values() if i.total_size <= 100000
         )
 
-    def _calculate_2(self):
+    def _calculate_2(self) -> int:
         needed = abs(70000000 - 30000000 - self.__folders["/"].total_size)
 
         sorted_folder = dict(
             sorted(self.__folders.items(), key=lambda item: item[1].total_size),
         )
-        for v in sorted_folder.values():
-            if v.total_size > needed:
-                return v.total_size
+        return next(
+            (v.total_size for v in sorted_folder.values() if v.total_size > needed),
+            0,
+        )
