@@ -1,30 +1,30 @@
-from collections import defaultdict
+from typing import Any, List, Optional
 
 from .common import AoCDay
 
-TOT = 0
-FOLDER_SIZES = {}
-MIN_SIZE = 0
 
+class Folder:
+    def __init__(self, name: str, parent: Optional["Folder"]) -> None:
+        self.name = name
+        self.parent = parent
+        self.dirs: List[Any] = []
+        self.files: List[Any] = []
 
-def size(local_pos, folders_files, folders_dirs):
-    global TOT
-    global FOLDER_SIZES
-    # print(f'{folders_files[local_pos]=}')
+    @property
+    def full_name(self):
+        return f"{self.parent.full_name}#{self.name}" if self.parent else self.name
 
-    local_size = sum(int(i.split()[0]) for i in folders_files[local_pos])
-    # print(local_size)
-    # print(f'{folders_dirs[local_pos]=}')
-    nested_size = sum(
-        size(f"{local_pos}#{i}", folders_files, folders_dirs)
-        for i in folders_dirs[local_pos]
-    )
-    sum_size = local_size + nested_size
-    # print(f"{local_pos} has size {sum_size}")
-    FOLDER_SIZES[local_pos] = sum_size
-    if sum_size <= 100000:
-        TOT += sum_size
-    return sum_size
+    @property
+    def folder_size(self) -> int:
+        return sum(int(i.split()[0]) for i in self.files)
+
+    @property
+    def nested_size(self) -> int:
+        return sum(i.total_size for i in self.dirs)
+
+    @property
+    def total_size(self) -> int:
+        return self.nested_size + self.folder_size
 
 
 class Day(AoCDay):
@@ -32,55 +32,38 @@ class Day(AoCDay):
         super().__init__(__name__.split(".")[1].replace("day", ""), test)
 
     def _preprocess_input(self):
-        # self.__input_data = [[int(i) for i in chunk] for chunk in self._input_data]
-        # print(f"{self._input_data=}")
-        self.__input_data = self._input_data[0]
+        self.TOT = 0
+        self.FOLDER_SIZES = {}
+        self.MIN_SIZE = {}
+
+        self.folders = {}
+        current_folder = None
+        for i in self._input_data[0]:
+            if i[0] == "$":
+                if i[2:4] == "cd":
+                    if ".." in i[5:]:
+                        current_folder = current_folder.parent
+                    else:
+                        f = Folder(i[5:], current_folder)
+                        self.folders[f.full_name] = f
+                        if current_folder:
+                            current_folder.dirs.append(self.folders[f.full_name])
+                        current_folder = f
+
+            elif "dir" not in i[:3]:
+                current_folder.files.append(i)
 
     def _calculate_1(self):
-        x = self.__input_data
-        current_pos = []
-        folders_files = defaultdict(list)
-        folders_dirs = defaultdict(list)
-        for i in x:
-            # print(f"{i=}")
-            # if '..' in i:
-            #     breakpoint()
-            if i[0] == "$":
-                # print(f'command {i}')
-                if i[2:4] == "cd":
-                    # print(f'cd {i}')
-                    if ".." in i[5:]:
-                        # print(f'up one level {i}, {current_pos=}')
-                        current_pos.pop()
-                    else:
-                        current_pos.append(i[5:])
-                        # print(f'go inside {i}, {current_pos=}')
-                # else:
-                #     if i[2:4]=='ls':
-                #         print(f'ls {i}')
-                #         folders['#'.join(current_pos)]={files:}
-            elif "dir" in i[:3]:
-                # print(f'command {i}')
-                folders_dirs["#".join(current_pos)].append(i[4:])
-            else:
-                folders_files["#".join(current_pos)].append(i)
-            # if i[0]==''
-        # print(f"{current_pos=}")
-        # print(f"{folders_dirs=}")
-        # print(f"{folders_files=}")
-        local_pos = "/"
-        # print(f"{folders_files[local_pos]=}")
-        size(local_pos, folders_files, folders_dirs)
-        # print(FOLDER_SIZES)
-
-        return TOT
+        return sum(
+            i.total_size for i in self.folders.values() if i.total_size <= 100000
+        )
 
     def _calculate_2(self):
-        needed = abs(70000000 - 30000000 - FOLDER_SIZES["/"])
-        # print(needed)
+        needed = abs(70000000 - 30000000 - self.folders["/"].total_size)
+
         sorted_folder_sizes = dict(
-            sorted(FOLDER_SIZES.items(), key=lambda item: item[1]),
+            sorted(self.folders.items(), key=lambda item: item[1].total_size),
         )
         for v in sorted_folder_sizes.values():
-            if v > needed:
-                return v
+            if v.total_size > needed:
+                return v.total_size
