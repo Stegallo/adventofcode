@@ -21,32 +21,21 @@ class Day(AoCDay):
         if i[1] in [0, self.max_h - 1]:
             return True
 
-        # visible from Top
-        visible_Top = True
-        for j in range(0, i[0]):
-            if self.__grid[(j, i[1])] >= self.__grid[(i)]:
-                visible_Top = False
-
-        # visible from Left
-        visible_Left = True
-        for j in range(0, i[1]):
-            if self.__grid[(i[0], j)] >= self.__grid[(i)]:
-                visible_Left = False
-
-        # visible from Bottom
-        visible_Bottom = True
-        for j in range(i[0] + 1, self.max_h):
-            if self.__grid[(j, i[1])] >= self.__grid[(i)]:
-                visible_Bottom = False
-
-        # visible from Right
-        visible_Right = True
-        for j in range(i[1] + 1, self.max_w):
-            if self.__grid[(i[0], j)] >= self.__grid[(i)]:
-                visible_Right = False
-
-        is_visible = visible_Top or visible_Left or visible_Bottom or visible_Right
-        return is_visible
+        visible_Top = all(
+            self.__grid[(j, i[1])] < self.__grid[(i)] for j in range(i[0])
+        )
+        visible_Left = all(
+            self.__grid[(i[0], j)] < self.__grid[(i)] for j in range(i[1])
+        )
+        visible_Bottom = all(
+            self.__grid[(j, i[1])] < self.__grid[(i)]
+            for j in range(i[0] + 1, self.max_h)
+        )
+        visible_Right = all(
+            self.__grid[(i[0], j)] < self.__grid[(i)]
+            for j in range(i[1] + 1, self.max_w)
+        )
+        return visible_Top or visible_Left or visible_Bottom or visible_Right
 
     def viewing_score(self, i):
         if i[0] in [0, self.max_w - 1]:
@@ -85,11 +74,7 @@ class Day(AoCDay):
         return score_Top * score_Left * score_Bottom * score_Right
 
     def _calculate_1(self):
-        t = 0
-        for i in self.__grid:
-            if self.is_visible(i):
-                t += 1
-        return t
+        return sum(bool(self.is_visible(i)) for i in self.__grid)
 
     def _calculate_2(self):
         t = 0
