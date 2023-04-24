@@ -65,7 +65,6 @@ class Day(AoCDay):
         for x in range(-1, 2):
             for y in range(-1, 2):
                 for z in range(-1, 2):
-
                     if x == y == z == 0:
                         continue
                     c += self.check_box3d(ck, cj, ci, x, y, z)

@@ -70,7 +70,6 @@ def get_file_content(day: str, test):
 
 
 def load_input(day, test) -> List[List[str]]:
-
     raw_string = get_file_content(day, test)
 
     if raw_string and raw_string[-1] == "\n":
