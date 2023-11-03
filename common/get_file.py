@@ -5,7 +5,7 @@ import requests
 from secret import SESSION
 
 
-def pull_file(year:str, day: str):
+def pull_file(year: str, day: str):
     S = requests.Session()
     S.headers["User-Agent"] = "github.com/stegallo"
     URL = "https://adventofcode.com/{:d}/day/{:d}/{:s}"

@@ -13,7 +13,7 @@ class AoCDay(ABC):
     """
 
     @abstractmethod
-    def __init__(self, path:str, test: bool):
+    def __init__(self, path: str, test: bool):
         day_info = AoCDay.get_day_info(path)
         self._year = day_info.year
         self._day = day_info.day
@@ -41,14 +41,13 @@ class AoCDay(ABC):
         """
 
     @staticmethod
-    def get_day_info(path:str):
+    def get_day_info(path: str):
         """
         TODO typehint
         """
         return DayInfo.from_path(path)
 
     def _load_input(self) -> List[List[str]]:
-
         raw_string = self._get_file_content()
 
         if raw_string and raw_string[-1] == "\n":
@@ -58,7 +57,9 @@ class AoCDay(ABC):
         return [k.split("\n") for k in chunks]
 
     def _get_file_content(self):
-        file_name = f"y_{self._year}/input_day{self._day}{'_test'if self._test else ''}.txt"
+        file_name = (
+            f"y_{self._year}/input_day{self._day}{'_test'if self._test else ''}.txt"
+        )
         try:
             with open(file_name) as f:
                 raw_string = f.read()
@@ -68,7 +69,6 @@ class AoCDay(ABC):
                 raw_string = f.read()
         return raw_string
 
-
     def solve(self):
         self.__stop_watch.start()
         print(f"sol 1: {self._calculate_1()} Time taken: {self.__stop_watch.lap()}")
@@ -76,8 +76,7 @@ class AoCDay(ABC):
         print(f"sol 2: {self._calculate_2()} Time taken: {self.__stop_watch.stop()}")
 
 
-class DayInfo():
-
+class DayInfo:
     year: int
     day: int
 

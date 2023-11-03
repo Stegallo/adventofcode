@@ -1,5 +1,6 @@
 from common.aoc import AoCDay
 
+
 class Day(AoCDay):
     def __init__(self, test=0):
         super().__init__(__name__, test)
