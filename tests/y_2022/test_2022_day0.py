@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from unittest.mock import mock_open, patch
 
-from y_2022.common import load_input
 from y_2022.day0 import Day
 
 with patch("builtins.open", mock_open(read_data="0")):
@@ -16,7 +15,7 @@ def test__preprocess_input():
 
 
 def test_complete():
-    day._input_data = load_input(0, 1)
+    day._input_data = day._load_input()
     day._preprocess_input()
     assert day._calculate_1() == 0
     assert day._calculate_2() == 0
