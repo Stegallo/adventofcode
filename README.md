@@ -33,5 +33,5 @@ python -m src --year <year> --day <day> --test 1
 
 note: to avoid tracking in git your credentials:
 ```
-git update-index --assume-unchanged y_2022/secret.py
+git update-index --assume-unchanged secret.py
 ```
