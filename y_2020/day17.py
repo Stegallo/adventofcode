@@ -56,9 +56,7 @@ class Day(AoCDay):
         if not self.validate_borders3d(ck, cj, ci, x, y, z):
             return 0
         elem = self.__3dworld[ci + z][cj + y][ck + x]
-        if elem == "#":
-            return 1
-        return 0
+        return 1 if elem == "#" else 0
 
     def count_active_nb3d(self, ci, cj, ck):
         c = 0
@@ -82,9 +80,7 @@ class Day(AoCDay):
         if not self.validate_borders4d(ck, cj, ci, ch, x, y, z, w):
             return 0
         elem = self.__4dworld[ch + w][ci + z][cj + y][ck + x]
-        if elem == "#":
-            return 1
-        return 0
+        return 1 if elem == "#" else 0
 
     def count_active_nb4d(self, ch, ci, cj, ck):
         c = 0
@@ -123,7 +119,7 @@ class Day(AoCDay):
         self.__4dworld = new_world
 
     def _calculate_1(self):
-        for i in range(NUM_ITERATIONS):
+        for _ in range(NUM_ITERATIONS):
             self.__iteration3d()
 
         res = 0
@@ -135,7 +131,7 @@ class Day(AoCDay):
         return res
 
     def _calculate_2(self):
-        for i in range(NUM_ITERATIONS):
+        for _ in range(NUM_ITERATIONS):
             self.__iteration4d()
 
         res = 0
