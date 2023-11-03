@@ -48,7 +48,6 @@ class Day(AoCDay):
     def _calculate_2(self):
         c = 0
         for k, bagrules in self.__rules.items():
-
             self.enhance2(bagrules)
 
         for k, bagrule in self.__rules.items():
