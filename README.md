@@ -6,32 +6,29 @@
 <a href="https://codeclimate.com/github/Stegallo/adventofcode/maintainability"><img src="https://api.codeclimate.com/v1/badges/d3a26d2fed4f5d3b04c7/maintainability" /></a>
 # adventofcode
 
-to run the adventofcode environment:
+activate the adventofcode virtual environment:
 ```
-sh docker/run.sh
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements/base.txt
 ```
 
 copy the input of the day inside the file
 ```
 y_20xy/input_day<day>.txt
 ```
-you can create a test file with name
+you can create a test input file with name
 ```
 y_20xy/input_day<day>_test.txt
 ```
 
-inside the container, run the command (for years after 2019)
+run the command
 ```
-python -m y_20xy --day <day>
+python -m src --year <year> --day <day>
 ```
 if you want to run against the test file
 ```
-python -m y_20xy --day <day> --test 1
-```
-
-inside the container, run the command (for years before 2019)
-```
-python y_20xy/common.py <day>
+python -m src --year <year> --day <day> --test 1
 ```
 
 note: to avoid tracking in git your credentials:
