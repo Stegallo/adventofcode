@@ -6,6 +6,14 @@
 <a href="https://codeclimate.com/github/Stegallo/adventofcode/maintainability"><img src="https://api.codeclimate.com/v1/badges/d3a26d2fed4f5d3b04c7/maintainability" /></a>
 # adventofcode
 
+|    | 2015        | 2016        | 2017        | 2018        | 2019        | 2020        | 2021        | 2022        |
+| -  | -           | -           | -           | -           | -           | -           | -           | -           |
+| 01 | [✓][201501] |  |  |  |  |  |  |  |
+
+[201501]: https://github.com/Stegallo/adventofcode/blob/master/y_2015/day1.py
+
+## to run the code
+
 activate the adventofcode virtual environment:
 ```
 python3 -m venv .venv

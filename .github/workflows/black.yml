@@ -1,7 +1,7 @@
 name: Run Black
 on:
   push:
-    branches: [ master, restructure ]
+    branches: [ master ]
 jobs:
   runsBlack:
     runs-on: ubuntu-latest
