@@ -16,21 +16,19 @@ class Day(AoCDay):
     def _preprocess_input(self):
         x = {}
         for i in [i.split(" ") for i in self._input_data[:]]:
-            bag_color = i[0] + "#" + i[1]
+            bag_color = f"{i[0]}#{i[1]}"
             x[bag_color] = BagRule([], {}, {})
             c = 4
             while True:
                 try:
-                    needed_count = (
-                        0 if i[c - 2] + "#" + i[c - 1] == "no#other" else int(i[c - 3])
-                    )
+                    needed_count = 0 if f"{i[c - 2]}#{i[c - 1]}" == "no#other" else int(i[c - 3])
                 except Exception:
                     ...
                 if i[c] in ["bag.", "bags."]:
-                    x[bag_color].rules.append({i[c - 2] + "#" + i[c - 1]: needed_count})
+                    x[bag_color].rules.append({f"{i[c - 2]}#{i[c - 1]}": needed_count})
                     break
                 if i[c] in ["bag,", "bags,"]:
-                    x[bag_color].rules.append({i[c - 2] + "#" + i[c - 1]: needed_count})
+                    x[bag_color].rules.append({f"{i[c - 2]}#{i[c - 1]}": needed_count})
 
                 c += 1
         self.__rules = x
@@ -67,8 +65,7 @@ class Day(AoCDay):
                 bagrules.cache[k] = v
                 bagrules.extension[k] = v
             for i in rule:
-                x = self.enhance1(self.__rules[i])
-                if x:
+                if x := self.enhance1(self.__rules[i]):
                     c = 0
                     for k, v in x.items():
                         bagrules.extension[k] = v
@@ -87,8 +84,7 @@ class Day(AoCDay):
                 bagrules.cache[k] = v
                 bagrules.extension[k] = v
             for i in rule:
-                x = self.enhance2(self.__rules[i])
-                if x:
+                if x := self.enhance2(self.__rules[i]):
                     c = 0
                     for k, v in x.items():
                         bagrules.extension[k] = v
