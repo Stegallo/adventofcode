@@ -9,12 +9,15 @@
 |    | 2015        | 2016        | 2017        | 2018        | 2019        | 2020        | 2021        | 2022        |
 | -  | -           | -           | -           | -           | -           | -           | -           | -           |
 | 01 | [puzzle][201501p]</br>[✓][201501] |  |  |  |  |  |  |  |
-| 02 | [puzzle][201502p]</br>[✓][201501] |  |  |  |  |  |  |  |
+| 02 | [puzzle][201502p]</br>[✓][201502] |  |  |  |  |  |  |  |
+| 03 | [puzzle][201503p]</br>[✓][201503] |  |  |  |  |  |  |  |
 
 [201501]: https://github.com/Stegallo/adventofcode/blob/master/y_2015/day1.py
 [201501p]: https://adventofcode.com/2015/day/1
 [201502]: https://github.com/Stegallo/adventofcode/blob/master/y_2015/day2.py
 [201502p]: https://adventofcode.com/2015/day/2
+[201503]: https://github.com/Stegallo/adventofcode/blob/master/y_2015/day3.py
+[201503p]: https://adventofcode.com/2015/day/3
 
 ## to run the code
 
