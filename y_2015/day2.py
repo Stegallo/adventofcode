@@ -32,13 +32,7 @@ class Day(AoCDay):
         self.__input_data = [Present(*i.split('x')) for i in self._input_data[0]]
 
     def _calculate_1(self):
-        result = 0
-        for present in self.__input_data:
-            result+=present.wrapping_paper
-        return result
+        return sum(present.wrapping_paper for present in self.__input_data)
 
     def _calculate_2(self):
-        result = 0
-        for present in self.__input_data:
-            result+=present.ribbon
-        return result
+        return sum(present.ribbon for present in self.__input_data)
