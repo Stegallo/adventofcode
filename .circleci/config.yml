@@ -16,7 +16,8 @@ jobs:
       - run:
           name: Install missing libs
           command: |
-            python -m pip install -r docker/requirements.txt
+            python -m pip install -r requirements/base.txt
+            python -m pip install -r requirements/test.txt
       - run:
           name: Run tests
           command: |
