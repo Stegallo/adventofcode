@@ -2,8 +2,6 @@ from pydantic.dataclasses import dataclass
 
 from common.aoc import AoCDay
 
-OPERATIONS = {">": (1, 0), "<": (-1, 0), "^": (0, 1), "v": (0, -1)}
-
 
 @dataclass()
 class Position:
@@ -13,6 +11,14 @@ class Position:
     @property
     def hash(self):
         return f"x={self.x};y={self.y}"
+
+
+OPERATIONS = {
+    ">": Position(1, 0),
+    "<": Position(-1, 0),
+    "^": Position(0, 1),
+    "v": Position(0, -1),
+}
 
 
 @dataclass
@@ -27,8 +33,8 @@ class Santa:
         for i in self.sequence:
             move = OPERATIONS[i]
             self.current_position = Position(
-                self.current_position.x + move[0],
-                self.current_position.y + move[1],
+                self.current_position.x + move.x,
+                self.current_position.y + move.y,
             )
 
             self.grid.add(self.current_position.hash)
