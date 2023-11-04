@@ -23,20 +23,20 @@ class Santa:
 
     def deliver_presents(self):
         for i in self.sequence:
-            if i == ">":
-                self.current_position = Position(
-                    self.current_position.x + 1, self.current_position.y
-                )
             if i == "<":
                 self.current_position = Position(
                     self.current_position.x - 1, self.current_position.y
                 )
 
-            if i == "^":
+            elif i == ">":
+                self.current_position = Position(
+                    self.current_position.x + 1, self.current_position.y
+                )
+            elif i == "^":
                 self.current_position = Position(
                     self.current_position.x, self.current_position.y + 1
                 )
-            if i == "v":
+            elif i == "v":
                 self.current_position = Position(
                     self.current_position.x, self.current_position.y - 1
                 )
