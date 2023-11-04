@@ -1,4 +1,5 @@
 from pydantic.dataclasses import dataclass
+
 from common.aoc import AoCDay
 
 
