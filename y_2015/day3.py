@@ -9,7 +9,7 @@ class Position:
     y: int
 
     @property
-    def hash(self):
+    def hash(self) -> str:
         return f"x={self.x};y={self.y}"
 
 
@@ -26,15 +26,14 @@ class Santa:
     sequence: str
     current_position = Position(0, 0)
 
-    def set_grid(self, grid):
+    def set_grid(self, grid) -> None:
         self.grid = grid
 
-    def deliver_presents(self):
+    def deliver_presents(self) -> None:
         for i in self.sequence:
-            move = OPERATIONS[i]
             self.current_position = Position(
-                self.current_position.x + move.x,
-                self.current_position.y + move.y,
+                self.current_position.x + OPERATIONS[i].x,
+                self.current_position.y + OPERATIONS[i].y,
             )
 
             self.grid.add(self.current_position.hash)
@@ -44,7 +43,7 @@ class Day(AoCDay):
     def __init__(self, test=0):
         super().__init__(__name__, test)
 
-    def _preprocess_input(self):
+    def _preprocess_input(self) -> None:
         self.__santa = Santa(self._input_data[0][0])
         self.__real_santa = Santa(
             "".join([i for c, i in enumerate(self._input_data[0][0]) if c % 2 == 0])
@@ -53,13 +52,13 @@ class Day(AoCDay):
             "".join([i for c, i in enumerate(self._input_data[0][0]) if c % 2 != 0])
         )
 
-    def _calculate_1(self):
+    def _calculate_1(self) -> int:
         grid = {Position(0, 0).hash}
         self.__santa.set_grid(grid)
         self.__santa.deliver_presents()
         return len(self._Day__santa.grid)
 
-    def _calculate_2(self):
+    def _calculate_2(self) -> int:
         grid = {Position(0, 0).hash}
         self.__real_santa.set_grid(grid)
         self.__robo_santa.set_grid(grid)
