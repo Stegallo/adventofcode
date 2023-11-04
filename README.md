@@ -8,9 +8,13 @@
 
 |    | 2015        | 2016        | 2017        | 2018        | 2019        | 2020        | 2021        | 2022        |
 | -  | -           | -           | -           | -           | -           | -           | -           | -           |
-| 01 | [✓][201501] |  |  |  |  |  |  |  |
+| 01 | [puzzle][201501p]</br>[✓][201501] |  |  |  |  |  |  |  |
+| 02 | [puzzle][201502p]</br>[✓][201501] |  |  |  |  |  |  |  |
 
 [201501]: https://github.com/Stegallo/adventofcode/blob/master/y_2015/day1.py
+[201501p]: https://adventofcode.com/2015/day/1
+[201502]: https://github.com/Stegallo/adventofcode/blob/master/y_2015/day2.py
+[201502p]: https://adventofcode.com/2015/day/2
 
 ## to run the code
 
