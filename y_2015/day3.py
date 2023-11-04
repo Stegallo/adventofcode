@@ -2,6 +2,8 @@ from pydantic.dataclasses import dataclass
 
 from common.aoc import AoCDay
 
+OPERATIONS = {">": (1, 0), "<": (-1, 0), "^": (0, 1), "v": (0, -1)}
+
 
 @dataclass()
 class Position:
@@ -23,26 +25,13 @@ class Santa:
 
     def deliver_presents(self):
         for i in self.sequence:
-            if i == ">":
-                self.current_position = Position(
-                    self.current_position.x + 1, self.current_position.y
-                )
-            if i == "<":
-                self.current_position = Position(
-                    self.current_position.x - 1, self.current_position.y
-                )
+            move = OPERATIONS[i]
+            self.current_position = Position(
+                self.current_position.x + move[0],
+                self.current_position.y + move[1],
+            )
 
-            if i == "^":
-                self.current_position = Position(
-                    self.current_position.x, self.current_position.y + 1
-                )
-            if i == "v":
-                self.current_position = Position(
-                    self.current_position.x, self.current_position.y - 1
-                )
-
-            if self.current_position.hash not in self.grid:
-                self.grid.add(self.current_position.hash)
+            self.grid.add(self.current_position.hash)
 
 
 class Day(AoCDay):
