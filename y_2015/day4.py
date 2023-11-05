@@ -1,4 +1,5 @@
 import hashlib
+
 from common.aoc import AoCDay
 
 
