@@ -18,6 +18,10 @@
 [201502p]: https://adventofcode.com/2015/day/2
 [201503]: https://github.com/Stegallo/adventofcode/blob/master/y_2015/day3.py
 [201503p]: https://adventofcode.com/2015/day/3
+[201504]: https://github.com/Stegallo/adventofcode/blob/master/y_2015/day4.py
+[201504p]: https://adventofcode.com/2015/day/4
+[201505]: https://github.com/Stegallo/adventofcode/blob/master/y_2015/day5.py
+[201505p]: https://adventofcode.com/2015/day/5
 
 ## to run the code
 
@@ -49,4 +53,15 @@ python -m src --year <year> --day <day> --test 1
 note: to avoid tracking in git your credentials:
 ```
 git update-index --assume-unchanged secret.py
+```
+
+## contributing
+
+install [pre-commit](https://pre-commit.com/)
+
+```
+python -m pip install -r requirements/test.txt
+```
+```
+pre-commit install
 ```
