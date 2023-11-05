@@ -26,14 +26,12 @@ class NiceString:
             return False
 
         # not ab, cd, pq, or xy
-        if (
-            "ab" in self.text
-            or "cd" in self.text
-            or "pq" in self.text
-            or "xy" in self.text
-        ):
-            return False
-        return True
+        return (
+            "ab" not in self.text
+            and "cd" not in self.text
+            and "pq" not in self.text
+            and "xy" not in self.text
+        )
 
     @property
     def correct_nice(self) -> bool:
@@ -58,10 +56,7 @@ class NiceString:
             if self.text[c] == self.text[c + 2]:
                 letter_repeat = True
                 break
-        if not letter_repeat:
-            return False
-
-        return True
+        return bool(letter_repeat)
 
 
 class Day(AoCDay):
