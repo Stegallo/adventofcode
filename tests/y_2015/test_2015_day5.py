@@ -1,7 +1,8 @@
 from __future__ import annotations
-from pydantic.dataclasses import dataclass
 
-from unittest.mock import mock_open, patch, MagicMock
+from unittest.mock import mock_open, patch
+
+from pydantic.dataclasses import dataclass
 
 from y_2015.day5 import Day, NiceString
 
@@ -10,19 +11,19 @@ with patch("builtins.open", mock_open(read_data="")):
 
 
 def test_NiceString_nice():
-    assert NiceString("ugknbfddgicrmopn").nice == True
-    assert NiceString("aaa").nice == True
-    assert NiceString("jchzalrnumimnmhp").nice == False
-    assert NiceString("haegwjzuvuyypxyu").nice == False
-    assert NiceString("dvszwmarrgswjxmb").nice == False
+    assert NiceString("ugknbfddgicrmopn").nice is True
+    assert NiceString("aaa").nice is True
+    assert NiceString("jchzalrnumimnmhp").nice is False
+    assert NiceString("haegwjzuvuyypxyu").nice is False
+    assert NiceString("dvszwmarrgswjxmb").nice is False
 
 
 def test_NiceString_correct_nice():
-    assert NiceString("qjhvhtzxzqqjkmpb").correct_nice == True
-    assert NiceString("xxyxx").correct_nice == True
-    assert NiceString("aaaa").correct_nice == True
-    assert NiceString("uurcxstgmygtbstg").correct_nice == False
-    assert NiceString("ieodomkazucvgmuy").correct_nice == False
+    assert NiceString("qjhvhtzxzqqjkmpb").correct_nice is True
+    assert NiceString("xxyxx").correct_nice is True
+    assert NiceString("aaaa").correct_nice is True
+    assert NiceString("uurcxstgmygtbstg").correct_nice is False
+    assert NiceString("ieodomkazucvgmuy").correct_nice is False
 
 
 def test_calculate_1():

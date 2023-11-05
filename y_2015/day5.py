@@ -1,4 +1,5 @@
 from pydantic.dataclasses import dataclass
+
 from common.aoc import AoCDay
 
 
@@ -8,7 +9,6 @@ class NiceString:
 
     @property
     def nice(self) -> bool:
-        is_nice = True
         # 3 vovels
         n_vovels = 0
         for i in self.text:
@@ -40,8 +40,8 @@ class NiceString:
 
     @property
     def correct_nice(self) -> bool:
-        is_nice = True
-        # pair of any two letters that appears at least twice in the string without overlapping
+        # pair of any two letters that appears at least twice in the string
+        # without overlapping
         twice_pair = False
         for c, i in enumerate(self.text):
             if c >= len(self.text) - 2:

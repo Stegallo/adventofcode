@@ -54,3 +54,14 @@ note: to avoid tracking in git your credentials:
 ```
 git update-index --assume-unchanged secret.py
 ```
+
+## contributing
+
+install [pre-commit](https://pre-commit.com/)
+
+```
+python -m pip install -r requirements/test.txt
+```
+```
+pre-commit install
+```
