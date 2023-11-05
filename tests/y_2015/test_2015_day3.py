@@ -4,7 +4,7 @@ from unittest.mock import mock_open, patch
 
 from y_2015.day3 import Day
 
-with patch("builtins.open", mock_open(read_data="1x1x1")):
+with patch("builtins.open", mock_open(read_data=">")):
     day = Day()
 
 
