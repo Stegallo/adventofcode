@@ -10,10 +10,7 @@ class NiceString:
     @property
     def nice(self) -> bool:
         # 3 vovels
-        n_vovels = 0
-        for i in self.text:
-            if i in "aeiou":
-                n_vovels += 1
+        n_vovels = sum(1 for i in self.text if i in "aeiou")
         if n_vovels < 3:
             return False
 
