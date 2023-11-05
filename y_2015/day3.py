@@ -1,5 +1,7 @@
-from pydantic.dataclasses import dataclass
 from typing import List, Set
+
+from pydantic.dataclasses import dataclass
+
 from common.aoc import AoCDay
 
 
