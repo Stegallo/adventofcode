@@ -25,7 +25,7 @@ class Santa:
     current_position = Position(0, 0)
 
     def __init__(self, grid) -> None:
-        self.grid = grid
+        self.grid: Set = grid
 
     def deliver_present(self, command) -> None:
         self.current_position = Position(
@@ -43,7 +43,7 @@ class Day(AoCDay):
         self.__sequence = self._input_data[0][0]
 
     def initialize(self) -> None:
-        self.grid = {Position(0, 0).hash}
+        self.grid: Set = {Position(0, 0).hash}
 
     def dispatch(self, actors: List[str]) -> int:
         santas = [Santa(self.grid) for i in actors]
