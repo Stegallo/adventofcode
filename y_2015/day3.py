@@ -46,7 +46,7 @@ class Day(AoCDay):
         self.grid: Set = {Position(0, 0).hash}
 
     def dispatch(self, actors: List[str]) -> int:
-        santas = [Santa(self.grid) for i in actors]
+        santas = [Santa(self.grid) for _ in actors]
         active_santa = 0
         for command in self.__sequence:
             santas[active_santa].deliver_present(command)
