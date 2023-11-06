@@ -7,14 +7,12 @@ from common.aoc import AoCDay
 class NiceString:
     text: str
 
-    @property
-    def nice(self) -> bool:
-        # 3 vovels
-        n_vovels = sum(1 for i in self.text if i in "aeiou")
-        if n_vovels < 3:
+    def __has_3_vovels(self) -> bool:
+        if sum(1 for i in self.text if i in "aeiou") < 3:
             return False
+        return True
 
-        # one letter twice
+    def __has_one_letter_twice(self) -> bool:
         twice_letter = False
         for c, i in enumerate(self.text):
             if c == len(self.text) - 1:
@@ -24,8 +22,9 @@ class NiceString:
                 break
         if not twice_letter:
             return False
+        return True
 
-        # not ab, cd, pq, or xy
+    def __has_no_forbidden_pairs(self) -> bool:
         if (
             "ab" in self.text
             or "cd" in self.text
@@ -36,9 +35,14 @@ class NiceString:
         return True
 
     @property
-    def correct_nice(self) -> bool:
-        # pair of any two letters that appears at least twice in the string
-        # without overlapping
+    def nice(self) -> bool:
+        return (
+            self.__has_3_vovels()
+            and self.__has_one_letter_twice()
+            and self.__has_no_forbidden_pairs()
+        )
+
+    def __has_pair_twice(self) -> bool:
         twice_pair = False
         for c, i in enumerate(self.text):
             if c >= len(self.text) - 2:
@@ -49,8 +53,9 @@ class NiceString:
                     break
         if not twice_pair:
             return False
+        return True
 
-        # one letter which repeats with exactly one letter between them
+    def __has_letter_repeats_with_one_between(self) -> bool:
         letter_repeat = False
         for c, i in enumerate(self.text):
             if c >= len(self.text) - 2:
@@ -60,8 +65,11 @@ class NiceString:
                 break
         if not letter_repeat:
             return False
-
         return True
+
+    @property
+    def correct_nice(self) -> bool:
+        return self.__has_pair_twice() and self.__has_letter_repeats_with_one_between()
 
 
 class Day(AoCDay):
