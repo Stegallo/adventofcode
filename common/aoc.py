@@ -86,8 +86,8 @@ class DayInfo:
         TODO typehint
         """
         day_info = DayInfo()
-        day_info.year = path.split(".")[0].replace("y_", "")
-        day_info.day = path.split(".")[1].replace("day", "")
+        day_info.year = int(path.split(".")[0].replace("y_", ""))
+        day_info.day = int(path.split(".")[1].replace("day", ""))
         return day_info
 
 

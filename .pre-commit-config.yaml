@@ -30,7 +30,7 @@ repos:
       - id: mypy
         verbose: true
         args: [--show-error-codes, --explicit-package-bases]
-        additional_dependencies: ['types-requests']
+        additional_dependencies: ['types-requests', 'pydantic']
   # - repo: https://github.com/asottile/reorder_python_imports
   #   rev: v3.9.0
   #   hooks:
