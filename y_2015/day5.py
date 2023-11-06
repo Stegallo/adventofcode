@@ -37,14 +37,13 @@ class NiceString:
         )
 
     def __has_pair_twice(self) -> bool:
-        twice_pair = False
         len_text = len(self.text)
         for i in range(len_text - 2):
             for j in range(i + 2, len_text - 1):
                 if self.text[i : i + 2] == self.text[j : j + 2]:
-                    twice_pair = True
-                    break
-        return bool(twice_pair)
+                    return True
+
+        return False
 
     def __has_letter_repeats_with_one_between(self) -> bool:
         return any(self.text[i] == self.text[i + 2] for i in range(len(self.text) - 2))
