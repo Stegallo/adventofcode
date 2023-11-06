@@ -47,12 +47,7 @@ class NiceString:
         return bool(twice_pair)
 
     def __has_letter_repeats_with_one_between(self) -> bool:
-        letter_repeat = False
-        for i in range(len(self.text) - 2):
-            if self.text[i] == self.text[i + 2]:
-                letter_repeat = True
-                break
-        return bool(letter_repeat)
+        return any(self.text[i] == self.text[i + 2] for i in range(len(self.text) - 2))
 
     @property
     def correct_nice(self) -> bool:
