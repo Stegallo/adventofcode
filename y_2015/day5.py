@@ -38,9 +38,7 @@ class NiceString:
 
     def __has_pair_twice(self) -> bool:
         twice_pair = False
-        for c, i in enumerate(self.text):
-            if c >= len(self.text) - 2:
-                break
+        for c in range(len(self.text) - 2):
             for j in range(c + 2, len(self.text) - 1):
                 if self.text[c : c + 2] == self.text[j : j + 2]:
                     twice_pair = True
