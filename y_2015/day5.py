@@ -8,9 +8,7 @@ class NiceString:
     text: str
 
     def __has_3_vovels(self) -> bool:
-        if sum(1 for i in self.text if i in "aeiou") < 3:
-            return False
-        return True
+        return sum(1 for i in self.text if i in "aeiou") >= 3
 
     def __has_one_letter_twice(self) -> bool:
         twice_letter = False
@@ -20,19 +18,15 @@ class NiceString:
             if i == self.text[c + 1]:
                 twice_letter = True
                 break
-        if not twice_letter:
-            return False
-        return True
+        return bool(twice_letter)
 
     def __has_no_forbidden_pairs(self) -> bool:
-        if (
-            "ab" in self.text
-            or "cd" in self.text
-            or "pq" in self.text
-            or "xy" in self.text
-        ):
-            return False
-        return True
+        return (
+            "ab" not in self.text
+            and "cd" not in self.text
+            and "pq" not in self.text
+            and "xy" not in self.text
+        )
 
     @property
     def nice(self) -> bool:
@@ -51,9 +45,7 @@ class NiceString:
                 if self.text[c : c + 2] == self.text[j : j + 2]:
                     twice_pair = True
                     break
-        if not twice_pair:
-            return False
-        return True
+        return bool(twice_pair)
 
     def __has_letter_repeats_with_one_between(self) -> bool:
         letter_repeat = False
@@ -63,9 +55,7 @@ class NiceString:
             if self.text[c] == self.text[c + 2]:
                 letter_repeat = True
                 break
-        if not letter_repeat:
-            return False
-        return True
+        return bool(letter_repeat)
 
     @property
     def correct_nice(self) -> bool:
