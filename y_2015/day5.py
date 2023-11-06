@@ -38,19 +38,18 @@ class NiceString:
 
     def __has_pair_twice(self) -> bool:
         twice_pair = False
-        for c in range(len(self.text) - 2):
-            for j in range(c + 2, len(self.text) - 1):
-                if self.text[c : c + 2] == self.text[j : j + 2]:
+        len_text = len(self.text)
+        for i in range(len_text - 2):
+            for j in range(i + 2, len_text - 1):
+                if self.text[i : i + 2] == self.text[j : j + 2]:
                     twice_pair = True
                     break
         return bool(twice_pair)
 
     def __has_letter_repeats_with_one_between(self) -> bool:
         letter_repeat = False
-        for c, i in enumerate(self.text):
-            if c >= len(self.text) - 2:
-                break
-            if self.text[c] == self.text[c + 2]:
+        for i in range(len(self.text) - 2):
+            if self.text[i] == self.text[i + 2]:
                 letter_repeat = True
                 break
         return bool(letter_repeat)
