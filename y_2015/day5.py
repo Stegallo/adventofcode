@@ -7,14 +7,10 @@ from common.aoc import AoCDay
 class NiceString:
     text: str
 
-    @property
-    def nice(self) -> bool:
-        # 3 vovels
-        n_vovels = sum(1 for i in self.text if i in "aeiou")
-        if n_vovels < 3:
-            return False
+    def __has_3_vovels(self) -> bool:
+        return sum(1 for i in self.text if i in "aeiou") >= 3
 
-        # one letter twice
+    def __has_one_letter_twice(self) -> bool:
         twice_letter = False
         for c, i in enumerate(self.text):
             if c == len(self.text) - 1:
@@ -22,23 +18,25 @@ class NiceString:
             if i == self.text[c + 1]:
                 twice_letter = True
                 break
-        if not twice_letter:
-            return False
+        return bool(twice_letter)
 
-        # not ab, cd, pq, or xy
-        if (
-            "ab" in self.text
-            or "cd" in self.text
-            or "pq" in self.text
-            or "xy" in self.text
-        ):
-            return False
-        return True
+    def __has_no_forbidden_pairs(self) -> bool:
+        return (
+            "ab" not in self.text
+            and "cd" not in self.text
+            and "pq" not in self.text
+            and "xy" not in self.text
+        )
 
     @property
-    def correct_nice(self) -> bool:
-        # pair of any two letters that appears at least twice in the string
-        # without overlapping
+    def nice(self) -> bool:
+        return (
+            self.__has_3_vovels()
+            and self.__has_one_letter_twice()
+            and self.__has_no_forbidden_pairs()
+        )
+
+    def __has_pair_twice(self) -> bool:
         twice_pair = False
         for c, i in enumerate(self.text):
             if c >= len(self.text) - 2:
@@ -47,10 +45,9 @@ class NiceString:
                 if self.text[c : c + 2] == self.text[j : j + 2]:
                     twice_pair = True
                     break
-        if not twice_pair:
-            return False
+        return bool(twice_pair)
 
-        # one letter which repeats with exactly one letter between them
+    def __has_letter_repeats_with_one_between(self) -> bool:
         letter_repeat = False
         for c, i in enumerate(self.text):
             if c >= len(self.text) - 2:
@@ -58,10 +55,11 @@ class NiceString:
             if self.text[c] == self.text[c + 2]:
                 letter_repeat = True
                 break
-        if not letter_repeat:
-            return False
+        return bool(letter_repeat)
 
-        return True
+    @property
+    def correct_nice(self) -> bool:
+        return self.__has_pair_twice() and self.__has_letter_repeats_with_one_between()
 
 
 class Day(AoCDay):

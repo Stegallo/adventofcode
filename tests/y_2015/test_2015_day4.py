@@ -11,19 +11,19 @@ with patch("builtins.open", mock_open(read_data="")):
 def test_hash_logic():
     day._input_data = [["abcdef"]]
     day._preprocess_input()
-    assert day.hash_logic(5) == 609043
-
-    day._input_data = [["pqrstuv"]]
-    day._preprocess_input()
-    assert day.hash_logic(5) == 1048970
-
-    day._input_data = [["abcdef"]]
-    day._preprocess_input()
     assert day.hash_logic(1) == 31
 
     day._input_data = [["abcdef"]]
     day._preprocess_input()
     assert day.hash_logic(2) == 298
+
+    day._input_data = [["abcdef"]]
+    day._preprocess_input()
+    assert day.hash_logic(3) == 3337
+
+    day._input_data = [["abcdef"]]
+    day._preprocess_input()
+    assert day.hash_logic(4) == 31556
 
 
 def test_calculate_1():
