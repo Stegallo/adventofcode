@@ -14,7 +14,7 @@ class Instruction:
     end_x: int
     end_y: int
 
-    def process(self, grid, part):
+    def process(self, grid, actions=None) -> None:
         min_x = min(self.start_x, self.end_x)
         min_y = min(self.start_y, self.end_y)
         max_x = max(self.start_x, self.end_x)
@@ -26,17 +26,13 @@ class Instruction:
                 if hash not in grid:
                     grid[hash] = Light(i, j)
                 light = grid[hash]
-                if part == 1:
-                    light.act_1(self.command)
-                if part == 2:
-                    light.act_2(self.command)
+                light.brightness = actions[self.command](light.brightness)
 
 
 @dataclass
 class Light:
     x: int
     y: int
-    on: bool = False
     brightness: int = 0
 
     @staticmethod
@@ -46,22 +42,6 @@ class Light:
     @property
     def hash(self) -> str:
         return Light.hash_fun(self.x, self.y)
-
-    def act_1(self, command: str) -> None:
-        if command == "turn on":
-            self.on = True
-        if command == "turn off":
-            self.on = False
-        if command == "toggle":
-            self.on = not self.on
-
-    def act_2(self, command: str) -> None:
-        if command == "turn on":
-            self.brightness += 1
-        if command == "turn off":
-            self.brightness = max(self.brightness - 1, 0)
-        if command == "toggle":
-            self.brightness += 2
 
 
 class Day(AoCDay):
@@ -79,15 +59,26 @@ class Day(AoCDay):
     def _calculate_1(self) -> int:
         grid: Dict[str, Light] = {}
 
+        actions = {
+            "turn on": lambda x: True,
+            "turn off": lambda x: False,
+            "toggle": lambda x: not x,
+        }
         for i in self.__input_data:
-            i.process(grid, 1)
+            i.process(grid, actions)
 
-        return sum(i.on for i in grid.values())
+        return sum(i.brightness for i in grid.values())
 
     def _calculate_2(self) -> int:
         grid: Dict[str, Light] = {}
 
+        actions = {
+            "turn on": lambda x: x + 1,
+            "turn off": lambda x: max(x - 1, 0),
+            "toggle": lambda x: x + 2,
+        }
+
         for i in self.__input_data:
-            i.process(grid, 2)
+            i.process(grid, actions)
 
         return sum(i.brightness for i in grid.values())
