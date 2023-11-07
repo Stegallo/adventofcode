@@ -48,20 +48,20 @@ class Light:
         return Light.hash_fun(self.x, self.y)
 
     def act_1(self, command: str) -> None:
-        if command == "turn on":
-            self.on = True
-        if command == "turn off":
-            self.on = False
         if command == "toggle":
             self.on = not self.on
+        elif command == "turn off":
+            self.on = False
+        elif command == "turn on":
+            self.on = True
 
     def act_2(self, command: str) -> None:
-        if command == "turn on":
-            self.brightness += 1
-        if command == "turn off":
-            self.brightness = max(self.brightness - 1, 0)
         if command == "toggle":
             self.brightness += 2
+        elif command == "turn off":
+            self.brightness = max(self.brightness - 1, 0)
+        elif command == "turn on":
+            self.brightness += 1
 
 
 class Day(AoCDay):
