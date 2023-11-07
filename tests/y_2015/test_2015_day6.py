@@ -17,9 +17,9 @@ def test_calculate_1():
     day._preprocess_input()
     assert day._calculate_1() == 0
 
-    day._input_data = [["toggle 0,0 through 9,0"]]
+    day._input_data = [["toggle 0,0 through 99,0"]]
     day._preprocess_input()
-    assert day._calculate_1() == 10
+    assert day._calculate_1() == 100
 
 
 def test_calculate_2():
