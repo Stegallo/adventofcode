@@ -5,7 +5,7 @@ from pydantic.dataclasses import dataclass
 from common.aoc import AoCDay
 
 
-@dataclass()
+@dataclass
 class Position:
     x: int
     y: int
