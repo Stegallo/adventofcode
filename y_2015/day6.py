@@ -75,7 +75,6 @@ class Day(AoCDay):
         ]
 
     def _calculate_1(self):
-        return 0
         grid = {}
 
         for i in self.__input_data:
