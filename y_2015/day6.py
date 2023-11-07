@@ -39,10 +39,6 @@ class Light:
     def hash_fun(x: int, y: int):
         return f"x={x};y={y}"
 
-    @property
-    def hash(self) -> str:
-        return Light.hash_fun(self.x, self.y)
-
 
 class Day(AoCDay):
     def __init__(self, test=0):
