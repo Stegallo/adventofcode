@@ -21,15 +21,10 @@ class Instruction:
 
         for i in range(min_x, max_x + 1):
             for j in range(min_y, max_y + 1):
-                light = Light(i, j)
-                if light.hash not in grid:
-                    grid[light.hash] = light
-                else:
-                    light = grid[light.hash]
+                hash = Light.hash_fun(i, j)
+                light = grid[hash]
                 if part == 1:
                     light.act_1(self.command)
-                    if not light.on:
-                        del grid[light.hash]
                 if part == 2:
                     light.act_2(self.command)
 
@@ -41,9 +36,13 @@ class Light:
     on: bool = False
     brightness: int = 0
 
+    @staticmethod
+    def hash_fun(x: int, y: int):
+        return f"x={x};y={y}"
+
     @property
     def hash(self) -> str:
-        return f"x={self.x};y={self.y}"
+        return Light.hash_fun(self.x, self.y)
 
     def act_1(self, command: str) -> None:
         if command == "turn on":
@@ -80,7 +79,7 @@ class Day(AoCDay):
         for i in self.__input_data:
             i.process(grid, 1)
 
-        return len(grid.keys())
+        return sum(i.on for i in grid.values())
 
     def _calculate_2(self):
         grid = {}
