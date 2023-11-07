@@ -1,4 +1,5 @@
 import re
+from typing import Dict
 
 from pydantic.dataclasses import dataclass
 
@@ -22,6 +23,8 @@ class Instruction:
         for i in range(min_x, max_x + 1):
             for j in range(min_y, max_y + 1):
                 hash = Light.hash_fun(i, j)
+                if hash not in grid:
+                    grid[hash] = Light(i, j)
                 light = grid[hash]
                 if part == 1:
                     light.act_1(self.command)
@@ -73,16 +76,16 @@ class Day(AoCDay):
             for i in self._input_data[0]
         ]
 
-    def _calculate_1(self):
-        grid = {}
+    def _calculate_1(self) -> int:
+        grid: Dict[str, Light] = {}
 
         for i in self.__input_data:
             i.process(grid, 1)
 
         return sum(i.on for i in grid.values())
 
-    def _calculate_2(self):
-        grid = {}
+    def _calculate_2(self) -> int:
+        grid: Dict[str, Light] = {}
 
         for i in self.__input_data:
             i.process(grid, 2)
