@@ -24,6 +24,10 @@
 [201504p]: https://adventofcode.com/2015/day/4
 [201505]: https://github.com/Stegallo/adventofcode/blob/master/y_2015/day5.py
 [201505p]: https://adventofcode.com/2015/day/5
+[201506]: https://github.com/Stegallo/adventofcode/blob/master/y_2015/day6.py
+[201506p]: https://adventofcode.com/2015/day/6
+[201507]: https://github.com/Stegallo/adventofcode/blob/master/y_2015/day7.py
+[201507p]: https://adventofcode.com/2015/day/7
 
 ## to run the code
 
