@@ -25,6 +25,10 @@
 [201505]: https://github.com/Stegallo/adventofcode/blob/master/y_2015/day5.py
 [201505p]: https://adventofcode.com/2015/day/5
 
+
+[201508]: https://github.com/Stegallo/adventofcode/blob/master/y_2015/day8.py
+[201508p]: https://adventofcode.com/2015/day/8
+
 ## to run the code
 
 activate the adventofcode virtual environment:
