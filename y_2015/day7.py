@@ -1,6 +1,6 @@
 import re
 from pprint import pprint
-from typing import Dict, List, Optional, Self
+from typing import List, Optional
 
 from pydantic.dataclasses import dataclass
 
@@ -29,89 +29,6 @@ def bitnot(x):
 
 BIN_OPERATORS = {"AND": bitand, "OR": bitor, "LSHIFT": lshift, "RSHIFT": rshift}
 UN_OPERATORS = {"NOT": bitnot}
-
-
-@dataclass
-class Command:
-    circuit: str
-    result: Optional[int] = None
-
-    @property
-    def operator(self) -> Optional[str]:
-        r = re.search(r"(NOT|AND|OR|LSHIFT|RSHIFT)", self.circuit)
-        if r:
-            return r.groups()[0]
-        return None
-
-    @property
-    def inputs(self):
-        if not self.operator:
-            return [self.circuit]
-        if self.operator == "NOT":
-            return self.circuit.split(" ")[1:2]
-        if self.operator in ("AND", "OR"):
-            return self.circuit.replace("AND", "#").replace("OR", "#").split(" # ")
-        if "SHIFT" in self.operator:
-            return self.circuit.replace(" R", " ").replace(" L", " ").split(" SHIFT ")
-        return []
-
-    def operate(self, wires: Dict[str, Self]):
-        if self.result:
-            return self.result
-        if not self.operator:
-            if self.inputs[0].isnumeric():
-                op1 = self.inputs[0]
-            else:
-                op1 = wires[self.inputs[0]].operate(wires)
-            self.result = op1
-        if self.operator == "NOT":
-            if self.inputs[0].isnumeric():
-                op1 = self.inputs[0]
-            else:
-                op1 = wires[self.inputs[0]].operate(wires)
-            self.result = op1 ^ 65535
-        if self.operator == "AND":
-            if self.inputs[0].isnumeric():
-                op1 = self.inputs[0]
-            else:
-                op1 = wires[self.inputs[0]].operate(wires)
-            if self.inputs[1].isnumeric():
-                op2 = self.inputs[1]
-            else:
-                op2 = wires[self.inputs[1]].operate(wires)
-            self.result = int(op1) & int(op2)
-        if self.operator == "OR":
-            if self.inputs[0].isnumeric():
-                op1 = self.inputs[0]
-            else:
-                op1 = wires[self.inputs[0]].operate(wires)
-            if self.inputs[1].isnumeric():
-                op2 = self.inputs[1]
-            else:
-                op2 = wires[self.inputs[1]].operate(wires)
-            self.result = int(op1) | int(op2)
-        if self.operator == "LSHIFT":
-            if self.inputs[0].isnumeric():
-                op1 = self.inputs[0]
-            else:
-                op1 = wires[self.inputs[0]].operate(wires)
-            if self.inputs[1].isnumeric():
-                op2 = self.inputs[1]
-            else:
-                op2 = wires[self.inputs[1]].operate(wires)
-            self.result = int(op1) << int(op2)
-        if self.operator == "RSHIFT":
-            if self.inputs[0].isnumeric():
-                op1 = self.inputs[0]
-            else:
-                op1 = wires[self.inputs[0]].operate(wires)
-            if self.inputs[1].isnumeric():
-                op2 = self.inputs[1]
-            else:
-                op2 = wires[self.inputs[1]].operate(wires)
-            self.result = int(op1) >> int(op2)
-
-        return self.result
 
 
 class Ingress:
@@ -186,10 +103,6 @@ class Instruction:
     def __post_init__(self):
         # transforms source in an Ingress object
         self.ingress = Ingress(self.source)
-
-    @property
-    def command(self):
-        return Command(self.command_str)
 
 
 class Day(AoCDay):
