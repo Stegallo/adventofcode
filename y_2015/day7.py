@@ -1,5 +1,7 @@
 import re
-from typing import List, Optional
+
+# from typing import Dict, Optional, Self, List
+from typing import Optional, List
 
 from pydantic.dataclasses import dataclass
 
@@ -97,7 +99,7 @@ class Ingress:
 class Instruction:
     source: str
     target: str
-    ingress: Optional[Ingress] = None
+    ingress: Optional[str] = None
 
     def __post_init__(self):
         # transforms source in an Ingress object
