@@ -1,5 +1,4 @@
 import re
-from pprint import pprint
 from typing import List, Optional
 
 from pydantic.dataclasses import dataclass
@@ -122,7 +121,7 @@ class Day(AoCDay):
         for x in self.__input_data:
             wires[x.target] = x.ingress
 
-        pprint(wires)
+        # pprint(wires)
         # for x in self.__input_data:
         #     print(x.target)
         #     wires[x.target] = wires[x.target].resolve(wires)
