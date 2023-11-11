@@ -1,30 +1,30 @@
+from typing import Any, Dict, List, Optional
+
 from pydantic.dataclasses import dataclass
+
 from common.aoc import AoCDay
-from typing import Optional, List, Dict, Any
 
 
-def bitand(x, y) -> int:
+def bitand(x: int, y: int) -> int:
     return x & y
 
 
-def bitor(x, y) -> int:
+def bitor(x: int, y: int) -> int:
     return x | y
 
 
-def lshift(x, y) -> int:
+def lshift(x: int, y: int) -> int:
     return x << y
 
 
-def rshift(x, y) -> int:
+def rshift(x: int, y: int) -> int:
     return x >> y
 
 
-def bitnot(x) -> int:
+def bitnot(x: int) -> int:
     return x ^ 65535
 
 
-BIN_OPERATORS = {"AND": bitand, "OR": bitor, "LSHIFT": lshift, "RSHIFT": rshift}
-UN_OPERATORS = {"NOT": bitnot}
 OPERATORS: Dict[str, Any] = {
     "NOT": bitnot,
     "AND": bitand,
