@@ -28,6 +28,7 @@ def test_calculate_1():
 def test_calculate_2():
     assert day._calculate_2() == 123
 
+
 # def test_ingress_resolve():
 #     ingress = Ingress('123')
 #     assert ingress.resolve({}) == Ingress('123')
