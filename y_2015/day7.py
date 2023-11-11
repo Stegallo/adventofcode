@@ -44,7 +44,7 @@ class Element:
     result_valid: bool = False
 
     def __post_init__(self) -> None:
-        self.is_operator = any([o in self.source for o in list(OPERATORS.keys())])
+        self.is_operator = any(o in self.source for o in list(OPERATORS.keys()))
         for i in list(OPERATORS.keys()):
             if i in self.source:
                 self.operator = i
@@ -92,18 +92,14 @@ class Day(AoCDay):
         ]
 
     def _calculate_1(self):
-        wires = {}
-        for x in self.__input_data:
-            wires[x.target] = Element(x.source)
+        wires = {x.target: Element(x.source) for x in self.__input_data}
 
         return wires["a"].resolve(wires)
 
     def _calculate_2(self):
-        wires = {}
-        for x in self.__input_data:
-            if x.target == "b":
-                wires[x.target] = Element("46065")
-            else:
-                wires[x.target] = Element(x.source)
+        wires = {
+            x.target: Element("46065") if x.target == "b" else Element(x.source)
+            for x in self.__input_data
+        }
 
         return wires["a"].resolve(wires)
