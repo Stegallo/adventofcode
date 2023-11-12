@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from unittest.mock import mock_open, patch
 
-from y_2015.day7 import Day
+from y_2015.day7 import Day, Element
 
 with patch(
     "builtins.open",
@@ -28,37 +28,16 @@ def test_calculate_1():
 def test_calculate_2():
     assert day._calculate_2() == 123
 
-# def test_ingress_resolve():
-#     ingress = Ingress('123')
-#     assert ingress.resolve({}) == Ingress('123')
-#
-#     ingress = Ingress('a')
-#     assert ingress.resolve({'a': Ingress('1')}) == Ingress('1')
-#
-#     ingress = Ingress('NOT 1')
-#     assert ingress.resolve({}) == Ingress('65534')
-#
-#     ingress = Ingress('NOT a')
-#     assert ingress.resolve({'a': Ingress('1')}) == Ingress('65534')
-#
-#     ingress = Ingress('x AND y')
-#     assert ingress.resolve({'x': Ingress('123'), 'y': Ingress('456')}) ==
-# Ingress('72')
-#
-#     ingress = Ingress('x OR y')
-#     assert ingress.resolve({'x': Ingress('123'), 'y': Ingress('456')}) ==
-# Ingress('507')
-#
-#     ingress = Ingress('x LSHIFT 2')
-#     assert ingress.resolve({'x': Ingress('123')}) == Ingress('492')
-#
-#     ingress = Ingress('y RSHIFT 2')
-#     assert ingress.resolve({'y': Ingress('456')}) == Ingress('114')
-#
-#     ingress = Ingress('NOT a')
-#     assert ingress.resolve({'a': Ingress('NOT b'), 'b': Ingress('1')}) ==
-# Ingress('1')
-#
-#     ingress = Ingress('NOT a')
-#     assert ingress.resolve({'a': Ingress('NOT b'), 'b': Ingress('NOT c'),
-# 'c': Ingress('NOT d'), 'd':Ingress('x'), 'x': Ingress('1  ')}) == Ingress('1')
+
+def test_Element_resolve():
+    element = Element('123')
+    assert element.resolve({}) == 123
+
+    element = Element('a')
+    assert element.resolve({'a': Element('1')}) == 1
+
+    element = Element('NOT 1')
+    assert element.resolve({}) == 65534
+
+    element = Element('a')
+    assert element.resolve({'a': Element('b AND b'), 'b': Element('1')}) == 1
