@@ -13,8 +13,8 @@
 | 03 | [puzzle][201503p]</br>[✓][201503] |  |  |  |  |  |  |  |
 | 04 | [puzzle][201504p]</br>[✓][201504] |  |  |  |  |  |  |  |
 | 05 | [puzzle][201505p]</br>[✓][201505] |  |  |  |  |  |  |  |
-|    |      |  |  |  |  |  |  |  |
-|    |      |  |  |  |  |  |  |  |
+| 06 | [puzzle][201506p]</br>[✓][201506] |  |  |  |  |  |  |  |
+| 07 | [puzzle][201507p]</br>[✓][201507] |  |  |  |  |  |  |  |
 | 08 | [puzzle][201508p]</br>[✓][201508] |  |  |  |  |  |  |  |
 
 [201501]: https://github.com/Stegallo/adventofcode/blob/master/y_2015/day1.py
@@ -31,8 +31,6 @@
 [201506p]: https://adventofcode.com/2015/day/6
 [201507]: https://github.com/Stegallo/adventofcode/blob/master/y_2015/day7.py
 [201507p]: https://adventofcode.com/2015/day/7
-
-
 [201508]: https://github.com/Stegallo/adventofcode/blob/master/y_2015/day8.py
 [201508p]: https://adventofcode.com/2015/day/8
 

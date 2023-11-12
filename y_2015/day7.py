@@ -5,24 +5,7 @@ from pydantic.dataclasses import dataclass
 from common.aoc import AoCDay
 
 
-def bitand(x: int, y: int) -> int:
-    return x & y
-
-
-def bitor(x: int, y: int) -> int:
-    return x | y
-
-
-def lshift(x: int, y: int) -> int:
-    return x << y
-
-
-def rshift(x: int, y: int) -> int:
-    return x >> y
-
-
-def bitnot(x: int) -> int:
-    return x ^ 65535
+from common.utilities import bitand, bitor, lshift, rshift, bitnot
 
 
 OPERATORS: Dict[str, Any] = {
