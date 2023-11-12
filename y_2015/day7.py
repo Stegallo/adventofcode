@@ -3,10 +3,7 @@ from typing import Any, Dict, List, Optional
 from pydantic.dataclasses import dataclass
 
 from common.aoc import AoCDay
-
-
-from common.utilities import bitand, bitor, lshift, rshift, bitnot
-
+from common.utilities import bitand, bitnot, bitor, lshift, rshift
 
 OPERATORS: Dict[str, Any] = {
     "NOT": bitnot,

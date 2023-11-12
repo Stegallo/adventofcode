@@ -30,14 +30,14 @@ def test_calculate_2():
 
 
 def test_Element_resolve():
-    element = Element('123')
+    element = Element("123")
     assert element.resolve({}) == 123
 
-    element = Element('a')
-    assert element.resolve({'a': Element('1')}) == 1
+    element = Element("a")
+    assert element.resolve({"a": Element("1")}) == 1
 
-    element = Element('NOT 1')
+    element = Element("NOT 1")
     assert element.resolve({}) == 65534
 
-    element = Element('a')
-    assert element.resolve({'a': Element('b AND b'), 'b': Element('1')}) == 1
+    element = Element("a")
+    assert element.resolve({"a": Element("b AND b"), "b": Element("1")}) == 1

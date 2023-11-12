@@ -1,4 +1,4 @@
-from common.utilities import bitand, bitor, lshift, rshift, bitnot
+from common.utilities import bitand, bitnot, bitor, lshift, rshift
 
 
 def test_bit_ops():
