@@ -39,15 +39,7 @@ class Element:
     def resolve(self, wires) -> int:
         if self.result_valid:
             return self.result
-        if not self.is_operator:
-            if self.source.isnumeric():
-                self.result = int(self.source)
-                self.result_valid = True
-            else:
-                self.result = wires[self.source].resolve(wires)
-                self.result_valid = True
-
-        else:
+        if self.is_operator:
             inputs = [x for x in self.source.replace(" ", "").split(self.operator) if x]
 
             inputs = [
@@ -55,7 +47,11 @@ class Element:
             ]
 
             self.result = OPERATORS[str(self.operator)](*inputs)
-            self.result_valid = True
+        elif self.source.isnumeric():
+            self.result = int(self.source)
+        else:
+            self.result = wires[self.source].resolve(wires)
+        self.result_valid = True
         return self.result
 
 
