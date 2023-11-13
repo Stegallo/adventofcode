@@ -15,44 +15,43 @@ OPERATORS: Dict[str, Any] = {
 
 
 @dataclass
+class Operator:
+    source: str
+    inputs: List[str]
+
+
+@dataclass
 class Element:
     source: str
-    is_operator: bool = False
-    operator: Optional[str] = None
-    inputs: Optional[List[str]] = None
+    operator: Optional[Operator] = None
+
     result: int = 0
     result_valid: bool = False
 
     def __post_init__(self) -> None:
-        self.is_operator = any(o in self.source for o in list(OPERATORS.keys()))
-        for i in list(OPERATORS.keys()):
-            if i in self.source:
-                self.operator = i
-        if self.is_operator:
-            self.inputs = [
-                x for x in self.source.replace(" ", "").split(self.operator) if x
-            ]
+        if any(o in self.source for o in list(OPERATORS.keys())):
+            for i in list(OPERATORS.keys()):
+                if i in self.source:
+                    self.operator = Operator(
+                        i,
+                        [x for x in self.source.replace(" ", "").split(i) if x],
+                    )
 
     def resolve(self, wires) -> int:
         if self.result_valid:
             return self.result
-        if not self.is_operator:
-            if self.source.isnumeric():
-                self.result = int(self.source)
-                self.result_valid = True
-            else:
-                self.result = wires[self.source].resolve(wires)
-                self.result_valid = True
-
-        else:
-            inputs = [x for x in self.source.replace(" ", "").split(self.operator) if x]
-
+        if self.operator:
             inputs = [
-                int(i) if i.isnumeric() else wires[i].resolve(wires) for i in inputs
+                int(i) if i.isnumeric() else wires[i].resolve(wires)
+                for i in self.operator.inputs
             ]
 
-            self.result = OPERATORS[str(self.operator)](*inputs)
-            self.result_valid = True
+            self.result = OPERATORS[self.operator.source](*inputs)
+        elif self.source.isnumeric():
+            self.result = int(self.source)
+        else:
+            self.result = wires[self.source].resolve(wires)
+        self.result_valid = True
         return self.result
 
 

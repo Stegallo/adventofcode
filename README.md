@@ -16,6 +16,8 @@
 | 06 | [puzzle][201506p]</br>[✓][201506] |  |  |  |  |  |  |  |
 | 07 | [puzzle][201507p]</br>[✓][201507] |  |  |  |  |  |  |  |
 | 08 | [puzzle][201508p]</br>[✓][201508] |  |  |  |  |  |  |  |
+| 09 | [puzzle][201509p]</br>[✓][201509] |  |  |  |  |  |  |  |
+| 10 | [puzzle][2015108p]</br>[✓][201510] |  |  |  |  |  |  |  |
 
 [201501]: https://github.com/Stegallo/adventofcode/blob/master/y_2015/day1.py
 [201501p]: https://adventofcode.com/2015/day/1
