@@ -1,6 +1,7 @@
 import re
 from pydantic.dataclasses import dataclass
 from collections import defaultdict, deque
+from itertools import permutations
 from common.aoc import AoCDay
 
 
@@ -58,8 +59,30 @@ class Day(AoCDay):
             Route(*list(re.search(r"(.*) to (.*) = (\d*)", x).groups()))
             for x in self._input_data[0]
         ]
+        self.__cities = set()
+        for i in self.__input_data:
+            self.__cities.add(i.start)
+            self.__cities.add(i.end)
 
     def _calculate_1(self):
+        print(f"{self.__cities=}")
+        print(len(list(permutations(self.__cities))))
+        n_cities = len(self.__cities)
+        distances = defaultdict(dict)
+        for x in self.__input_data:
+            print(f"{x=}")
+            distances[x.start][x.end] = x.distance
+            distances[x.end][x.start] = x.distance
+        min_dist = 100_000
+        for i in permutations(self.__cities):
+            print(f"{i=}")
+            dist = sum(distances[i[c]][i[c + 1]] for c in range(n_cities - 1))
+            # for c in range(n_cities-1):
+            #     print(f"{i[c]=}, {i[c+1]=}, {distances[i[c]][i[c+1]]}")
+            print(f"{dist=}")
+            if dist < min_dist:
+                min_dist = dist
+        return min_dist
         distances = defaultdict(dict)
         # result = deque()
         result_n = []
@@ -142,7 +165,21 @@ class Day(AoCDay):
         return min(result_n)
 
     def _calculate_2(self):
-        return 0
-        x = self.__input_data
-        print(f"{x=}")
-        return 0
+        print(f"{self.__cities=}")
+        print(len(list(permutations(self.__cities))))
+        n_cities = len(self.__cities)
+        distances = defaultdict(dict)
+        for x in self.__input_data:
+            print(f"{x=}")
+            distances[x.start][x.end] = x.distance
+            distances[x.end][x.start] = x.distance
+        max_dist = -1
+        for i in permutations(self.__cities):
+            print(f"{i=}")
+            dist = sum(distances[i[c]][i[c + 1]] for c in range(n_cities - 1))
+            # for c in range(n_cities-1):
+            #     print(f"{i[c]=}, {i[c+1]=}, {distances[i[c]][i[c+1]]}")
+            print(f"{dist=}")
+            if dist > max_dist:
+                max_dist = dist
+        return max_dist
