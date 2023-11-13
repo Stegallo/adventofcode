@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from unittest.mock import mock_open, patch
+from unittest.mock import mock_open, patch, MagicMock
 
 from y_2015.day10 import Day
 
@@ -20,21 +20,13 @@ def test_apply_times():
 
 def test_calculate_1():
     day._Day__input_data = ["1"]
-    assert day._calculate_1() == "11"
-
-    day._Day__input_data = ["1", "1"]
-    assert day._calculate_1() == "21"
-
-    day._Day__input_data = ["2", "1"]
-    assert day._calculate_1() == "1211"
-
-    day._Day__input_data = ["1", "2", "1", "1"]
-    assert day._calculate_1() == "111221"
-
-    day._Day__input_data = ["1", "1", "1", "2", "2", "1"]
-    assert day._calculate_1() == "312211"
+    day._apply_times = MagicMock()
+    day._calculate_1()
+    day._apply_times.assert_called_once_with(["1"], 40)
 
 
 def test_calculate_2():
     day._Day__input_data = ["1"]
-    assert day._calculate_2() == 0
+    day._apply_times = MagicMock()
+    day._calculate_2()
+    day._apply_times.assert_called_once_with(["1"], 50)
