@@ -10,7 +10,7 @@ class Day(AoCDay):
 
     def say_loud(self, x: str) -> str:
         if len(x) == 1:
-            return "1" + x[0]
+            return f"1{x[0]}"
         chunks = []
         chunk = [x[0]]
         for c in range(len(x)):
@@ -23,9 +23,7 @@ class Day(AoCDay):
                 chunks.append(chunk)
                 chunk = [x[c]]
         chunks.append(chunk)
-        k = []
-        for i in chunks:
-            k.append(str(len(i)) + i[0])
+        k = [str(len(i)) + i[0] for i in chunks]
         return "".join(k)
 
     def _apply_times(self, input: str, times: int) -> str:
