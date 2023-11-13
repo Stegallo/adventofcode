@@ -24,6 +24,20 @@ repos:
     rev: 6.0.0
     hooks:
       - id: flake8
+  - repo: https://github.com/psf/black
+    rev: 23.11.0
+    hooks:
+      - id: black
+  - repo: https://github.com/asottile/add-trailing-comma
+    rev: v2.3.0
+    hooks:
+      - id: add-trailing-comma
+        args: [--py36-plus]
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.5
+    hooks:
+      - id: ruff
+        args: [ --fix ]
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.6.1
     hooks:
@@ -31,27 +45,3 @@ repos:
         verbose: true
         args: [--show-error-codes, --explicit-package-bases]
         additional_dependencies: ['types-requests', 'pydantic']
-  # - repo: https://github.com/asottile/reorder_python_imports
-  #   rev: v3.9.0
-  #   hooks:
-  #     - id: reorder-python-imports
-  #       args: [--py37-plus]
-  - repo: https://github.com/asottile/add-trailing-comma
-    rev: v2.3.0
-    hooks:
-      - id: add-trailing-comma
-        args: [--py36-plus]
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v3.2.2
-    hooks:
-      - id: pyupgrade
-        args: [--py37-plus]
-  - repo: https://github.com/pre-commit/mirrors-autopep8
-    rev: v2.0.0
-    hooks:
-      - id: autopep8
-  # - repo: https://github.com/Zac-HD/shed
-  #   rev: 0.10.7
-  #   hooks:
-  #     - id: shed
-  #       types_or: [python, markdown, rst]
