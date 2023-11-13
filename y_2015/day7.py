@@ -40,22 +40,18 @@ class Element:
     def resolve(self, wires) -> int:
         if self.result_valid:
             return self.result
-        if not self.operator:
-            if self.source.isnumeric():
-                self.result = int(self.source)
-                self.result_valid = True
-            else:
-                self.result = wires[self.source].resolve(wires)
-                self.result_valid = True
-
-        else:
+        if self.operator:
             inputs = [
                 int(i) if i.isnumeric() else wires[i].resolve(wires)
                 for i in self.operator.inputs
             ]
 
             self.result = OPERATORS[self.operator.source](*inputs)
-            self.result_valid = True
+        elif self.source.isnumeric():
+            self.result = int(self.source)
+        else:
+            self.result = wires[self.source].resolve(wires)
+        self.result_valid = True
         return self.result
 
 
