@@ -33,6 +33,10 @@
 [201507p]: https://adventofcode.com/2015/day/7
 [201508]: https://github.com/Stegallo/adventofcode/blob/master/y_2015/day8.py
 [201508p]: https://adventofcode.com/2015/day/8
+[201509]: https://github.com/Stegallo/adventofcode/blob/master/y_2015/day9.py
+[201509p]: https://adventofcode.com/2015/day/9
+[201510]: https://github.com/Stegallo/adventofcode/blob/master/y_2015/day10.py
+[201510p]: https://adventofcode.com/2015/day/10
 
 ## to run the code
 
