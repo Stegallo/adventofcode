@@ -24,8 +24,7 @@ class Operator:
 class Element:
     source: str
     operator: Optional[Operator] = None
-    result: int = 0
-    result_valid: bool = False
+    cached_result: Optional[int] = None
 
     def __post_init__(self) -> None:
         for i in list(OPERATORS.keys()):
@@ -41,18 +40,15 @@ class Element:
                 int(i) if i.isnumeric() else wires[i].resolve(wires)
                 for i in self.operator.inputs
             ]
-
             return OPERATORS[self.operator.source](*inputs)
         if self.source.isnumeric():
             return int(self.source)
         return wires[self.source].resolve(wires)
 
     def resolve(self, wires) -> int:
-        if self.result_valid:
-            return self.result
-        self.result = self.__compute_result(wires)
-        self.result_valid = True
-        return self.result
+        if not self.cached_result:
+            self.cached_result = self.__compute_result(wires)
+        return self.cached_result
 
 
 @dataclass
