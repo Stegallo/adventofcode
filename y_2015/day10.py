@@ -12,10 +12,7 @@ class Day(AoCDay):
     def _chunkify(self, x: str) -> List[List[str]]:
         chunks = []
         chunk = [x[0]]
-        for c in range(len(x)):
-            if c == 0:
-                continue
-
+        for c in range(1, len(x)):
             if x[c - 1] == x[c]:
                 chunk.append(x[c])
             else:
