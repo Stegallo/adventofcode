@@ -24,18 +24,16 @@ class Operator:
 class Element:
     source: str
     operator: Optional[Operator] = None
-
     result: int = 0
     result_valid: bool = False
 
     def __post_init__(self) -> None:
-        if any(o in self.source for o in list(OPERATORS.keys())):
-            for i in list(OPERATORS.keys()):
-                if i in self.source:
-                    self.operator = Operator(
-                        i,
-                        [x for x in self.source.replace(" ", "").split(i) if x],
-                    )
+        for i in list(OPERATORS.keys()):
+            if i in self.source:
+                self.operator = Operator(
+                    i,
+                    [x for x in self.source.replace(" ", "").split(i) if x],
+                )
 
     def resolve(self, wires) -> int:
         if self.result_valid:
