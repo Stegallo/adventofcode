@@ -35,20 +35,22 @@ class Element:
                     [x for x in self.source.replace(" ", "").split(i) if x],
                 )
 
-    def resolve(self, wires) -> int:
-        if self.result_valid:
-            return self.result
+    def __compute_result(self, wires) -> int:
         if self.operator:
             inputs = [
                 int(i) if i.isnumeric() else wires[i].resolve(wires)
                 for i in self.operator.inputs
             ]
 
-            self.result = OPERATORS[self.operator.source](*inputs)
-        elif self.source.isnumeric():
-            self.result = int(self.source)
-        else:
-            self.result = wires[self.source].resolve(wires)
+            return OPERATORS[self.operator.source](*inputs)
+        if self.source.isnumeric():
+            return int(self.source)
+        return wires[self.source].resolve(wires)
+
+    def resolve(self, wires) -> int:
+        if self.result_valid:
+            return self.result
+        self.result = self.__compute_result(wires)
         self.result_valid = True
         return self.result
 
