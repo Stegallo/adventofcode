@@ -6,9 +6,11 @@
 <a href="https://codeclimate.com/github/Stegallo/adventofcode/maintainability"><img src="https://api.codeclimate.com/v1/badges/d3a26d2fed4f5d3b04c7/maintainability" /></a>
 # adventofcode
 
+for solutions in rust, refer to [rust repo][rustrepo]
+
 |    | 2015        | 2016        | 2017        | 2018        | 2019        | 2020        | 2021        | 2022        |
 | -  | -           | -           | -           | -           | -           | -           | -           | -           |
-| 01 | [puzzle][201501p]</br>[✓][201501] |  |  |  |  |  |  |  |
+| 01 | [puzzle][201501p]</br>[✓][201501] |  |  |  |  |  |  | [puzzle][202201p]</br>[✓][202201] |
 | 02 | [puzzle][201502p]</br>[✓][201502] |  |  |  |  |  |  |  |
 | 03 | [puzzle][201503p]</br>[✓][201503] |  |  |  |  |  |  |  |
 | 04 | [puzzle][201504p]</br>[✓][201504] |  |  |  |  |  |  |  |
@@ -39,6 +41,11 @@
 [201509p]: https://adventofcode.com/2015/day/9
 [201510]: https://github.com/Stegallo/adventofcode/blob/master/y_2015/day10.py
 [201510p]: https://adventofcode.com/2015/day/10
+
+[202201]: https://github.com/Stegallo/adventofcode/blob/master/y_2022/day1.py
+[202201p]: https://adventofcode.com/2022/day/1
+
+[rustrepo]: https://github.com/Stegallo/adventofcodeinrust
 
 ## to run the code
 
