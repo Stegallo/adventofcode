@@ -37,13 +37,7 @@ def increasing(source) -> bool:
 
 
 def not_iol(source) -> bool:
-    if "i" in source:
-        return False
-    if "o" in source:
-        return False
-    if "l" in source:
-        return False
-    return True
+    return not ("i" in source or "o" in source or "l" in source)
 
 
 def pairs(source) -> bool:
@@ -70,18 +64,14 @@ class Day(AoCDay):
         self.__input_data = self._input_data[0][0]
 
     def _calculate_1(self) -> str:
-        x = self.__input_data
-        print(f"{x=}")
-        proposed_pwd = increment_string(x)
+        proposed_pwd = increment_string(self.__input_data)
         while not valid(proposed_pwd):
             proposed_pwd = increment_string(proposed_pwd)
+        self.cached_solution_1 = proposed_pwd
         return proposed_pwd
 
     def _calculate_2(self) -> str:
-        x = self.__input_data
-        print(f"{x=}")
-        x = "cqjxxyzz"
-        print(f"{x=}")
+        x = self.cached_solution_1
         proposed_pwd = increment_string(x)
         while not valid(proposed_pwd):
             proposed_pwd = increment_string(proposed_pwd)
