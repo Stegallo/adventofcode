@@ -67,11 +67,10 @@ class Day(AoCDay):
         proposed_pwd = increment_string(self.__input_data)
         while not valid(proposed_pwd):
             proposed_pwd = increment_string(proposed_pwd)
-        self.cached_solution_1 = proposed_pwd
         return proposed_pwd
 
     def _calculate_2(self) -> str:
-        x = self.cached_solution_1
+        x = self._calculate_1()
         proposed_pwd = increment_string(x)
         while not valid(proposed_pwd):
             proposed_pwd = increment_string(proposed_pwd)

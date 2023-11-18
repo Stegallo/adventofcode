@@ -34,15 +34,11 @@ def test_pairs():
     assert pairs("abbcegjk") is False
 
 
-# def test_calculate_1():
-#     day._Day__input_data = ["1"]
-#     day._apply_times = MagicMock()
-#     day._calculate_1()
-#     day._apply_times.assert_called_once_with(["1"], 40)
-#
-#
-# def test_calculate_2():
-#     day._Day__input_data = ["1"]
-#     day._apply_times = MagicMock()
-#     day._calculate_2()
-#     day._apply_times.assert_called_once_with(["1"], 50)
+def test_calculate_1():
+    day._Day__input_data = ["a"]
+    assert day._calculate_1() == "aabcc"
+
+
+def test_calculate_2():
+    day._Day__input_data = ["a"]
+    assert day._calculate_2() == "bbcdd"
