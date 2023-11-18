@@ -20,6 +20,7 @@ for solutions in rust, refer to [rust repo][rustrepo]
 | 08 | [puzzle][201508p]</br>[✓][201508] |  |  |  |  |  |  |  |
 | 09 | [puzzle][201509p]</br>[✓][201509] |  |  |  |  |  |  |  |
 | 10 | [puzzle][201510p]</br>[✓][201510] |  |  |  |  |  |  |  |
+| 11 | [puzzle][201511p]</br>[✓][201511] |  |  |  |  |  |  |  |
 
 [201501]: https://github.com/Stegallo/adventofcode/blob/master/y_2015/day1.py
 [201501p]: https://adventofcode.com/2015/day/1
@@ -41,6 +42,8 @@ for solutions in rust, refer to [rust repo][rustrepo]
 [201509p]: https://adventofcode.com/2015/day/9
 [201510]: https://github.com/Stegallo/adventofcode/blob/master/y_2015/day10.py
 [201510p]: https://adventofcode.com/2015/day/10
+[201511]: https://github.com/Stegallo/adventofcode/blob/master/y_2015/day11.py
+[201511p]: https://adventofcode.com/2015/day/11
 
 [202201]: https://github.com/Stegallo/adventofcode/blob/master/y_2022/day1.py
 [202201p]: https://adventofcode.com/2022/day/1
