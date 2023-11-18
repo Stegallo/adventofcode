@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from unittest.mock import mock_open, patch
 
-from y_2015.day11 import Day, increment_string, increasing, not_iol, pairs
+from y_2015.day11 import Day, increasing, increment_string, not_iol, pairs
 
 with patch("builtins.open", mock_open(read_data="")):
     day = Day()
