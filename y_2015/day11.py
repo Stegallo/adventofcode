@@ -37,7 +37,7 @@ def increasing(source) -> bool:
 
 
 def not_iol(source) -> bool:
-    return not ("i" in source or "o" in source or "l" in source)
+    return "i" not in source and "o" not in source and "l" not in source
 
 
 def pairs(source) -> bool:
