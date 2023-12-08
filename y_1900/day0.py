@@ -11,11 +11,9 @@ class Day(AoCDay):
         self.__input_data = self._input_data[0]
 
     def _calculate_1(self):
-        x = self.__input_data
-        print(f"{x=}")
+        for x in self.__input_data:
+            print(f"{x}")
         return 0
 
     def _calculate_2(self):
-        x = self.__input_data
-        print(f"{x=}")
         return 0
