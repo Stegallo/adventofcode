@@ -17,5 +17,3 @@ class Day(AoCDay):
 
     def _calculate_2(self):
         return 0
-        x = self.__input_data
-        print(f"{x=}")
