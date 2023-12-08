@@ -39,7 +39,5 @@ class Day(AoCDay):
         return self.calculate_calibration(self.__input_data)
 
     def _calculate_2(self) -> int:
-        new_input = []
-        for i in self.__input_data:
-            new_input.append(self.replace_word_with_number(i))
+        new_input = [self.replace_word_with_number(i) for i in self.__input_data]
         return self.calculate_calibration(new_input)
