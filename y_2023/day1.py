@@ -1,6 +1,17 @@
 from common.aoc import AoCDay
+from typing import List
 
-SPELLED = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
+SPELLED = [
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six",
+    "seven",
+    "eight",
+    "nine",
+]
 
 
 class Day(AoCDay):
@@ -10,38 +21,21 @@ class Day(AoCDay):
     def _preprocess_input(self):
         self.__input_data = self._input_data[0]
 
-    def _calculate_1(self):
-        # return 0
-        # print(f"{self.__input_data=}")
+    @staticmethod
+    def calculate_calibration(input: List[str]) -> int:
         s = 0
-        for i in self.__input_data:
-            first = None
-            for j in i:
-                if j.isnumeric():
-                    first = int(j)
-                    break
-            for j in i[::-1]:
-                if j.isnumeric():
-                    last = int(j)
-                    break
-            s = s + first * 10 + last
+        for i in input:
+            j = [x for x in i if x.isnumeric()]
+            s += int(f"{j[0]}{j[-1]}")
         return s
-        # return max(sum(i) for i in self.__input_data)
 
-    def _calculate_2(self):
-        s = 0
+    def _calculate_1(self) -> int:
+        return self.calculate_calibration(self.__input_data)
+
+    def _calculate_2(self) -> int:
+        new_input = []
         for i in self.__input_data:
             for c, k in enumerate(SPELLED):
                 i = i.replace(k, k + str(c + 1) + k)
-            # print(f'{i=}')
-            first = None
-            for j in i:
-                if j.isnumeric():
-                    first = int(j)
-                    break
-            for j in i[::-1]:
-                if j.isnumeric():
-                    last = int(j)
-                    break
-            s = s + first * 10 + last
-        return s
+            new_input.append(i)
+        return self.calculate_calibration(new_input)
