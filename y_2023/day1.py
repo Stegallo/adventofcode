@@ -22,6 +22,12 @@ class Day(AoCDay):
         self.__input_data = self._input_data[0]
 
     @staticmethod
+    def replace_word_with_number(input: str) -> str:
+        for c, k in enumerate(SPELLED):
+            input = input.replace(k, k + str(c + 1) + k)
+        return input
+
+    @staticmethod
     def calculate_calibration(input: List[str]) -> int:
         s = 0
         for i in input:
@@ -35,7 +41,5 @@ class Day(AoCDay):
     def _calculate_2(self) -> int:
         new_input = []
         for i in self.__input_data:
-            for c, k in enumerate(SPELLED):
-                i = i.replace(k, k + str(c + 1) + k)
-            new_input.append(i)
+            new_input.append(self.replace_word_with_number(i))
         return self.calculate_calibration(new_input)

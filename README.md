@@ -8,19 +8,19 @@
 
 for solutions in rust, refer to [rust repo][rustrepo]
 
-|    | 2015        | 2016        | 2017        | 2018        | 2019        | 2020        | 2021        | 2022        |
+|    | 2015        | 2016        | 2017        | 2018        | 2019        | 2020        | 2021        | 2022        | 2023        |
 | -  | -           | -           | -           | -           | -           | -           | -           | -           |
-| 01 | [puzzle][201501p]</br>[✓][201501] |  |  |  |  |  |  | [puzzle][202201p]</br>[✓][202201] |
-| 02 | [puzzle][201502p]</br>[✓][201502] |  |  |  |  |  |  |  |
-| 03 | [puzzle][201503p]</br>[✓][201503] |  |  |  |  |  |  |  |
-| 04 | [puzzle][201504p]</br>[✓][201504] |  |  |  |  |  |  |  |
-| 05 | [puzzle][201505p]</br>[✓][201505] |  |  |  |  |  |  |  |
-| 06 | [puzzle][201506p]</br>[✓][201506] |  |  |  |  |  |  |  |
-| 07 | [puzzle][201507p]</br>[✓][201507] |  |  |  |  |  |  |  |
-| 08 | [puzzle][201508p]</br>[✓][201508] |  |  |  |  |  |  |  |
-| 09 | [puzzle][201509p]</br>[✓][201509] |  |  |  |  |  |  |  |
-| 10 | [puzzle][201510p]</br>[✓][201510] |  |  |  |  |  |  |  |
-| 11 | [puzzle][201511p]</br>[✓][201511] |  |  |  |  |  |  |  |
+| 01 | [puzzle][201501p]</br>[✓][201501] |  |  |  |  |  |  | [puzzle][202201p]</br>[✓][202201] | [puzzle][202301p]</br>[✓][202301] |
+| 02 | [puzzle][201502p]</br>[✓][201502] |  |  |  |  |  |  |  |  |
+| 03 | [puzzle][201503p]</br>[✓][201503] |  |  |  |  |  |  |  |  |
+| 04 | [puzzle][201504p]</br>[✓][201504] |  |  |  |  |  |  |  |  |
+| 05 | [puzzle][201505p]</br>[✓][201505] |  |  |  |  |  |  |  |  |
+| 06 | [puzzle][201506p]</br>[✓][201506] |  |  |  |  |  |  |  |  |
+| 07 | [puzzle][201507p]</br>[✓][201507] |  |  |  |  |  |  |  |  |
+| 08 | [puzzle][201508p]</br>[✓][201508] |  |  |  |  |  |  |  |  |
+| 09 | [puzzle][201509p]</br>[✓][201509] |  |  |  |  |  |  |  |  |
+| 10 | [puzzle][201510p]</br>[✓][201510] |  |  |  |  |  |  |  |  |
+| 11 | [puzzle][201511p]</br>[✓][201511] |  |  |  |  |  |  |  |  |
 
 [201501]: https://github.com/Stegallo/adventofcode/blob/master/y_2015/day1.py
 [201501p]: https://adventofcode.com/2015/day/1
@@ -47,6 +47,9 @@ for solutions in rust, refer to [rust repo][rustrepo]
 
 [202201]: https://github.com/Stegallo/adventofcode/blob/master/y_2022/day1.py
 [202201p]: https://adventofcode.com/2022/day/1
+
+[202301]: https://github.com/Stegallo/adventofcode/blob/master/y_2023/day1.py
+[202301p]: https://adventofcode.com/2023/day/1
 
 [rustrepo]: https://github.com/Stegallo/adventofcodeinrust
 
