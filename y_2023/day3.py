@@ -13,12 +13,11 @@ class Number:
 
     @property
     def border(self) -> List[Tuple[int, int]]:
-        result = [
+        return [
             (self.row + y - 1, self.start + x - 1)
             for x in range(self.length + 2)
             for y in range(3)
         ]
-        return result
 
 
 def extract_numbers(input, row) -> List[Number]:
