@@ -15,8 +15,10 @@ class Number:
     def border(self) -> List[Tuple[int, int]]:
         result = []
         for y in range(3):
-            for x in range(self.length + 2):
-                result.append((self.row + y - 1, self.start + x - 1))
+            result.extend(
+                (self.row + y - 1, self.start + x - 1)
+                for x in range(self.length + 2)
+            )
         return result
 
 
@@ -71,5 +73,4 @@ class Day(AoCDay):
             for j in i.border:
                 if j in self.__simbols and self.__simbols[j] == "*":
                     star_adjacents[j].append(i.value)
-        result = sum((v[0] * v[1]) for v in star_adjacents.values() if len(v) == 2)
-        return result
+        return sum((v[0] * v[1]) for v in star_adjacents.values() if len(v) == 2)
