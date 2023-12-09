@@ -1,5 +1,43 @@
 from common.aoc import AoCDay
+from typing import List, Tuple
 from collections import defaultdict
+from pydantic.dataclasses import dataclass
+
+
+@dataclass
+class Number:
+    value: int
+    row: int
+    start: int
+    length: int
+
+    @property
+    def border(self) -> List[Tuple[int, int]]:
+        result = []
+        for y in range(3):
+            for x in range(self.length + 2):
+                result.append((self.row + y - 1, self.start + x - 1))
+        return result
+
+
+def extract_numbers(input, row) -> List[Number]:
+    start = 0
+    length = 0
+    result = []
+    for c, i in enumerate(input):
+        if i.isnumeric():
+            length += 1
+        else:
+            if length > 0:
+                result.append(
+                    Number(int(input[start : start + length]), row, start, length),
+                )
+            start = c + 1
+            length = 0
+    if length > 0:
+        result.append(Number(int(input[start : start + length]), row, start, length))
+
+    return result
 
 
 class Day(AoCDay):
@@ -9,110 +47,29 @@ class Day(AoCDay):
     def _preprocess_input(self):
         self.__input_data = self._input_data[0]
         self.__simbols = {}
+        self.__numbers = []
         for c, x in enumerate(self.__input_data):
             for d, y in enumerate(x):
                 if y != "." and not y.isnumeric():
                     self.__simbols[(c, d)] = y
+            self.__numbers.extend(extract_numbers(x, c))
 
-    def _calculate_1(self) -> int:  # 553825
+    def _calculate_1(self) -> int:
         result = 0
-        print(self.__simbols)
-        for c, x in enumerate(self.__input_data):
-            splits = x.split(".")
-            numbers = []
-            for i in splits:
-                if i.isnumeric():
-                    numbers.append(i)
-                elif i[:-1].isnumeric():
-                    numbers.append(i[:-1])
-                elif i[1:].isnumeric():
-                    numbers.append(i[1:])
-                elif len(i) > 1:
-                    # print(i)
-                    j = i.split("*")
-                    numbers.extend(j)
-                    # 1/0
-            # print(f'{numbers=}')
-            # continue
-            num_ind = 0
-            start = 0
-            end = 0
-            while x:
-                # print(x, x[0], numbers, num_ind, start, end)
-                if num_ind >= len(numbers):
-                    break
-                if x[0] == "." or not x[0].isnumeric():
-                    x = x[1:]
-                    start += 1
-                if x.startswith(str(numbers[num_ind])):
-                    end = start + len(str(numbers[num_ind])) - 1
-                    # print(numbers[num_ind], start, end)
-                    for k in range(c - 1, c + 2):
-                        for m in range(start - 1, end + 2):
-                            # print((k,l), simbols.get((k,l)))
-                            if self.__simbols.get((k, m)):
-                                # print(int(numbers[num_ind]))
-                                result += int(numbers[num_ind])
-                    start = end + 1
-                    x = x[len(str(numbers[num_ind])) :]
-                    num_ind += 1
 
-                # break
-
+        for i in self.__numbers:
+            for j in i.border:
+                if j in self.__simbols:
+                    result += i.value
         return result
 
-    def _calculate_2(self) -> int:  # 93994191
+    def _calculate_2(self) -> int:
         result = 0
-        new_simbols = defaultdict(list)
+        star_adjacents = defaultdict(list)
 
-        for c, x in enumerate(self.__input_data):
-            splits = x.split(".")
-            numbers = []
-            for i in splits:
-                if i.isnumeric():
-                    numbers.append(i)
-                elif i[:-1].isnumeric():
-                    numbers.append(i[:-1])
-                elif i[1:].isnumeric():
-                    numbers.append(i[1:])
-                elif len(i) > 1:
-                    # print(i)
-                    j = i.split("*")
-                    numbers.extend(j)
-                    # 1/0
-            # print(f'{numbers=}')
-            # continue
-            num_ind = 0
-            start = 0
-            end = 0
-            while x:
-                # print(x, x[0], numbers, num_ind, start, end)
-                if num_ind >= len(numbers):
-                    break
-                if x[0] == "." or not x[0].isnumeric():
-                    x = x[1:]
-                    start += 1
-                if x.startswith(str(numbers[num_ind])):
-                    end = start + len(str(numbers[num_ind])) - 1
-                    # print(numbers[num_ind], start, end)
-                    for k in range(c - 1, c + 2):
-                        for m in range(start - 1, end + 2):
-                            # print((k,l), simbols.get((k,l)))
-                            if self.__simbols.get((k, m)):
-                                # print(int(numbers[num_ind]))
-                                # result+=int(numbers[num_ind])
-                                new_simbols[k, m].append(int(numbers[num_ind]))
-                    start = end + 1
-                    x = x[len(str(numbers[num_ind])) :]
-                    num_ind += 1
-
-                # break
-        # print(new_simbols)
-        for i in self.__simbols:
-            if self.__simbols[i][0] == "*" and len(new_simbols[i]) == 2:
-                # print(simbols[i])
-                # print(new_simbols[i])
-                # print( new_simbols[i][0]*new_simbols[i][1] )
-                result += new_simbols[i][0] * new_simbols[i][1]
-
+        for i in self.__numbers:
+            for j in i.border:
+                if j in self.__simbols and self.__simbols[j] == "*":
+                    star_adjacents[j].append(i.value)
+        result = sum((v[0] * v[1]) for v in star_adjacents.values() if len(v) == 2)
         return result

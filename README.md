@@ -52,6 +52,8 @@ for solutions in rust, refer to [rust repo][rustrepo]
 [202301p]: https://adventofcode.com/2023/day/1
 [202302]: https://github.com/Stegallo/adventofcode/blob/master/y_2023/day2.py
 [202302p]: https://adventofcode.com/2023/day/2
+[202303]: https://github.com/Stegallo/adventofcode/blob/master/y_2023/day3.py
+[202303p]: https://adventofcode.com/2023/day/3
 
 [rustrepo]: https://github.com/Stegallo/adventofcodeinrust
 
