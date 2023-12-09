@@ -21,12 +21,12 @@ def test_extract_numbers():
 
 
 def test__preprocess_input():
-    assert True
+    pass
 
 
 def test_calculate_1():
-    assert True
+    pass
 
 
 def test_calculate_2():
-    assert True
+    pass
