@@ -13,12 +13,11 @@ class Number:
 
     @property
     def border(self) -> List[Tuple[int, int]]:
-        result = []
-        for y in range(3):
-            result.extend(
-                (self.row + y - 1, self.start + x - 1)
-                for x in range(self.length + 2)
-            )
+        result = [
+            (self.row + y - 1, self.start + x - 1)
+            for x in range(self.length + 2)
+            for y in range(3)
+        ]
         return result
 
 
@@ -66,7 +65,6 @@ class Day(AoCDay):
         return result
 
     def _calculate_2(self) -> int:
-        result = 0
         star_adjacents = defaultdict(list)
 
         for i in self.__numbers:
