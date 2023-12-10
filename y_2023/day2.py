@@ -1,7 +1,8 @@
-from common.aoc import AoCDay
-from typing import Optional, List
+from typing import List, Optional
 
 from pydantic.dataclasses import dataclass
+
+from common.aoc import AoCDay
 
 MAX_N = {
     "red": 12,
