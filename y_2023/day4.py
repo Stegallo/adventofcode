@@ -12,12 +12,12 @@ class Card:
 
     def __post_init__(self) -> None:
         self.name = self.original.split(": ")[0]
-        self.win = set(
-            [x for x in self.original.split(": ")[1].split(" | ")[0].split(" ") if x],
-        )
-        self.have = set(
-            [x for x in self.original.split(": ")[1].split(" | ")[1].split(" ") if x],
-        )
+        self.win = {
+            x for x in self.original.split(": ")[1].split(" | ")[0].split(" ") if x
+        }
+        self.have = {
+            x for x in self.original.split(": ")[1].split(" | ")[1].split(" ") if x
+        }
 
 
 class Day(AoCDay):
@@ -26,8 +26,7 @@ class Day(AoCDay):
 
     def _preprocess_input(self):
         self.__input_data = []
-        for i in self._input_data[0]:
-            self.__input_data.append(Card(i))
+        self.__input_data.extend(Card(i) for i in self._input_data[0])
 
     def _calculate_1(self) -> int:  # 23673
         result = 0
@@ -40,14 +39,11 @@ class Day(AoCDay):
 
     def _calculate_2(self) -> int:  # 12263631
         result = 0
-        deck = {}
         original_deck = self.__input_data
-        for i in original_deck:
-            deck[i.name] = 1
+        deck = {i.name: 1 for i in original_deck}
         for c, i in enumerate(original_deck):
             res = len(i.win.intersection(i.have))
             for j in range(res):
                 deck[original_deck[c + j + 1].name] += 1 * deck[i.name]
 
-        result = sum(deck.values())
-        return result
+        return sum(deck.values())
