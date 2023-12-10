@@ -1,7 +1,9 @@
-from common.aoc import AoCDay
-from typing import List, Tuple
 from collections import defaultdict
+from typing import List, Tuple
+
 from pydantic.dataclasses import dataclass
+
+from common.aoc import AoCDay
 
 
 @dataclass

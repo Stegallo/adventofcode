@@ -1,5 +1,6 @@
-from common.aoc import AoCDay
 from typing import List
+
+from common.aoc import AoCDay
 
 SPELLED = [
     "one",
