@@ -13,7 +13,7 @@ for solutions in rust, refer to [rust repo][rustrepo]
 | 01 | [puzzle][201501p]</br>[✓][201501] |  |  |  |  |  |  | [puzzle][202201p]</br>[✓][202201] | [puzzle][202301p]</br>[✓][202301] |
 | 02 | [puzzle][201502p]</br>[✓][201502] |  |  |  |  |  |  |  | [puzzle][202302p]</br>[✓][202302] |
 | 03 | [puzzle][201503p]</br>[✓][201503] |  |  |  |  |  |  |  | [puzzle][202303p]</br>[✓][202303] |
-| 04 | [puzzle][201504p]</br>[✓][201504] |  |  |  |  |  |  |  |  |
+| 04 | [puzzle][201504p]</br>[✓][201504] |  |  |  |  |  |  |  | [puzzle][202304p]</br>[✓][202304] |
 | 05 | [puzzle][201505p]</br>[✓][201505] |  |  |  |  |  |  |  |  |
 | 06 | [puzzle][201506p]</br>[✓][201506] |  |  |  |  |  |  |  |  |
 | 07 | [puzzle][201507p]</br>[✓][201507] |  |  |  |  |  |  |  |  |
@@ -54,6 +54,8 @@ for solutions in rust, refer to [rust repo][rustrepo]
 [202302p]: https://adventofcode.com/2023/day/2
 [202303]: https://github.com/Stegallo/adventofcode/blob/master/y_2023/day3.py
 [202303p]: https://adventofcode.com/2023/day/3
+[202304]: https://github.com/Stegallo/adventofcode/blob/master/y_2023/day4.py
+[202304p]: https://adventofcode.com/2023/day/4
 
 [rustrepo]: https://github.com/Stegallo/adventofcodeinrust
 

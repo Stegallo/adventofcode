@@ -28,7 +28,7 @@ class Day(AoCDay):
         self.__input_data = []
         self.__input_data.extend(Card(i) for i in self._input_data[0])
 
-    def _calculate_1(self) -> int:  # 23673
+    def _calculate_1(self) -> int:
         result = 0
         for i in self.__input_data:
             if len(i.win.intersection(i.have)) > 0:
@@ -37,8 +37,7 @@ class Day(AoCDay):
 
         return result
 
-    def _calculate_2(self) -> int:  # 12263631
-        result = 0
+    def _calculate_2(self) -> int:
         original_deck = self.__input_data
         deck = {i.name: 1 for i in original_deck}
         for c, i in enumerate(original_deck):
