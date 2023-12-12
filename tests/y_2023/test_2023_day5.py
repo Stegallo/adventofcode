@@ -4,7 +4,7 @@ from unittest.mock import mock_open, patch
 
 from y_2023.day5 import Day, SeedRange
 
-with patch("builtins.open", mock_open(read_data="0")):
+with patch("builtins.open", mock_open(read_data="seeds: 79 14 55 13")):
     day = Day()
 
 
