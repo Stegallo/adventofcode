@@ -42,9 +42,9 @@ class SeedRange:
                 SeedRange(s, e),
                 SeedRange(e + 1, self.end),
             ]
-        if not self.start < s and self.end > e:
+        if self.start >= s and self.end > e:
             return [SeedRange(self.start, e), SeedRange(e + 1, self.end)]
-        if self.start < s and not self.end > e:
+        if self.start < s and self.end <= e:
             return [SeedRange(self.start, s - 1), SeedRange(s, self.end)]
         return [self]
 
