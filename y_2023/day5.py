@@ -40,18 +40,18 @@ class SeedRange:
         if self.start > e:
             return [self]
         if self.start < s and self.end > e:
-            result.append(SeedRange(self.start, s - 1))
-            result.append(SeedRange(s, e))
-            result.append(SeedRange(e + 1, self.end))
+            result.extend(
+                (
+                    SeedRange(self.start, s - 1),
+                    SeedRange(s, e),
+                    SeedRange(e + 1, self.end),
+                )
+            )
         if not self.start < s and self.end > e:
-            result.append(SeedRange(self.start, e))
-            result.append(SeedRange(e + 1, self.end))
+            result.extend((SeedRange(self.start, e), SeedRange(e + 1, self.end)))
         if self.start < s and not self.end > e:
-            result.append(SeedRange(self.start, s - 1))
-            result.append(SeedRange(s, self.end))
-        if not result:
-            return [self]
-        return result
+            result.extend((SeedRange(self.start, s - 1), SeedRange(s, self.end)))
+        return [self] if not result else result
 
 
 def apply_rules(seed: int, category: Category) -> int:
@@ -67,7 +67,7 @@ def apply_rules_to_range(input: List[SeedRange], category: Category) -> List:
         split_input = []
         for j in input:
             split_input.extend(j.split(rule.source, rule.source + rule.length - 1))
-        input = [i for i in split_input]
+        input = list(split_input)
 
     output = []
     for seed_range in input:
@@ -110,16 +110,14 @@ class Day(AoCDay):
         return min(seeds)
 
     def _calculate_2(self):
-        seeds_as_range = []
-        for c, k in enumerate(self.seeds):
-            if c % 2 != 0:
-                seeds_as_range.append(
-                    SeedRange(
-                        int(self.seeds[c - 1]),
-                        int(self.seeds[c - 1]) + int(k) - 1,
-                    ),
-                )
-
+        seeds_as_range = [
+            SeedRange(
+                int(self.seeds[c - 1]),
+                int(self.seeds[c - 1]) + int(k) - 1,
+            )
+            for c, k in enumerate(self.seeds)
+            if c % 2 != 0
+        ]
         for x in self.categories:
             seeds_as_range = apply_rules_to_range(seeds_as_range, x)
 
