@@ -33,25 +33,20 @@ class SeedRange:
     def __post_init__(self) -> None:
         self.size = self.end - self.start + 1
 
-    def split(self, s, e) -> List:
-        result = []
-        if self.end < s:
-            return [self]
-        if self.start > e:
+    def split(self, s: int, e: int) -> List:
+        if self.end < s or self.start > e:
             return [self]
         if self.start < s and self.end > e:
-            result.extend(
-                (
-                    SeedRange(self.start, s - 1),
-                    SeedRange(s, e),
-                    SeedRange(e + 1, self.end),
-                )
-            )
+            return [
+                SeedRange(self.start, s - 1),
+                SeedRange(s, e),
+                SeedRange(e + 1, self.end),
+            ]
         if not self.start < s and self.end > e:
-            result.extend((SeedRange(self.start, e), SeedRange(e + 1, self.end)))
+            return [SeedRange(self.start, e), SeedRange(e + 1, self.end)]
         if self.start < s and not self.end > e:
-            result.extend((SeedRange(self.start, s - 1), SeedRange(s, self.end)))
-        return [self] if not result else result
+            return [SeedRange(self.start, s - 1), SeedRange(s, self.end)]
+        return [self]
 
 
 def apply_rules(seed: int, category: Category) -> int:
@@ -62,11 +57,13 @@ def apply_rules(seed: int, category: Category) -> int:
     return output
 
 
-def apply_rules_to_range(input: List[SeedRange], category: Category) -> List:
+def apply_rules_to_range(input: List[SeedRange], category: Category) -> List[SeedRange]:
     for rule in category.rules:  # type: ignore
         split_input = []
-        for j in input:
-            split_input.extend(j.split(rule.source, rule.source + rule.length - 1))
+        for seed_range in input:
+            split_input.extend(
+                seed_range.split(rule.source, rule.source + rule.length - 1),
+            )
         input = list(split_input)
 
     output = []
@@ -97,11 +94,22 @@ class Day(AoCDay):
 
     def _preprocess_input(self):
         self.seeds = [int(i) for i in self._input_data[0][0].split(": ")[1].split(" ")]
+
         self.categories = []
         for c, rules in enumerate(self._input_data[1:]):
             cat = Category(rules[0], c)
             cat.set_rules([Rule(*rule.split(" ")) for rule in rules[1:]])
             self.categories.append(cat)
+
+        # transforms list of seeds into ranges of seeds
+        self.seeds_as_range = [
+            SeedRange(
+                int(self.seeds[c - 1]),
+                int(self.seeds[c - 1]) + int(k) - 1,
+            )
+            for c, k in enumerate(self.seeds)
+            if c % 2 != 0
+        ]
 
     def _calculate_1(self):
         seeds = self.seeds
@@ -110,14 +118,7 @@ class Day(AoCDay):
         return min(seeds)
 
     def _calculate_2(self):
-        seeds_as_range = [
-            SeedRange(
-                int(self.seeds[c - 1]),
-                int(self.seeds[c - 1]) + int(k) - 1,
-            )
-            for c, k in enumerate(self.seeds)
-            if c % 2 != 0
-        ]
+        seeds_as_range = self.seeds_as_range
         for x in self.categories:
             seeds_as_range = apply_rules_to_range(seeds_as_range, x)
 
