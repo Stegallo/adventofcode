@@ -119,7 +119,11 @@ def process(map: str, check: List[str], seq_len) -> int:
 
 
 def process_old(
-    map: str, check: List[str], current_d, original_d, pad: str = "",
+    map: str,
+    check: List[str],
+    current_d,
+    original_d,
+    pad: str = "",
 ) -> int:
     PADS[pad] = (map, "")
     # print(f"{pad}, {map=}, {check=}, {current_d=}, {original_d=}")
