@@ -138,10 +138,13 @@ def cycle(grid, times):
     repeat = None
     remaining = None
     for i in range(times):
+        # detecs cycle
         if new_grid.__hash__() in seen:
+            # in case of already seen waits for the next one to mesure length
             seen = {new_grid.__hash__()}
             seen_locs.append(i)
             if len(seen_locs)>1:
+                # calculate how many steps to get to desired number of iters
                 remaining = (times-i)%(seen_locs[1]-seen_locs[0])
                 break
         else:
@@ -164,6 +167,7 @@ def cycle(grid, times):
         # print()
 
     for i in range(remaining):
+        # remaining number of iterations
         new_grid = tilt_n(new_grid)
         new_grid = tilt_w(new_grid)
         new_grid = tilt_s(new_grid)
@@ -196,25 +200,3 @@ class Day(AoCDay):
             print(x, new_grid.row_num-c, sum(1 for i in x if i == 'O'))
             result+=((new_grid.row_num-c) * sum(1 for i in x if i == 'O'))
         return result
-
-        new_grid = tilt_n(self.__input_data)
-        # new_grid = tilt_w(new_grid)
-        # for i in new_grid.cols:
-        #     print(i)
-        # print()
-        new_grid = tilt_w(new_grid)
-        # for i in new_grid.rows:
-        #     print(i)
-        # print()
-        new_grid = tilt_s(new_grid)
-        # for i in new_grid.cols[::-1]:
-        #     print(i)
-        # print()
-        new_grid = tilt_e(new_grid)
-        for i in new_grid.rows:
-            print(i)
-        result = 0
-        return result
-        # for c, x in enumerate(new_grid.cols):
-        #     print(x, new_grid.col_num-c, sum(1 for i in x if i == 'O'))
-        #     result+=((new_grid.col_num-c) * sum(1 for i in x if i == 'O'))
