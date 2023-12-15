@@ -40,21 +40,17 @@ class Grid:
 
     @property
     def rows(self) -> List[str]:
-        result = []
-        for y in range(self.row_num):  # type: ignore
-            result.append(
-                "".join([self.grid[(x, y)] for x in range(self.col_num)]),
-            )
-        return result
+        return [
+            "".join([self.grid[(x, y)] for x in range(self.col_num)])
+            for y in range(self.row_num)
+        ]
 
     @property
     def cols(self) -> List[str]:
-        result = []
-        for x in range(self.col_num):  # type: ignore
-            result.append(
-                "".join([self.grid[(x, y)] for y in range(self.row_num)]),
-            )
-        return result
+        return [
+            "".join([self.grid[(x, y)] for y in range(self.row_num)])
+            for x in range(self.col_num)
+        ]
 
     def __hash__(self) -> int:
         return hash(tuple(sorted(self.grid.items())))  # type: ignore
