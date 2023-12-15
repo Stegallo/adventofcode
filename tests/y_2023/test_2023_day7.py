@@ -14,7 +14,6 @@ def test_Hand():
     h = Hand("3333K")
     print(h)
     print(h.rate("original"))
-    assert True
 
 
 def test_Hand_five():
@@ -53,12 +52,12 @@ def test_Hand_high_card():
 
 
 def test__preprocess_input():
-    assert True
+    pass
 
 
 def test_calculate_1():
-    assert True
+    pass
 
 
 def test_calculate_2():
-    assert True
+    pass
