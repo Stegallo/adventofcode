@@ -1,7 +1,9 @@
-from typing import List, Dict
-from common.aoc import AoCDay
-from pydantic.dataclasses import dataclass
 from collections import Counter
+from typing import Dict, List
+
+from pydantic.dataclasses import dataclass
+
+from common.aoc import AoCDay
 
 RANK_TYPE = {
     "Five of a kind": 1,
@@ -142,8 +144,7 @@ class Day(AoCDay):
             final_ordering.extend(sorted(list(i), key=lambda x: x.hand.sort_ord(type)))
 
         return sum(
-            (len(final_ordering) - c) * int(i.bid)
-            for c, i in enumerate(final_ordering)
+            (len(final_ordering) - c) * int(i.bid) for c, i in enumerate(final_ordering)
         )
 
     def _calculate_1(self) -> int:  # 246424613
