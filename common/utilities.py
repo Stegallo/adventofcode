@@ -42,9 +42,7 @@ class Grid:
     def rows(self) -> List[str]:
         result = []
         for y in range(self.row_num):  # type: ignore
-            interm = []
-            for x in range(self.col_num):  # type: ignore
-                interm.append(self.grid[(x, y)])  # type: ignore
+            interm = [self.grid[(x, y)] for x in range(self.col_num)]
             result.append("".join(interm))
         return result
 
@@ -52,9 +50,7 @@ class Grid:
     def cols(self) -> List[str]:
         result = []
         for x in range(self.col_num):  # type: ignore
-            interm = []
-            for y in range(self.row_num):  # type: ignore
-                interm.append(self.grid[(x, y)])  # type: ignore
+            interm = [self.grid[(x, y)] for y in range(self.row_num)]
             result.append("".join(interm))
         return result
 
