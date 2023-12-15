@@ -59,4 +59,4 @@ class Grid:
         return result
 
     def __hash__(self) -> int:
-        return hash(tuple(self.original))  # type: ignore
+        return hash(tuple(sorted(self.grid.items())))  # type: ignore

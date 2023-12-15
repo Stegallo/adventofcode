@@ -10,8 +10,17 @@ def test_bit_ops():
 
 
 def test_grid():
-    print()
     g = Grid(["ab", "cd"])
-    print(g)
+
     assert g.rows == ["ab", "cd"]
     assert g.cols == ["ac", "bd"]
+
+    assert g.__hash__() == g.__hash__()
+
+    g1 = Grid(["ab", "cd"])
+    assert g1.__hash__() == g.__hash__()
+
+    g2 = Grid(["ab", "ef"])
+    assert g2.rows == ["ab", "ef"]
+    assert g2.cols == ["ae", "bf"]
+    assert g1.__hash__() != g2.__hash__()
