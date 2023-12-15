@@ -4,44 +4,44 @@ from pydantic.dataclasses import dataclass
 from functools import lru_cache
 
 from common.aoc import AoCDay
-
-@dataclass
-class Grid:
-    original: List[str]
-    grid: Optional[Any] = None
-    row_num: Optional[int] = None
-    col_num: Optional[int] = None
-
-    def __post_init__(self) -> None:
-        self.grid = {}
-        self.row_num = len(self.original)
-        self.col_num = len(self.original[0])
-        for y, t in enumerate(self.original):
-            for x, u in enumerate(t):
-                self.grid[(x,y)] = u
-
-    @property
-    def rows(self):
-        result = []
-        for y in range(self.row_num):
-            interm = []
-            for x in range(self.col_num):
-                interm.append(self.grid[(x,y)])
-            result.append(''.join(interm))
-        return result
-
-    @property
-    def cols(self):
-        result = []
-        for x in range(self.col_num):
-            interm = []
-            for y in range(self.row_num):
-                interm.append(self.grid[(x,y)])
-            result.append(''.join(interm))
-        return result
-
-    def __hash__(self):
-        return hash(tuple(self.original))
+from common.utilities import Grid
+# @dataclass
+# class Grido:
+#     original: List[str]
+#     grid: Optional[Any] = None
+#     row_num: Optional[int] = None
+#     col_num: Optional[int] = None
+#
+#     def __post_init__(self) -> None:
+#         self.grid = {}
+#         self.row_num = len(self.original)
+#         self.col_num = len(self.original[0])
+#         for y, t in enumerate(self.original):
+#             for x, u in enumerate(t):
+#                 self.grid[(x,y)] = u
+#
+#     @property
+#     def rows(self):
+#         result = []
+#         for y in range(self.row_num):
+#             interm = []
+#             for x in range(self.col_num):
+#                 interm.append(self.grid[(x,y)])
+#             result.append(''.join(interm))
+#         return result
+#
+#     @property
+#     def cols(self):
+#         result = []
+#         for x in range(self.col_num):
+#             interm = []
+#             for y in range(self.row_num):
+#                 interm.append(self.grid[(x,y)])
+#             result.append(''.join(interm))
+#         return result
+#
+#     def __hash__(self):
+#         return hash(tuple(self.original))
 
 #
 # @dataclass
