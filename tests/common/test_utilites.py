@@ -1,4 +1,4 @@
-from common.utilities import bitand, bitnot, bitor, lshift, rshift
+from common.utilities import bitand, bitnot, bitor, lshift, rshift, Grid
 
 
 def test_bit_ops():
@@ -7,3 +7,11 @@ def test_bit_ops():
     assert lshift(1, 2) == 4
     assert rshift(1, 2) == 0
     assert bitnot(1) == 65534
+
+
+def test_grid():
+    print()
+    g = Grid(["ab", "cd"])
+    print(g)
+    assert g.rows == ["ab", "cd"]
+    assert g.cols == ["ac", "bd"]
