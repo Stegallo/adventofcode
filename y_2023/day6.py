@@ -40,11 +40,11 @@ class Day(AoCDay):
 
         result = 1
         for i in range(time.size):
-            local_res = 0
-            for j in range(time.sequence[i] + 1):  # type: ignore
-                if j * (time.sequence[i] - j) > distance.sequence[i]:  # type: ignore
-                    local_res += 1
-
+            local_res = sum(
+                1
+                for j in range(time.sequence[i] + 1)
+                if j * (time.sequence[i] - j) > distance.sequence[i]
+            )
             result *= local_res
         return result
 
@@ -53,10 +53,10 @@ class Day(AoCDay):
         distance = Distance(*self.__input_data[1].split(":"))
 
         result = 1
-        local_res = 0
-        for j in range(time.sequence_kernig + 1):  # type: ignore
-            if j * (time.sequence_kernig - j) > distance.sequence_kernig:  # type: ignore # noqa: E501
-                local_res += 1
-
+        local_res = sum(
+            1
+            for j in range(time.sequence_kernig + 1)
+            if j * (time.sequence_kernig - j) > distance.sequence_kernig
+        )
         result *= local_res
         return result

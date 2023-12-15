@@ -139,15 +139,12 @@ class Day(AoCDay):
 
         final_ordering = []
         for i in ranks.values():
-            final_ordering.extend(
-                sorted([x for x in i], key=lambda x: x.hand.sort_ord(type)),
-            )
+            final_ordering.extend(sorted(list(i), key=lambda x: x.hand.sort_ord(type)))
 
-        result = 0
-        for c, i in enumerate(final_ordering):
-            result += (len(final_ordering) - c) * int(i.bid)
-
-        return result
+        return sum(
+            (len(final_ordering) - c) * int(i.bid)
+            for c, i in enumerate(final_ordering)
+        )
 
     def _calculate_1(self) -> int:  # 246424613
         return self.__compute("original")
