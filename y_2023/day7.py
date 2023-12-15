@@ -71,53 +71,50 @@ class Hand:
         return "High card"  # , None
 
     def rate(self, type: str) -> str:
-        if type == "joker" and "J" in self.cards:
-            str_clone = self.cards
-            cou = Counter(self.cards)
-
-            if cou.most_common()[0][1] > 1 and cou.most_common()[0][0] != "J":
-                str_clone = str_clone.replace("J", cou.most_common()[0][0])
-            if (
-                cou.most_common()[0][1] > 1
-                and cou.most_common()[0][0] == "J"
-                and cou.most_common()[0][1] < 5
-            ):
-                str_clone = str_clone.replace("J", cou.most_common()[1][0])
-            if cou.most_common()[0][1] == 1 and cou.most_common()[0][0] == "J":
-                str_clone = str_clone.replace("J", cou.most_common()[1][0])
-            if cou.most_common()[0][1] == 1 and cou.most_common()[0][0] != "J":
-                str_clone = str_clone.replace("J", cou.most_common()[0][0])
-
-            cou = Counter(str_clone)
-            if cou.most_common()[0][1] == 5:
-                # Five of a kind, where all five cards have the same label: AAAAA
-                return "Five of a kind"  # , cou.most_common()[0][0]
-            if cou.most_common()[0][1] == 4:
-                # Four of a kind, where four cards have the same label and one
-                # card has a different label: AA8AA
-                return "Four of a kind"  # , cou.most_common()[0][0]
-            if cou.most_common()[0][1] == 3 and cou.most_common()[1][1] == 2:
-                # Full house, where three cards have the same label, and the
-                # remaining two cards share a different label: 23332
-                return (
-                    "Full house"  # , cou.most_common()[0][0], cou.most_common()[1][0]
-                )
-            if cou.most_common()[0][1] == 3:
-                # Full house, where three cards have the same label, and the
-                # remaining two cards share a different label: 23332
-                return "Three of a kind"  # , cou.most_common()[0][0]
-            if cou.most_common()[0][1] == 2 and cou.most_common()[1][1] == 2:
-                # Full house, where three cards have the same label, and the
-                # remaining two cards share a different label: 23332
-                return "Two pair"  # , cou.most_common()[0][0], cou.most_common()[1][0]
-            if cou.most_common()[0][1] == 2:
-                # Full house, where three cards have the same label, and the
-                # remaining two cards share a different label: 23332
-                return "One pair"  # , cou.most_common()[0][0]
-
-            return "High card"  # , None
-        else:
+        if type != "joker" or "J" not in self.cards:
             return self.__rate
+        str_clone = self.cards
+        cou = Counter(self.cards)
+
+        if cou.most_common()[0][1] > 1 and cou.most_common()[0][0] != "J":
+            str_clone = str_clone.replace("J", cou.most_common()[0][0])
+        if (
+            cou.most_common()[0][1] > 1
+            and cou.most_common()[0][0] == "J"
+            and cou.most_common()[0][1] < 5
+        ):
+            str_clone = str_clone.replace("J", cou.most_common()[1][0])
+        if cou.most_common()[0][1] == 1 and cou.most_common()[0][0] == "J":
+            str_clone = str_clone.replace("J", cou.most_common()[1][0])
+        if cou.most_common()[0][1] == 1 and cou.most_common()[0][0] != "J":
+            str_clone = str_clone.replace("J", cou.most_common()[0][0])
+
+        cou = Counter(str_clone)
+        if cou.most_common()[0][1] == 5:
+            # Five of a kind, where all five cards have the same label: AAAAA
+            return "Five of a kind"  # , cou.most_common()[0][0]
+        if cou.most_common()[0][1] == 4:
+            # Four of a kind, where four cards have the same label and one
+            # card has a different label: AA8AA
+            return "Four of a kind"  # , cou.most_common()[0][0]
+        if cou.most_common()[0][1] == 3 and cou.most_common()[1][1] == 2:
+            # Full house, where three cards have the same label, and the
+            # remaining two cards share a different label: 23332
+            return "Full house"  # , cou.most_common()[0][0], cou.most_common()[1][0]
+        if cou.most_common()[0][1] == 3:
+            # Full house, where three cards have the same label, and the
+            # remaining two cards share a different label: 23332
+            return "Three of a kind"  # , cou.most_common()[0][0]
+        if cou.most_common()[0][1] == 2 and cou.most_common()[1][1] == 2:
+            # Full house, where three cards have the same label, and the
+            # remaining two cards share a different label: 23332
+            return "Two pair"  # , cou.most_common()[0][0], cou.most_common()[1][0]
+        if cou.most_common()[0][1] == 2:
+            # Full house, where three cards have the same label, and the
+            # remaining two cards share a different label: 23332
+            return "One pair"  # , cou.most_common()[0][0]
+
+        return "High card"  # , None
 
 
 @dataclass
