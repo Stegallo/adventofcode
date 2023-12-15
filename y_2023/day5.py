@@ -1,10 +1,9 @@
-from typing import Optional, List
+from math import inf
+from typing import List, Optional
 
 from pydantic.dataclasses import dataclass
 
 from common.aoc import AoCDay
-
-from math import inf
 
 
 @dataclass
