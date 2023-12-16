@@ -1,4 +1,4 @@
-from typing import Optional, List, Tuple, Dict
+from typing import Dict, List, Optional, Tuple
 
 from pydantic.dataclasses import dataclass
 
@@ -40,23 +40,17 @@ class Grid:
 
     @property
     def rows(self) -> List[str]:
-        result = []
-        for y in range(self.row_num):  # type: ignore
-            interm = []
-            for x in range(self.col_num):  # type: ignore
-                interm.append(self.grid.get((x, y), '.'))  # type: ignore
-            result.append("".join(interm))
-        return result
+        return [
+            "".join([self.grid[(x, y)] for x in range(self.col_num)])  # type: ignore
+            for y in range(self.row_num)  # type: ignore
+        ]
 
     @property
     def cols(self) -> List[str]:
-        result = []
-        for x in range(self.col_num):  # type: ignore
-            interm = []
-            for y in range(self.row_num):  # type: ignore
-                interm.append(self.grid.get((x, y), '.'))  # type: ignore
-            result.append("".join(interm))
-        return result
+        return [
+            "".join([self.grid[(x, y)] for y in range(self.row_num)])  # type: ignore
+            for x in range(self.col_num)  # type: ignore
+        ]
 
     def __hash__(self) -> int:
         return hash(tuple(sorted(self.grid.items())))  # type: ignore
