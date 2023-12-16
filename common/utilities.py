@@ -44,7 +44,7 @@ class Grid:
         for y in range(self.row_num):  # type: ignore
             interm = []
             for x in range(self.col_num):  # type: ignore
-                interm.append(self.grid[(x, y)])  # type: ignore
+                interm.append(self.grid.get((x, y), '.'))  # type: ignore
             result.append("".join(interm))
         return result
 
@@ -54,7 +54,7 @@ class Grid:
         for x in range(self.col_num):  # type: ignore
             interm = []
             for y in range(self.row_num):  # type: ignore
-                interm.append(self.grid[(x, y)])  # type: ignore
+                interm.append(self.grid.get((x, y), '.'))  # type: ignore
             result.append("".join(interm))
         return result
 
