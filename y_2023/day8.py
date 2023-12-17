@@ -1,5 +1,6 @@
-from typing import List, Dict
 from math import lcm
+from typing import Dict, List
+
 from pydantic.dataclasses import dataclass
 
 from common.aoc import AoCDay
