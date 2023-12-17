@@ -65,11 +65,7 @@ class Day(AoCDay):
 
     def _calculate_2(self) -> int:  # 13740108158591
         self.index = -1
-        currents = []
-        for i in self.__input_data.network:
-            if i[-1] == "A":
-                currents.append(i)
-
+        currents = [i for i in self.__input_data.network if i[-1] == "A"]
         results = []
         for current in currents:
             c = 0
