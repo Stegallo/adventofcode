@@ -1,5 +1,5 @@
 from typing import List, Dict
-
+from math import lcm
 from pydantic.dataclasses import dataclass
 
 from common.aoc import AoCDay
@@ -63,5 +63,20 @@ class Day(AoCDay):
 
         return result
 
-    def _calculate_2(self) -> int:
-        return 0
+    def _calculate_2(self) -> int:  # 13740108158591
+        self.index = -1
+        currents = []
+        for i in self.__input_data.network:
+            if i[-1] == "A":
+                currents.append(i)
+
+        results = []
+        for current in currents:
+            c = 0
+            while current[-1] != "Z":
+                action = self.next()
+                current = self.__input_data.network[current].next(action)
+                c += 1
+            results.append(c)
+
+        return lcm(*results)
