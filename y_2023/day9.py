@@ -6,29 +6,29 @@ from common.aoc import AoCDay
 
 
 @dataclass
-class Row:
-    history: List[int]
+class History:
+    vals: List[int]
 
     @property
     def next(self) -> Any:
-        return Row(
+        return History(
             [
-                int(self.history[i + 1]) - int(self.history[i])
-                for i in range(len(self.history) - 1)
+                int(self.vals[i + 1]) - int(self.vals[i])
+                for i in range(len(self.vals) - 1)
             ],
         )
 
     def next_value(self) -> int:
-        if set(self.history) == {0}:
+        if set(self.vals) == {0}:
             return 0
-        self.history.append(self.history[-1] + self.next.next_value())
-        return self.history[-1]
+        self.vals.append(self.vals[-1] + self.next.next_value())
+        return self.vals[-1]
 
     def prev_value(self) -> int:
-        if set(self.history) == {0}:
+        if set(self.vals) == {0}:
             return 0
-        self.history.insert(0, self.history[0] - self.next.prev_value())
-        return self.history[0]
+        self.vals.insert(0, self.vals[0] - self.next.prev_value())
+        return self.vals[0]
 
 
 class Day(AoCDay):
@@ -36,7 +36,7 @@ class Day(AoCDay):
         super().__init__(__name__, test)
 
     def _preprocess_input(self):
-        self.__input_data = [Row(i.split(" ")) for i in self._input_data[0]]
+        self.__input_data = [History(i.split(" ")) for i in self._input_data[0]]
 
     def _calculate_1(self) -> int:  # 2043183816
         return sum(x.next_value() for x in self.__input_data)
