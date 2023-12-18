@@ -27,9 +27,7 @@ class Row:
     def prev_value(self) -> int:
         if set(self.history) == {0}:
             return 0
-        new_history = [self.history[0] - self.next.prev_value()]
-        new_history.extend(self.history)
-        self.history = new_history
+        self.history.insert(0, self.history[0] - self.next.prev_value())
         return self.history[0]
 
 
