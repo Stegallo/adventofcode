@@ -24,6 +24,14 @@ class Row:
         self.history.append(self.history[-1] + self.next.next_value())
         return self.history[-1]
 
+    def prev_value(self) -> int:
+        if set(self.history) == {0}:
+            return 0
+        new_history = [self.history[0] - self.next.prev_value()]
+        new_history.extend(self.history)
+        self.history = new_history
+        return self.history[0]
+
 
 class Day(AoCDay):
     def __init__(self, test=0):
@@ -36,4 +44,4 @@ class Day(AoCDay):
         return sum(x.next_value() for x in self.__input_data)
 
     def _calculate_2(self) -> int:  # 1118
-        return 0
+        return sum(x.prev_value() for x in self.__input_data)
