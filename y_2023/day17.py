@@ -16,6 +16,10 @@ LEFT = (-1, 0)
 RIGH = ( 1, 0)
 
 POT = defaultdict(lambda: inf)
+
+MAX_STEPS = 3
+MAX_STEPS = 10
+# MAX_STEPS = 10_000
 @dataclass
 class Cruc:
     grid: Grid
@@ -115,15 +119,19 @@ class Cru:
             except KeyError as e:
                 out_of_bound.add(i)
 
-        if self.dir == (1,0): # >
-            possible_moves.extend([DOWN, UP])
-        if self.dir == (-1,0): # <
-            possible_moves.extend([DOWN, UP])
-        if self.dir == (0,1): # v
-            possible_moves.extend([RIGH, LEFT])
-        if self.dir == (0,-1): # ^
-            possible_moves.extend([RIGH, LEFT])
-        if self.steps_dir<2:
+        # if self.pos[1] == 4:
+        #     breakpoint()
+        if self.steps_dir >= 3:
+        # if True:
+            if self.dir == (1,0): # >
+                possible_moves.extend([DOWN, UP])
+            if self.dir == (-1,0): # <
+                possible_moves.extend([DOWN, UP])
+            if self.dir == (0,1): # v
+                possible_moves.extend([RIGH, LEFT])
+            if self.dir == (0,-1): # ^
+                possible_moves.extend([RIGH, LEFT])
+        if self.steps_dir<MAX_STEPS-1:
             possible_moves.append(self.dir)
         # breakpoint()
         possible_moves = set(possible_moves)-out_of_bound
@@ -154,6 +162,7 @@ class Day(AoCDay):
         self.__input_data = Grid(self._input_data[0])
 
     def _calculate_1(self):
+        # return 0
         x = self.__input_data
         # print(f"{x.grid}")
         cru = Cru(x, (0,0), (1,0), 0)
@@ -177,12 +186,44 @@ class Day(AoCDay):
         # res = cruc.move((0,0), (1,0), viz)
         print(f"{len(POT.keys())=}, {fringe=}")
         dest = (x.col_num-1, x.row_num-1)
+        print(f"{len(POT.keys())=}, {fringe=}, {dest=}")
         results = [v for k,v in POT.items() if k[0] == dest]
         print(results)
-        for i in sorted(POT):
-            print(i, POT[i])
+        # for i in sorted(POT):
+        #     print(i, POT[i])
             # break
         return min(results)
 
     def _calculate_2(self):
-        return 0
+        # return 0
+        x = self.__input_data
+        # print(f"{x.grid}")
+        cru = Cru(x, (0,0), (1,0), 0)
+        res=0
+        # print(f"{cru=}")
+        POT[(cru.pos, cru.dir, cru.steps_dir)] = 0
+        fringe = deque([cru])
+        while fringe:
+            c = fringe.popleft()
+            # print(f"{c.pos=}")
+            # breakpoint()
+            for i in c.neib_cost:
+                # print(f"{i[0].pos=}")
+                if POT[c.pos, c.dir, c.steps_dir]+i[1] < POT[i[0].pos, i[0].dir, i[0].steps_dir]:
+                    POT[i[0].pos, i[0].dir, i[0].steps_dir]=POT[c.pos, c.dir, c.steps_dir]+i[1]
+                    fringe.append(i[0])
+            # break
+        # res = cruc.move((12,7), (0,1))
+        # res = cruc.move((0,0), (0,1))
+        # viz = set()
+        # res = cruc.move((0,0), (1,0), viz)
+        print(f"{len(POT.keys())=}, {fringe=}")
+        dest = (x.col_num-1, x.row_num-1)
+        print(f"{len(POT.keys())=}, {fringe=}, {dest=}")
+        results = [v for k,v in POT.items() if k[0] == dest and k[2]>=3]
+        # results = [v for k,v in POT.items() if k[0] == dest]
+        print(results)
+        # for i in sorted(POT):
+        #     print(i, POT[i])
+            # break
+        return min(results)
