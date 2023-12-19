@@ -51,9 +51,13 @@ class Day(AoCDay):
                     min_r = curr[1]+dir[1]
                 # print(f"{curr}")
                 G[curr] = '#' # x.color
-        print(f"{len(G)}, {min_c=}, {min_r=}, {max_c=}, {max_r=}")
+        # print(f"{G=}, {len(G)}, {min_c=}, {min_r=}, {max_c=}, {max_r=}")
+        contour = Grid.from_grid(G, frame=1)
+        contour.viz()
         grid = []
         for i in range(max_r-min_r+1):
+            break
+            1/0
             row = []
             insid=False
             on_bord=False
@@ -88,19 +92,54 @@ class Day(AoCDay):
                     row.append( '.' )
                 prev_on_bord = on_bord
             grid.append(''.join(row))
-            print(''.join(row))
-        g = Grid(grid)
-        # print(g)
-        g.grid = {k:v for k,v in g.grid.items() if v=='#'}
+            # print(''.join(row))
+
+        for j in contour.dia1:
+            print(j)
+            # print()
+            # continue
+            row = []
+            insid=False
+            on_bord=False
+            # prev_on_bord = on_bord
+            for i in j:
+                if i == '#':
+                    insid = not insid
+                #     on_bord = True
+                # else:
+                #     on_bord = False
+
+                # if prev_on_bord and not on_bord:
+                #     insid = not insid
+                if i == '#' or insid:
+                    row.append( '#' )
+                if i != '#' and not insid:
+                    row.append( '.' )
+                # prev_on_bord = on_bord
+            print((''.join(row)))
+            grid.append(''.join(row))
+            print()
+        # g = contour
+        # g = Grid(grid)
+        # g.viz()
+        # g.grid = {k:v if v=='#' else '.' for k,v in g.grid.items()}
+        # g.grid = {k:v for k,v in g.grid.items() if v=='#' }
+        print(f"{grid=}")
+        result = 0
+        for r in grid:
+            print(r)
+            print([i for i in r if i=='#'])
+            result+=len([i for i in r if i=='#'])
+
         # for j in g.rows:
-        #     # print(j)
+        #     print(j)
         #     for i in j:
         #         # print(i)
         #         pass
         # 57330 low
         # 57590 low
         # 57590
-        return len(g.grid)
+        return result #len(g.grid)
 
     def _calculate_2(self):
         return 0

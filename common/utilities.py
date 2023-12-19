@@ -1,7 +1,7 @@
 from typing import Dict, List, Optional, Tuple
 
 from pydantic.dataclasses import dataclass
-
+from math import inf
 
 def bitand(x: int, y: int) -> int:
     return x & y
@@ -46,6 +46,31 @@ class Grid:
         ]
 
     @property
+    def dia1(self) -> List[str]:
+        result = []
+        for k in range(self.col_num+self.row_num-1):
+            # print((self.col_num+self.row_num)//2)
+            p = k+1-max(self.col_num,self.row_num)
+            r = []
+            for i in range(self.col_num+self.row_num-1):
+                # print(f"{k=}, {i=}, {p=}")
+                # print(f"{i+p,i}, \t\t{i=}, {p=}, {(i+p,i)=}, {k=}, {i=}")
+                try:
+                    r.append(self.grid[(i+p,i)])
+                    # print(f", \t\t{self.grid[(i+p,i)]}")
+                except:
+                    ...
+
+            result.append(''.join(r))
+            # print()
+        return result
+
+    @property
+    def dia2(self) -> List[str]:
+        return []
+
+
+    @property
     def cols(self) -> List[str]:
         return [
             "".join([self.grid[(x, y)] for y in range(self.row_num)])  # type: ignore
@@ -54,3 +79,34 @@ class Grid:
 
     def __hash__(self) -> int:
         return hash(tuple(sorted(self.grid.items())))  # type: ignore
+
+    def viz(self) -> None:
+        for i in self.rows:
+            print(i)
+
+    @staticmethod
+    def from_grid(grid, frame=0):
+        max_c = -inf
+        max_r = -inf
+        min_c = inf
+        min_r = inf
+        for i in grid:
+            # print(i)
+            if i[0] > max_c:
+                max_c = i[0]
+            if i[1] > max_r:
+                max_r = i[1]
+            if i[0] < min_c:
+                min_c = i[0]
+            if i[1] < min_r:
+                min_r = i[1]
+
+        # print(f"{min_c=}, {min_r=}, {max_c=}, {max_r=}")
+        c = []
+        for y in range(max_r-min_r+1+2*frame):
+            r = []
+            for x in range(max_c-min_c+1+2*frame):
+                r.append(grid.get((-1*frame+x,-1*frame+y), '.'))
+            # print(f"here: {''.join(r)}")
+            c.append(''.join(r))
+        return Grid(c)
