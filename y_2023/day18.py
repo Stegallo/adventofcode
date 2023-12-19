@@ -14,6 +14,7 @@ LEFT = (-1, 0)
 RIGH = ( 1, 0)
 
 MAP = {'D': DOWN, 'U': UP, 'L': LEFT, 'R': RIGH}
+ENCODES = {'0': RIGH, '1': DOWN, '2': LEFT, "3": UP}
 @dataclass
 class Row:
     dir: str
@@ -54,4 +55,24 @@ class Day(AoCDay):
         return abs(shoelace)//2+perim//2+1
 
     def _calculate_2(self):
-        return 0
+        start = Point(0,0)
+        points = [start]
+        curr = start
+        perim = 0
+        for c, x in enumerate(self.__input_data):
+            new_instr = x.color.replace('(','').replace(')','')[1:]
+            steps = int(new_instr[:-1],16)
+            dir = [(steps)*i for i in ENCODES[new_instr[-1]]]
+            perim += steps
+            curr = Point(curr.x+dir[0],curr.y+dir[1])
+            points.append(curr)
+        shoelace = 0
+        for c, i in enumerate(points):
+            if c==0:
+                continue
+            sour = points[c-1]
+            dest = points[c]
+            v = sour.x*dest.y-sour.y*dest.x
+            shoelace+=v
+
+        return abs(shoelace)//2+perim//2+1
