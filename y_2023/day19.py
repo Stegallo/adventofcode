@@ -5,6 +5,7 @@ from pydantic.dataclasses import dataclass
 from common.aoc import AoCDay
 from itertools import product
 
+# python -m src --year 2023 --day 19 --test 1
 # OPS = ['>':>, '<':<]
 
 # @dataclass
