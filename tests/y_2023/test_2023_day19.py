@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from unittest.mock import mock_open, patch
 
-from y_2023.day19 import Day, Branch, ElseBranch, Rule, Interval
+from y_2023.day19 import Day, Branch, ElseBranch, Rule, Interval, State
 import copy
 
 with patch("builtins.open", mock_open(read_data="px{a<2006:qkq,m>2090:A,rfg}\n\n{x=787,m=2655,a=1222,s=2876}")):
@@ -16,6 +16,7 @@ def test_rule():
     # assert False
 
 def test_branch():
+    return
     print()
     branch = Branch.from_input('a<2006:A')
     assert branch.combinations()==1
@@ -26,11 +27,59 @@ def test_branch():
     print(f"{branch.combinations()=}")
     assert branch.combinations() is None
 
+def test_branch():
+    print()
+    branch = Branch.from_input('a<2000:A')
+    result = branch.intervals(Interval(1,4001))
+    assert sum(i.len for i in result) == 4000
+    assert result == [Interval(1,2000), Interval(2000,4001)]
+
+    branch = Branch.from_input('a>2000:A')
+    result = branch.intervals(Interval(1,4001))
+    assert sum(i.len for i in result) == 4000
+    assert result == [Interval(2001,4001), Interval(1,2001)]
+
+
 def test_interval_split():
     i = Interval(1,4001)
     res = i.split(2001)
     assert res == [Interval(1,2001), Interval(2001, 4001)]
     assert i.len == sum(r.len for r in res)
+
+def test_state_apply_final_rules():
+    print()
+    s = State({})
+    result = s.apply(Rule.from_input('end{A}'))
+    assert result == 1
+
+    result = s.apply(Rule.from_input('end{R}'))
+    assert result == 0
+
+    # result = s.apply(Rule.from_input('end{ii}'))
+    # assert result == 0
+def test_state_apply():
+    print()
+    s = State({
+    's':Interval(1, 4001),
+    })
+    result = s.apply(
+    Rule.from_input('in{s<1351:A,R}'),
+    {'A':Rule.from_input('A{A}'),
+     'R':Rule.from_input('R{R}')},
+    )
+    assert result == 1350
+
+    s = State({
+    's':Interval(1, 4001),
+    })
+    result = s.apply(
+    Rule.from_input('in{s<1351:R,R}'),
+    {'A':Rule.from_input('A{A}'),
+     'R':Rule.from_input('R{R}')},
+    )
+    assert result == 0
+    # in{s<1351:px,m>2478:px,x>478:px,a>1478:px,qqz}
+    # result = s.apply(Rule.from_input('end{A}'))
 
 def test_get_possible():
     # day.rules={}

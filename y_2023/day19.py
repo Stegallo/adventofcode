@@ -1,8 +1,9 @@
 from typing import Optional, List, Any
 
 from pydantic.dataclasses import dataclass
-
+from math import prod
 from common.aoc import AoCDay
+from common.utilities import fprint
 from itertools import product
 
 @dataclass
@@ -21,6 +22,7 @@ class Branch:
         return Branch(var, op, value, dest)
 
     def combinations(self, var) -> int:
+        assert False
         options = var.split(self.value)
         result = None
         # breakpoint()
@@ -45,6 +47,18 @@ class Branch:
             if var.start > self.value:
                 return True
         return False
+
+    def intervals(self, var):
+        # breakpoint()
+        options = var.split(self.value, self.op)
+        # print(f'{self.op=}\t{self.value=}, {var=}\t{options=}')
+
+        if self.op == '<':
+            return options
+        if self.op == '>':
+            return options[::-1]
+        assert False
+        return None
 
 @dataclass
 class ElseBranch:
@@ -85,14 +99,83 @@ class Interval:
     start:int
     end:int
 
-    def split(self, int):
+    def split(self, int, op):
         if int>self.end or int<self.start:
             raise Exception()
-        return [Interval(self.start, int), Interval(int, self.end)]
+        if op == '<':
+            return [Interval(self.start, int), Interval(int, self.end)]
+        if op == '>':
+            return [Interval(self.start, int+1), Interval(int+1, self.end)]
+        assert False
 
     @property
     def len(self):
         return self.end-self.start
+
+@dataclass
+class State:
+    state: Any = None
+
+    def __init__(self, state):
+        self.state = state
+
+    @property
+    def len(self):
+        return prod(i.len for i in self.state.values())
+
+    def apply(self, rule, rules, pad = ''):
+        # print(f"{pad}{rule}")
+        if not rule.branches:
+            # breakpoint()
+            # print(f"{pad}rule {rule.name} with no branches")
+            if rule.else_rule.dest == 'A':
+                return self.len
+            if rule.else_rule.dest == 'R':
+                return 0
+            assert False
+        states = []
+        else_intervals = {}
+        branch_results = []
+        else_result = None
+        for i in rule.branches:
+            # print(f"{pad}{rule.name=}, branch={i}")
+            var = self.state[i.var]
+            intervals = i.intervals(var)
+            # print(intervals)
+            # create 2 new states
+            state1 = State(self.state | {i.var: intervals[0]} | else_intervals)
+            # state2 = State(self.state | {i.var: intervals[1]})
+            else_intervals[i.var] = intervals[1]
+            # print(state1)
+            # print(state2)
+            states.append(state1)
+            # breakpoint()
+            state1result = state1.apply(rules[i.dest], rules, pad+' ')
+            # states.append(state2)
+            # breakpoint()
+            # print(f"{pad}{rule.name=}branch={i}\t{state1result=} {state1.len=}")
+            # branch_results.append(state1result)
+            # breakpoint()
+            # if not state1result
+            # if state1result not in (0,1):
+            #     print(f"{pad}here")
+            #     branch_results.append(state1result)
+            # else:
+            branch_results.append(state1result)
+            # return state1result * state1.len
+            # print(f"{pad}{rule.name=}branch={i}{branch_results=}")
+        # breakpoint()
+        # print(f"{pad}{branch_results=}")
+        states.append(State(self.state | else_intervals))
+        else_state = State(self.state | else_intervals)
+        else_result = else_state.apply(rules[rule.else_rule.dest], rules, pad+' ')
+        # print(f"{pad}{else_result=}")
+        # print(f"{pad}states=")
+        # for i in states:
+        #     print(f"{pad}{i}")
+        # print(f"{pad}{branch_results=}{else_result=}")
+        return sum(branch_results)+else_result
+        print()
 
 class Day(AoCDay):
     def __init__(self, test=0):
@@ -189,10 +272,27 @@ class Day(AoCDay):
         # }
 
     def _calculate_2(self) -> int:
+        s = State({
+         'x':Interval(1, 4001),
+         'm':Interval(1, 4001),
+         'a':Interval(1, 4001),
+         's':Interval(1, 4001),
+         })
         self.rules = {}
         for i in self.__input_rules:
             self.rules[i.name] = i
         rule = self.rules['in']
+        # rule = self.rules['end']
+        self.rules['A']= Rule.from_input('A{A}')
+        self.rules['R']= Rule.from_input('R{R}')
+        # print(s)
+
+        # 167409079868000
+        # 167409079868000
+        return s.apply(rule, self.rules)
+        # 268730360502076
+        # 256000000000000
+
         variables = {'x':Interval(1, 4001),
          'm':Interval(1, 4001),
          'a':Interval(1, 4001),
