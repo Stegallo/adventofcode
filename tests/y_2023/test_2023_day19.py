@@ -2,69 +2,59 @@ from __future__ import annotations
 
 from unittest.mock import mock_open, patch
 
-from y_2023.day19 import Day, process_rule, process_branch
+from y_2023.day19 import Day, Branch, ElseBranch, Rule, Interval
 import copy
 
 with patch("builtins.open", mock_open(read_data="px{a<2006:qkq,m>2090:A,rfg}\n\n{x=787,m=2655,a=1222,s=2876}")):
     day = Day()
 
 # python -m pytest tests/y_2023/test_2023_day19.py::test_process_rule -vvs
-def test_process_branch():
+def test_rule():
     print()
-    result = process_branch('A', None)
-    assert result == None
+    rule = Rule.from_input('px{a<2006:qkq,m>2090:A,rfg}')
+    print(f"{rule=}")
+    # assert False
 
-    result = process_branch('R', None)
-    assert result == None
-
-    result = process_branch('a<3000:A', {i:[0, 4000] for i in ('a')})
-    # assert result == ({'a': [0, 2999]}, {'a': [2999, 4000]})
-    assert result == ({'a': [0, 3000]}, {'a': [3000, 4000]})
-
-    result = process_branch('a<3000:any', {i:[0, 4000] for i in ('a')})
-    # assert result == ({'a': [0, 2999]}, {'a': [2999, 4000]})
-    assert result == ({'a': [0, 3000]}, {'a': [3000, 4000]})
-
-    result = process_branch('a>3000:any', {i:[0, 4000] for i in ('a')})
-    assert result == ({'a': [3000, 4000]}, {'a': [0, 3000]})
-
-def test_process_rule():
+def test_branch():
     print()
-    rule_intervals = {i:[0, 4000] for i in ('x', 'm', 'a', 's')}
+    branch = Branch.from_input('a<2006:A')
+    assert branch.combinations()==1
+    branch = Branch.from_input('a<2006:R')
+    assert branch.combinations()==0
+    branch = Branch.from_input('a<2006:qkq')
+    print(f"{branch=}")
+    print(f"{branch.combinations()=}")
+    assert branch.combinations() is None
 
-    result = process_rule('A'.split(','), {i:[0, 4000] for i in ('a')}, {})
-    assert result == {'a': [0, 4000]}
+def test_interval_split():
+    i = Interval(1,4001)
+    res = i.split(2001)
+    assert res == [Interval(1,2001), Interval(2001, 4001)]
+    assert i.len == sum(r.len for r in res)
 
-    result = process_rule('a<3000:A,R'.split(','), {i:[0, 4000] for i in ('a')}, {})
-    assert result == {'a': [0, 3000]}
+def test_get_possible():
+    # day.rules={}
+    # result = day.get_possibile(Rule.from_input('px{a<4000:A,R}'), {'a':Interval(1,4001)})
+    # # assert result == True
+    # assert result == {'a':Interval(start=1, end=4000)}
+    # day.rules={}
+    # result = day.get_possibile(Rule.from_input('px{a<4000:R,A}'), {'a':Interval(1,4001)})
+    # # assert result == True
+    # assert result == {'a':Interval(start=4000, end=4001)}
+    # day.rules={'ff': Rule.from_input('ff{a>3000:R,A}')}
+    # result = day.get_possibile(Rule.from_input('px{a<2000:R,ff}'), {'a':Interval(1,4001)})
+    # print(result)
+    # assert result == {'a': Interval(start=2000, end=3000)}
 
-    result = process_rule('a>3000:A,R'.split(','), {i:[0, 4000] for i in ('a')}, {})
-    assert result == {'a': [3000, 4000]}
-
-    result = process_rule('a<3000:R,A'.split(','), {i:[0, 4000] for i in ('a')}, {})
-    assert result == {'a': [3000, 4000]}
-
-    result = process_rule('a>3000:R,A'.split(','), {i:[0, 4000] for i in ('a')}, {})
-    assert result == {'a': [0, 3000]}
-
-    result = process_rule('a<3000:A,m<2000:A,R'.split(','), {i:[0, 4000] for i in ('a', 'm')}, {})
-    assert result == {'a': [0, 3000], 'm': [0, 2000]}
-
-    result = process_rule('a>3000:A,m>2000:A,R'.split(','), {i:[0, 4000] for i in ('a', 'm')}, {})
-    assert result == {'a': [3000, 4000], 'm': [2000, 4000]}
-
-    result = process_rule('a<3000:qqq,R'.split(','), copy.deepcopy(rule_intervals), {'qqq':'A'})
-    assert result == {'a': [0, 3000]}
-
-    result = process_rule('a<3000:qqq,zzz'.split(','), copy.deepcopy(rule_intervals), {'qqq':'A', 'zzz':'R'})
-    assert result == {'a': [0, 3000]}
-
-    result = process_rule('a<3000:qqq,zzz'.split(','), copy.deepcopy(rule_intervals), {'qqq':'A', 'zzz':'m<2000:A,R'.split(',')})
-    assert result == {'a': [0, 3000], 'm': [0, 2000]}
-
-    # result = process_rule('a<2006:qkq,m>2090:A,rfg'.split(','), copy.deepcopy(rule_intervals), {})
-    # assert result == 0
-
+    day.rules={
+    'qqz':Rule.from_input('qqz{s>2770:qs,m<1801:hdj,R}'),
+    'qs':Rule.from_input('qs{s>3448:A,lnx}'), 'lnx':Rule.from_input('lnx{m>1548:A,A}'),
+    'px':Rule.from_input('px{a<2006:qkq,m>2090:A,rfg}') }
+    result = day.get_possibile(Rule.from_input('in{s<1351:px,qqz}'), {'x':Interval(1, 4001),
+     'm':Interval(1, 4001),
+     'a':Interval(1, 4001),
+     's':Interval(1, 4001)})
+    assert result == True
 
 def test__preprocess_input():
     assert True

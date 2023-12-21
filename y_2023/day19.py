@@ -20,15 +20,24 @@ class Branch:
         value = int(varop[2:])
         return Branch(var, op, value, dest)
 
-    def combinations(self) -> int:
-        if self.dest == 'A':
-            return 1
-        if self.dest == 'R':
-            return 0
-        return None
+    def combinations(self, var) -> int:
+        options = var.split(self.value)
+        result = None
+        # breakpoint()
+        if self.op == '<':
+            if options[0].start < self.value:
+                result = options
+        if self.op == '>':
+            if options[0].start < self.value:
+                result = options[::-1]
+        # if self.dest == 'A':
+        #     return 1
+        # if self.dest == 'R':
+        #     return 0
+        assert result is not None
+        return result
 
     def evaluate(self, var: int) ->bool:
-        # breakpoint()
         if self.op == '<':
             if var.start < self.value:
                 return True
@@ -76,6 +85,15 @@ class Interval:
     start:int
     end:int
 
+    def split(self, int):
+        if int>self.end or int<self.start:
+            raise Exception()
+        return [Interval(self.start, int), Interval(int, self.end)]
+
+    @property
+    def len(self):
+        return self.end-self.start
+
 class Day(AoCDay):
     def __init__(self, test=0):
         super().__init__(__name__, test)
@@ -91,33 +109,60 @@ class Day(AoCDay):
 
     def get_possibile(self, rule, variables, pad=''):
         print(f"{pad}{rule=}")
-        x=Interval(1,4001)
-        m=Interval(1,4001)
-        a=Interval(1,4001)
-        s=Interval(1,4001)
+        # breakpoint()
+        # x=Interval(1,4001)
+        # m=Interval(1,4001)
+        # a=Interval(1,4001)
+        # s=Interval(1,4001)
 
         result = None
+        else_intervals = {}
         for branch in rule.branches:
+            branch_intervals = {}
             print(f"{pad}{branch=}")
             # if branch.dest in ('A', 'R'):
             #     return branch.dest
-            evaluation = branch.evaluate(variables[branch.var])
+            print(f"{variables[branch.var]=}")
+            # evaluation = branch.evaluate(variables[branch.var])
+            # breakpoint()
+            evaluation = branch.combinations(variables[branch.var])
             print(f"{pad}{evaluation=}")
-            if evaluation:
-                if branch.dest in ('A', 'R'):
-                    return branch.dest
-                result = self.get_possibile(self.rules[branch.dest], variables, pad+'  ')
-                print(f"{pad}{result=}")
-                break
-            # else:
-            #     continue
+            branch_intervals[branch.var]=evaluation[0]
+            else_intervals[branch.var]=evaluation[1]
+            # breakpoint()
+            if branch.dest in ('A', 'R'):
+                breakpoint()
+                if branch.dest == 'A':
+                    return {branch.var: evaluation[0]}
+                # if branch.dest == 'R':
+                #     return False
+            for k,v in variables.items():
+                if k not in branch_intervals:
+                    branch_intervals[k] = v
+            possible = self.get_possibile(self.rules[branch.dest], branch_intervals, pad+'  ')
+            if possible is not None:
 
-        if result:
+                for k,v in variables.items():
+                    if k not in possible:
+                        possible[k] = v
+                breakpoint()
+                print(f"{possible=}")
+            continue
+
+        if result is not None:
             return result
         print(f"{pad}{rule.else_rule=}")
+        for k,v in variables.items():
+            if k not in else_intervals:
+                else_intervals[k] = v
         if rule.else_rule.dest in ('A', 'R'):
-            return rule.else_rule.dest
-        return self.get_possibile(self.rules[rule.else_rule.dest], variables, pad+'  ')
+            if rule.else_rule.dest == 'A':
+                return else_intervals
+            # if rule.else_rule.dest == 'R':
+            #     return 0
+            # return rule.else_rule.dest
+        print(f"{else_intervals=}")
+        return self.get_possibile(self.rules[rule.else_rule.dest], else_intervals, pad+'  ')
         return 0
 
     def _calculate_1(self) -> int:
@@ -133,7 +178,7 @@ class Day(AoCDay):
             for vars in ('x','m','a','s'):
                 variables[vars] = Interval(i[1][vars],i[1][vars]+1)
             print(variables)
-            if self.get_possibile(rule, variables) == 'A':
+            if self.get_possibile(rule, variables) == 1:
                 result += i[0].value
         return result
         # variables = {
@@ -147,4 +192,10 @@ class Day(AoCDay):
         self.rules = {}
         for i in self.__input_rules:
             self.rules[i.name] = i
+        rule = self.rules['in']
+        variables = {'x':Interval(1, 4001),
+         'm':Interval(1, 4001),
+         'a':Interval(1, 4001),
+         's':Interval(1, 4001)}
+        self.get_possibile(rule, variables)
         return 0
