@@ -5,6 +5,9 @@ from math import prod
 from common.aoc import AoCDay
 from common.utilities import fprint
 from itertools import product
+from collections import defaultdict
+
+INTERVALS = []
 
 @dataclass
 class Branch:
@@ -51,6 +54,8 @@ class Branch:
     def intervals(self, var):
         # breakpoint()
         options = var.split(self.value, self.op)
+        if not options:
+            return False
         # print(f'{self.op=}\t{self.value=}, {var=}\t{options=}')
 
         if self.op == '<':
@@ -101,7 +106,12 @@ class Interval:
 
     def split(self, int, op):
         if int>self.end or int<self.start:
+            return None
             raise Exception()
+        # if int>self.end:
+        #     return [Interval(0,0), self]
+        # if int<self.start:
+            # return [self, Interval(0,0)]
         if op == '<':
             return [Interval(self.start, int), Interval(int, self.end)]
         if op == '>':
@@ -111,6 +121,9 @@ class Interval:
     @property
     def len(self):
         return self.end-self.start
+
+    def includes(self, val):
+        return val >= self.start and val <self.end
 
 @dataclass
 class State:
@@ -124,12 +137,14 @@ class State:
         return prod(i.len for i in self.state.values())
 
     def apply(self, rule, rules, pad = ''):
-        # print(f"{pad}{rule}")
+        print(f"{pad}{rule}")
+        # breakpoint()
         if not rule.branches:
-            # breakpoint()
             # print(f"{pad}rule {rule.name} with no branches")
             if rule.else_rule.dest == 'A':
+                INTERVALS.append(self)
                 return self.len
+
             if rule.else_rule.dest == 'R':
                 return 0
             assert False
@@ -138,12 +153,18 @@ class State:
         branch_results = []
         else_result = None
         for i in rule.branches:
-            # print(f"{pad}{rule.name=}, branch={i}")
+            print(f"{pad}{rule.name=}, branch={i}")
             var = self.state[i.var]
             intervals = i.intervals(var)
-            # print(intervals)
+            print(intervals)
+            if not intervals:
+                continue
             # create 2 new states
-            state1 = State(self.state | {i.var: intervals[0]} | else_intervals)
+            # self.state = self.state | {i.var: intervals[0]} | else_intervals
+            future_state = self.state | {i.var: intervals[0]}
+            self.state = self.state | {i.var: intervals[1]}
+            print(f"{pad}{future_state=}{self.state=}")
+            state1 = State(future_state)
             # state2 = State(self.state | {i.var: intervals[1]})
             else_intervals[i.var] = intervals[1]
             # print(state1)
@@ -163,10 +184,10 @@ class State:
             # else:
             branch_results.append(state1result)
             # return state1result * state1.len
-            # print(f"{pad}{rule.name=}branch={i}{branch_results=}")
+            print(f"{pad}{rule.name=}branch={i}{branch_results=}")
         # breakpoint()
         # print(f"{pad}{branch_results=}")
-        states.append(State(self.state | else_intervals))
+        # states.append(State(self.state | else_intervals))
         else_state = State(self.state | else_intervals)
         else_result = else_state.apply(rules[rule.else_rule.dest], rules, pad+' ')
         # print(f"{pad}{else_result=}")
@@ -289,9 +310,33 @@ class Day(AoCDay):
 
         # 167409079868000
         # 167409079868000
-        return s.apply(rule, self.rules)
+        result = s.apply(rule, self.rules)
+
+        # for i in INTERVALS:
+        #     print(f"{i}, {i.len}")
+        print(len(INTERVALS))
+        print(sum(i.len for i in INTERVALS))
+        for i in self.__input_data2:
+            # print(f"{i[1]=}")
+            # for j in i[0].processed:
+            #     print(j)
+            found = 0
+            for k in INTERVALS:
+                # print(f"{k.state=}")
+                if all(k.state[l].includes(i[1][l]) for l in ('x','m','a','s')):
+                        found+=1
+            print(found)
+            if found>1:
+                print(i[1])
+                for k in INTERVALS:
+
+                    if all(k.state[l].includes(i[1][l]) for l in ('x','m','a','s')):
+                        print(f"{k.state=}")
+            # break
+        return result
         # 268730360502076
         # 256000000000000
+        # 136550623609438
 
         variables = {'x':Interval(1, 4001),
          'm':Interval(1, 4001),

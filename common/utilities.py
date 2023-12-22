@@ -22,6 +22,8 @@ def rshift(x: int, y: int) -> int:
 def bitnot(x: int) -> int:
     return x ^ 65535
 
+def fprint(msg) -> str:
+    print(f'{msg=}')
 
 @dataclass
 class Grid:

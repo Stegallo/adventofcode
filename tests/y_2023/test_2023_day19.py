@@ -58,26 +58,64 @@ def test_state_apply_final_rules():
     # result = s.apply(Rule.from_input('end{ii}'))
     # assert result == 0
 def test_state_apply():
+    # return
     print()
-    s = State({
-    's':Interval(1, 4001),
-    })
-    result = s.apply(
-    Rule.from_input('in{s<1351:A,R}'),
-    {'A':Rule.from_input('A{A}'),
-     'R':Rule.from_input('R{R}')},
-    )
-    assert result == 1350
+    # s = State({
+    # 's':Interval(1, 4001),
+    # })
+    # result = s.apply(
+    # Rule.from_input('in{s<1351:A,R}'),
+    # {'A':Rule.from_input('A{A}'),
+    #  'R':Rule.from_input('R{R}')},
+    # )
+    # assert result == 1350
+    #
+    # s = State({
+    # 's':Interval(1, 4001),
+    # })
+    # result = s.apply(
+    # Rule.from_input('in{s<1351:R,R}'),
+    # {'A':Rule.from_input('A{A}'),
+    #  'R':Rule.from_input('R{R}')},
+    # )
+    # assert result == 0
 
     s = State({
-    's':Interval(1, 4001),
+    'a':Interval(1, 4001),
     })
     result = s.apply(
-    Rule.from_input('in{s<1351:R,R}'),
+    Rule.from_input('fnb{a<345:R,a<547:dgv,a<670:nrm,A}'),
     {'A':Rule.from_input('A{A}'),
-     'R':Rule.from_input('R{R}')},
+     'R':Rule.from_input('R{R}'),
+     'dgv':Rule.from_input('dgv{R}'),
+     'nrm':Rule.from_input('nrm{R}'),},
     )
-    assert result == 0
+    assert result == 3331
+
+def test_state_apply_same_var():
+    print()
+    s = State({
+    'a':Interval(1, 4001),
+    })
+    result = s.apply(
+    Rule.from_input('fnb{a<345:R,A}'),
+    {'A':Rule.from_input('A{A}'),
+     'R':Rule.from_input('R{R}'),},
+    )
+    assert result == 3656
+
+    s = State({
+    'a':Interval(1, 4001),
+    })
+    result = s.apply(
+    Rule.from_input('fnb{a<345:R,a<547:dgv,a<670:nrm,A}'),
+    {'A':Rule.from_input('A{A}'),
+     'R':Rule.from_input('R{R}'),
+     'dgv':Rule.from_input('dgv{A}'),
+     'nrm':Rule.from_input('nrm{A}'),},
+    )
+    assert result == 3656
+
     # in{s<1351:px,m>2478:px,x>478:px,a>1478:px,qqz}
     # result = s.apply(Rule.from_input('end{A}'))
 
