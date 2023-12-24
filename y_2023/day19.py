@@ -25,8 +25,13 @@ class Branch:
         return Branch(var, op, value, dest)
 
     def combinations(self, var) -> int:
-        assert False
-        options = var.split(self.value)
+        # assert False
+        # options = var.split(self.value)
+        print(f"{var=}, {self.value=}, {self.op}")
+        options = var.split(self.value, self.op)
+        print(f"{options=}")
+        if not options:
+            return False
         result = None
         # breakpoint()
         if self.op == '<':
@@ -156,7 +161,7 @@ class State:
             print(f"{pad}{rule.name=}, branch={i}")
             var = self.state[i.var]
             intervals = i.intervals(var)
-            print(intervals)
+            print(f"{intervals=}")
             if not intervals:
                 continue
             # create 2 new states
@@ -213,6 +218,10 @@ class Day(AoCDay):
 
     def get_possibile(self, rule, variables, pad=''):
         print(f"{pad}{rule=}")
+        if rule.name == 'A':
+            return True
+        if rule.name == 'R':
+            return False
         # breakpoint()
         # x=Interval(1,4001)
         # m=Interval(1,4001)
@@ -223,19 +232,21 @@ class Day(AoCDay):
         else_intervals = {}
         for branch in rule.branches:
             branch_intervals = {}
-            print(f"{pad}{branch=}")
+            # print(f"{pad}{branch=}")
             # if branch.dest in ('A', 'R'):
             #     return branch.dest
-            print(f"{variables[branch.var]=}")
+            # print(f"{variables[branch.var]=}")
             # evaluation = branch.evaluate(variables[branch.var])
             # breakpoint()
             evaluation = branch.combinations(variables[branch.var])
             print(f"{pad}{evaluation=}")
+            if not evaluation:
+                continue
             branch_intervals[branch.var]=evaluation[0]
             else_intervals[branch.var]=evaluation[1]
             # breakpoint()
             if branch.dest in ('A', 'R'):
-                breakpoint()
+                # breakpoint()
                 if branch.dest == 'A':
                     return {branch.var: evaluation[0]}
                 # if branch.dest == 'R':
@@ -255,7 +266,7 @@ class Day(AoCDay):
 
         if result is not None:
             return result
-        print(f"{pad}{rule.else_rule=}")
+        # print(f"{pad}{rule.else_rule=}")
         for k,v in variables.items():
             if k not in else_intervals:
                 else_intervals[k] = v
@@ -265,20 +276,49 @@ class Day(AoCDay):
             # if rule.else_rule.dest == 'R':
             #     return 0
             # return rule.else_rule.dest
-        print(f"{else_intervals=}")
+        # print(f"{else_intervals=}")
         return self.get_possibile(self.rules[rule.else_rule.dest], else_intervals, pad+'  ')
         return 0
 
     def _calculate_1(self) -> int:
-        return 0
         self.rules = {}
         for i in self.__input_rules:
             self.rules[i.name] = i
         rule = self.rules['in']
+        # rule = self.rules['end']
+        self.rules['A']= Rule.from_input('A{A}')
+        self.rules['R']= Rule.from_input('R{R}')
+        # print(s)
+
         result=0
         variables = {}
         for i in self.__input_data2:
-            print(f"{i=}")
+            # print(f"{i=}")
+            for vars in ('x','m','a','s'):
+                variables[vars] = Interval(i[1][vars],4001)
+            print(variables)
+            s = State(variables)
+            if s.apply(rule, self.rules):
+                result += i[0].value
+            # print(variables)
+
+        # 167409079868000
+        # 167409079868000
+        # result = s.apply(rule, self.rules)
+
+        return result
+
+        self.rules = {}
+        for i in self.__input_rules:
+            self.rules[i.name] = i
+        rule = self.rules['in']
+        self.rules['A']= Rule.from_input('A{A}')
+        self.rules['R']= Rule.from_input('R{R}')
+
+        result=0
+        variables = {}
+        for i in self.__input_data2:
+            # print(f"{i=}")
             for vars in ('x','m','a','s'):
                 variables[vars] = Interval(i[1][vars],i[1][vars]+1)
             print(variables)
@@ -293,6 +333,7 @@ class Day(AoCDay):
         # }
 
     def _calculate_2(self) -> int:
+        return 0
         s = State({
          'x':Interval(1, 4001),
          'm':Interval(1, 4001),
@@ -337,6 +378,7 @@ class Day(AoCDay):
         # 268730360502076
         # 256000000000000
         # 136550623609438
+        # 132557544578569
 
         variables = {'x':Interval(1, 4001),
          'm':Interval(1, 4001),
