@@ -9,11 +9,18 @@ from functools import lru_cache
 
 MODULES = {}
 PULSES = defaultdict(int)
+press = 0
+
 @dataclass
 class Broadcaster:
     name: str
     dest: Any
     pulse: Optional[str] = None
+
+    @property
+    def state(self):
+        return 'Broadcaster has no state'
+
 
     def send_pulse(self, name, pulse):
         self.pulse = pulse
@@ -41,6 +48,11 @@ class FlipFlop:
     status: bool
     dest: Any
     pulse: Any = Field(default_factory=deque)
+    output: Optional[str] = None
+
+    @property
+    def state(self):
+        return self.output
 
     def __hash__(self) -> int:
         return hash(tuple((self.name, self.status, tuple(self.dest), tuple(self.pulse))))
@@ -59,6 +71,7 @@ class FlipFlop:
             self.status = not self.status
 
         output = 'high' if self.status else 'low'
+        self.output = output
         res = []
         for i in self.dest:
             j = MODULES[i]
@@ -81,6 +94,11 @@ class Conjunction:
     memory: Any #Dict[List[bool]]
     dest: Any
     inputs: Any = Field(default_factory=list)
+    output: Optional[str] = None
+
+    @property
+    def state(self):
+        return self.output
 
     def __hash__(self) -> int:
 #         print(f"""{self.name}
@@ -110,8 +128,21 @@ class Conjunction:
         # print(f"{v=}")
         output = 'low' if all(i=='high' for i in v) else 'high'
         # if self.name in ('kd', 'zf', 'vg', 'gs'):
-        #     if output == 'low':
-        #         raise Exception()
+        # if self.name in ('zf', 'vg', 'gs'):
+        # if self.name in ('vg', 'gs'):
+        if self.name in ('vg'):
+                if output == 'high':
+                    print(f"{self.name},{press=}")
+                    raise Exception()
+
+                    # kd,press=3767
+                    # zf,press=3779
+                    # gs,press=3889
+                    # vg,press=4057
+                    # 3767*3779*3889*4057
+                    # 224602953547789
+
+        self.output = output
         res = []
         for i in self.dest:
             # if i=='rx':
@@ -131,6 +162,11 @@ class Conjunction:
 
 class Output:
     dest = []
+
+    @property
+    def state(self):
+        return 'Output has no state'
+
     def send_pulse(self, name, pulse):
         pass
 
@@ -143,6 +179,11 @@ class Output:
 
 class Machine:
     name = 'Machine'
+
+    @property
+    def state(self):
+        return 'Machine has no state'
+
     def send_pulse(self, name, pulse):
         # breakpoint()
         if pulse == 'low':
@@ -183,77 +224,99 @@ class Day(AoCDay):
         # print(f"{self._input_data=}")
         self.__input_data = [Row.from_input(i) for i in self._input_data[0]]
 
+    def iterate(self):
+
+        signal_sequence= deque()
+        signal_sequence.append(MODULES['broadcaster'])
+        pulse = 'low'
+
+        PULSES[pulse]+=1
+
+        MODULES['broadcaster'].send_pulse('button', pulse)
+
+        while signal_sequence:
+            module = signal_sequence.popleft()
+
+            res = module.process()
+
+            signal_sequence.extend(res)
+            # print(PULSES)
+
     def _calculate_1(self):
-        # global MODULES
+        return 0
+        global PULSES
+        PULSES = defaultdict(int)
+
         for x in self.__input_data:
-            # print(f"{x}")
             MODULES[x.object.name] = x.object
         MODULES['output'] = Output()
-        # print(f"{modules=}")
+
         signal_sequence= deque()
 
-        BUTTON_PRESSES = 1
         items = [k for k in MODULES]
         for k in items:
-            # print(k, MODULES[k])
             for i in MODULES[k].dest:
-                # print(i)
                 try:
                     MODULES[i].advertise(k)
                 except:
-                    # breakpoint()
                     if i == 'rx':
                         MODULES[i] = Machine()
                     else:
                         MODULES[i] = Output()
 
-        # BUTTON_PRESSES = 10
+
         BUTTON_PRESSES = 1_000
-        # BUTTON_PRESSES = 0
-        # BUTTON_PRESSES = math.inf
-        # 10_002_314
-        # 76_730_000
-        press = 1
+
         for press in range(BUTTON_PRESSES):
-        # while True:
-            # print(press)
-
-            signal_sequence.append(MODULES['broadcaster'])
-            pulse = 'low'
-            # c = 0
-            PULSES[pulse]+=1
-
-            MODULES['broadcaster'].send_pulse('button', pulse)
-            # continue
-            while signal_sequence:
-                module = signal_sequence.popleft()
-                # print(module)
-                # module.send_pulse(pulse)
-                # if module.name in ('kd', 'zf', 'vg', 'gs'):
-                # if module.name in ('rg'):
-                    # print(module.__hash__())
-                    # print(module, press)
-                res = module.process()
-
-                signal_sequence.extend(res)
-                # print(f"{signal_sequence=}")
-                # breakpoint()
-                # c+=1
-                # if c>12:
-                #     break
-            # for i in modules['broadcaster'].dest:
-            #     modules[i].low_pulse()
-            # print(press)
-            print_lag = 10000
-            print_lag = 1
-            if press%print_lag==0:
-                print(f"{press:d}")
-            # if press > 10:
-            #     break
-            press+=1
+            self.iterate()
 
         print(f"{PULSES=}")
         return PULSES['low']*PULSES['high']
 
     def _calculate_2(self):
+        # return 0
+        global PULSES
+        global press
+        PULSES = defaultdict(int)
+
+        for x in self.__input_data:
+            MODULES[x.object.name] = x.object
+        MODULES['output'] = Output()
+
+        signal_sequence= deque()
+
+        items = [k for k in MODULES]
+        for k in items:
+            for i in MODULES[k].dest:
+                try:
+                    MODULES[i].advertise(k)
+                except:
+                    if i == 'rx':
+                        MODULES[i] = Machine()
+                    else:
+                        MODULES[i] = Output()
+
+        press = 1
+        result = defaultdict(list)
+        while True:
+            self.iterate()
+            # print(f"{press=}")
+            if press > 10_000_000:
+                break
+            press+=1
+        print(f"{PULSES=}")
+        # kd, zf, vg, gs
+        #     for k, v in MODULES.items():
+        #         result[k].append(v.state)
+        #         # print(f"{k=}, \t{v.state=}")
+        # unchanged = 0
+        # total=0
+        # for k, v in result.items():
+        #     # print(set(v))
+        #     new_v = set(v) if len(set(v))>1 else None
+        #     if new_v:
+        #         print(f"{k=}, \t{v=}")
+        #         unchanged+=1
+        #     total+=1
+        # print(f"{unchanged=}, {total=}")
         return 0
