@@ -20,8 +20,6 @@ class Day(AoCDay):
         super().__init__(__name__, test)
 
     def _preprocess_input(self):
-        # self.__input_data = [[int(i) for i in chunk] for chunk in self._input_data]
-        # print(f"{self._input_data=}")
         parsed_input = [Row(i) for i in self._input_data[0]]
         self.__first_list = [int(i.processed[0]) for i in parsed_input]
         self.__second_list = [int(i.processed[1]) for i in parsed_input]
