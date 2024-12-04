@@ -20,11 +20,10 @@ class Mul:
 
     @staticmethod
     def from_str(string):
-        x,y =string.replace(')','').replace('mul(', '').split(',')
-        return Mul(int(x), int(y))
+        return (lambda x,y: Mul(int(x),int(y))) (*string.replace(')','').replace('mul(', '').split(','))
 
     @property
-    def mult(self):
+    def prod(self):
         return self.op1*self.op2
 
 
@@ -36,25 +35,24 @@ class Day(AoCDay):
         self.__input_data = [Row(i) for i in self._input_data[0]]
 
     def _calculate_1(self):
-        r = 0
-        p = re.compile(r'mul\(\d\d?\d?\,\d\d?\d?\)')
+        result = 0
+        p = re.compile(r'mul\(\d{1,3}\,\d{1,3}\)')
         for j in self.__input_data:
             for i in p.findall(j.original):
-                r+= Mul.from_str(i).mult
-        return r
+                result+= Mul.from_str(i).prod
+        return result
 
     def _calculate_2(self):
-        r = 0
-        p = re.compile(r"mul\(\d\d?\d?\,\d\d?\d?\)|do\(\)|don't\(\)")
+        result = 0
+        p = re.compile(r"mul\(\d{1,3}\,\d{1,3}\)|do\(\)|don't\(\)")
         do = True
         for j in self.__input_data:
             for i in p.findall(j.original):
                 if i == 'do()':
                     do = True
-                    continue
-                if i == 'don\'t()':
+                elif i == 'don\'t()':
                     do = False
                     continue
-                if 'mul' in i and do:
-                    r+= Mul.from_str(i).mult
-        return r
+                elif 'mul' in i and do:
+                    result+= Mul.from_str(i).prod
+        return result
