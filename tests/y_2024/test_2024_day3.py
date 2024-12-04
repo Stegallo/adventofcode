@@ -7,7 +7,7 @@ from y_2024.day3 import Day
 with patch(
     "builtins.open",
     mock_open(
-        read_data="""xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))""",
+        read_data="""xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))""",  # noqa: E501
     ),
 ):
     day = Day()
