@@ -13,21 +13,24 @@ class Row:
     def __post_init__(self) -> None:
         self.processed = ""  # self.original
 
+
 @dataclass
 class Rule:
     original: str
-    processed: Optional[str] = None
+    processed: Optional[list[str]] = None
 
     def __post_init__(self) -> None:
-        self.processed = self.original.split('|')
+        self.processed = self.original.split("|")
+
 
 @dataclass
 class Update:
     original: str
-    processed: Optional[str] = None
+    processed: Optional[list[str]] = None
 
     def __post_init__(self) -> None:
-        self.processed = self.original.split(',')
+        self.processed = self.original.split(",")
+
 
 class Day(AoCDay):
     def __init__(self, test=0):
@@ -42,28 +45,25 @@ class Day(AoCDay):
 
     def _calculate_1(self):
         result = 0
-        return result
-        foll=defaultdict(list)
-        prec=defaultdict(list)
+        foll = defaultdict(list)
+        prec = defaultdict(list)
         for x in self.__input_data_1:
             foll[x.processed[0]].append(x.processed[1])
             prec[x.processed[1]].append(x.processed[0])
-
 
         # print(foll)
         # print(prec)
         self.valids = []
         for x in self.__input_data_2:
-
             valid = True
-            for c,i in enumerate(x.processed):
-                for d,j in enumerate(x.processed[c+1:]):
+            for c, i in enumerate(x.processed):
+                for d, j in enumerate(x.processed[c + 1 :]):
                     # print(i,j)
-                    if not j in foll[i]:
+                    if j not in foll[i]:
                         valid = False
             if valid:
                 # print(f"{x.processed}, {len(x.processed)//2=}")
-                result+=int(x.processed[len(x.processed)//2])
+                result += int(x.processed[len(x.processed) // 2])
                 self.valids.append(x.processed)
 
         return result
@@ -72,10 +72,10 @@ class Day(AoCDay):
         # print(self.valids)
         # return 0
         result = 0
-        foll=defaultdict(list)
-        orfoll=defaultdict(list)
-        fixed = []
-        prec=defaultdict(list)
+        foll = defaultdict(list)
+        orfoll = defaultdict(list)
+        # fixed = []
+        # prec = defaultdict(list)
         for x in self.__input_data_1:
             foll[x.processed[0]].append(x.processed[1])
             orfoll[x.processed[0]].append(x.processed[1])
@@ -107,16 +107,13 @@ class Day(AoCDay):
         # fixed = {i: c for c,i in enumerate(fixed)}
         # print(fixed)
 
-
-
         # return 0
         for x in self.__input_data_2:
-
             valid = True
-            for c,i in enumerate(x.processed):
-                for d,j in enumerate(x.processed[c+1:]):
+            for c, i in enumerate(x.processed):
+                for d, j in enumerate(x.processed[c + 1 :]):
                     # print(i,j)
-                    if not j in orfoll[i]:
+                    if j not in orfoll[i]:
                         valid = False
             if valid:
                 # print(f"{x.processed}, {len(x.processed)//2=}")
@@ -129,21 +126,16 @@ class Day(AoCDay):
                 while not valid_p:
                     ordered = True
                     # print(proposed)
-                    for i in range(len(proposed)-1):
-                        j = i+1
+                    for i in range(len(proposed) - 1):
+                        j = i + 1
                         # print(proposed, i, j)
-                        if not proposed[j] in foll[proposed[i]]:
+                        if proposed[j] not in foll[proposed[i]]:
                             ordered = False
                             proposed[j], proposed[i] = proposed[i], proposed[j]
                     if ordered:
                         valid_p = True
                         break
-                # print(proposed)
-                # n = {i:fixed[i] for i in x.processed}
-                # # print(n)
-                # sort_n = list(dict(sorted(n.items(), key=lambda item: item[1])).keys())
-                # print(sort_n)
 
-                result+=int(proposed[len(proposed)//2])
+                result += int(proposed[len(proposed) // 2])
 
         return result
