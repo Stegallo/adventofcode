@@ -1,23 +1,20 @@
-from typing import Optional
+from typing import Optional, Callable
 
 from pydantic.dataclasses import dataclass
 
 from common.aoc import AoCDay
 
 
-def add(a, b):
+def add(a: int, b: int) -> int:
     return a + b
 
 
-def mul(a, b):
+def mul(a: int, b: int) -> int:
     return a * b
 
 
-def conc(a, b):
+def conc(a: int, b: int) -> int:
     return int(str(a) + str(b))
-
-
-OPS = [add, mul]
 
 
 @dataclass
@@ -30,23 +27,11 @@ class Row:
         self.result = int(self.original.split(": ")[0])
         self.op_list = [int(i) for i in self.original.split(": ")[1].split(" ")]
 
-    def do(self, lst, ops):
+    def do(self, lst: list[int], ops: list[Callable]) -> bool:
         if len(lst) == 1:
-            if lst[0] == self.result:
-                return True
-            return False
+            return lst[0] == self.result
 
-        op1 = lst[0]
-        op2 = lst[1]
-
-        rex = []
-        for i in ops:
-            l_i = [i(op1, op2)]
-            l_i.extend(lst[2:])
-            rex.append(self.do(l_i, ops))
-        if any(rex):
-            return True
-        return False
+        return any([self.do([op(*lst[:2])] + lst[2:], ops) for op in ops])
 
 
 class Day(AoCDay):
@@ -54,21 +39,12 @@ class Day(AoCDay):
         super().__init__(__name__, test)
 
     def _preprocess_input(self):
-        print(f"{self._input_data=}")
-        print(f"{len(self._input_data)=}")
-        print(f"{len(self._input_data[0])=}")
         self.__input_data = [Row(i) for j in self._input_data for i in j]
 
     def _calculate_1(self):
-        result = 0
-        for x in self.__input_data:
-            if x.do(x.op_list, [add, mul]):
-                result += x.result
-        return result
+        return sum(x.result for x in self.__input_data if x.do(x.op_list, [add, mul]))
 
     def _calculate_2(self):
-        result = 0
-        for x in self.__input_data:
-            if x.do(x.op_list, [add, mul, conc]):
-                result += x.result
-        return result
+        return sum(
+            x.result for x in self.__input_data if x.do(x.op_list, [add, mul, conc])
+        )
