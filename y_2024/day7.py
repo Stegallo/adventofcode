@@ -17,9 +17,6 @@ def conc(a, b):
     return int(str(a) + str(b))
 
 
-OPS = [add, mul]
-
-
 @dataclass
 class Row:
     original: str
@@ -41,12 +38,9 @@ class Row:
 
         rex = []
         for i in ops:
-            l_i = [i(op1, op2)]
-            l_i.extend(lst[2:])
-            rex.append(self.do(l_i, ops))
-        if any(rex):
-            return True
-        return False
+            rex.append(self.do([i(op1, op2)] + lst[2:], ops))
+
+        return any(rex)
 
 
 class Day(AoCDay):
@@ -54,21 +48,12 @@ class Day(AoCDay):
         super().__init__(__name__, test)
 
     def _preprocess_input(self):
-        print(f"{self._input_data=}")
-        print(f"{len(self._input_data)=}")
-        print(f"{len(self._input_data[0])=}")
         self.__input_data = [Row(i) for j in self._input_data for i in j]
 
     def _calculate_1(self):
-        result = 0
-        for x in self.__input_data:
-            if x.do(x.op_list, [add, mul]):
-                result += x.result
-        return result
+        return sum(x.result for x in self.__input_data if x.do(x.op_list, [add, mul]))
 
     def _calculate_2(self):
-        result = 0
-        for x in self.__input_data:
-            if x.do(x.op_list, [add, mul, conc]):
-                result += x.result
-        return result
+        return sum(
+            x.result for x in self.__input_data if x.do(x.op_list, [add, mul, conc])
+        )
