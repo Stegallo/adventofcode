@@ -1,19 +1,19 @@
-from typing import Optional
+from typing import Optional, Callable
 
 from pydantic.dataclasses import dataclass
 
 from common.aoc import AoCDay
 
 
-def add(a, b):
+def add(a: int, b: int) -> int:
     return a + b
 
 
-def mul(a, b):
+def mul(a: int, b: int) -> int:
     return a * b
 
 
-def conc(a, b):
+def conc(a: int, b: int) -> int:
     return int(str(a) + str(b))
 
 
@@ -27,7 +27,7 @@ class Row:
         self.result = int(self.original.split(": ")[0])
         self.op_list = [int(i) for i in self.original.split(": ")[1].split(" ")]
 
-    def do(self, lst: list[int], ops: list) -> bool:
+    def do(self, lst: list[int], ops: list[Callable]) -> bool:
         if len(lst) == 1:
             return lst[0] == self.result
 
