@@ -1,9 +1,6 @@
 from common.aoc import AoCDay
 from common.grid import Grid, Cursor, Direction, Point, DIRS
 
-# DIRS = {"^": (-1, 0), ">": (0, 1), "v": (1, 0), "<": (0, -1)}
-# RIGHT = {(-1, 0): (0, 1), (0, 1): (1, 0), (1, 0): (0, -1), (0, -1): (-1, 0)}
-
 
 class Day(AoCDay):
     _visited_in_1: set[Point] = set()
@@ -43,13 +40,12 @@ class Day(AoCDay):
     def _calculate_2(self) -> int:
         result = 0
         for i in self._visited_in_1 - {self.starting_point}:
-            grid = dict(self.grid.items())
-            grid[i] = "#"
-            result += self.run_in_circle(grid)
+            result += self.run_in_circle(self.grid, i)
         return result
 
-    def run_in_circle(self, grid) -> bool:
+    def run_in_circle(self, grid, i: Point) -> bool:
         grid = dict(grid.items())
+        grid[i] = "#"
 
         curs = Cursor(
             self.starting_point,
