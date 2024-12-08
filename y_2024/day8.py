@@ -55,8 +55,12 @@ class Day(AoCDay):
         x = []
         start = 0 if include else 1
         for i in range(start, i):
-            x.append((a[0] - i * (b[0] - a[0]), a[1] - i * (b[1] - a[1])))
-            x.append((b[0] + i * (b[0] - a[0]), b[1] + i * (b[1] - a[1])))
+            x.extend(
+                (
+                    (a[0] - i * (b[0] - a[0]), a[1] - i * (b[1] - a[1])),
+                    (b[0] + i * (b[0] - a[0]), b[1] + i * (b[1] - a[1])),
+                )
+            )
         return x
 
     def _common(self, i, include):
