@@ -18,7 +18,7 @@ class Grid:
 
     @staticmethod
     def from_input(input_data):
-        input = [[i for i in chunk] for chunk in input_data]
+        input = [list(chunk) for chunk in input_data]
 
         grid = {}
         for y in input:
@@ -30,9 +30,7 @@ class Grid:
 
     def display(self) -> None:
         for i in range(self.height):
-            line = []
-            for j in range(self.length):
-                line.append(self.grid[(i, j)])
+            line = [self.grid[(i, j)] for j in range(self.length)]
             print("".join(line))
 
     def items(self):
