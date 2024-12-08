@@ -1,7 +1,8 @@
+from collections import defaultdict
 from typing import Optional
 
 from pydantic.dataclasses import dataclass
-from collections import defaultdict
+
 from common.aoc import AoCDay
 
 

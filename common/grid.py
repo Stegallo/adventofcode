@@ -1,7 +1,7 @@
+from collections import defaultdict
 from typing import Optional
 
 from pydantic.dataclasses import dataclass
-from collections import defaultdict
 
 DIRS = {"^": (-1, 0), ">": (0, 1), "v": (1, 0), "<": (0, -1)}
 
