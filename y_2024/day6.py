@@ -1,12 +1,12 @@
 from common.aoc import AoCDay
-from common.grid import Grid
+from common.grid import Grid, Cursor, Direction, Point
 
 DIRS = {"^": (-1, 0), ">": (0, 1), "v": (1, 0), "<": (0, -1)}
 RIGHT = {(-1, 0): (0, 1), (0, 1): (1, 0), (1, 0): (0, -1), (0, -1): (-1, 0)}
 
 
 class Day(AoCDay):
-    _visited_in_1: set[tuple[int]] = set()
+    _visited_in_1: set[Point] = set()
 
     def __init__(self, test=0):
         super().__init__(__name__, test)
@@ -22,18 +22,22 @@ class Day(AoCDay):
     def _calculate_1(self) -> int:
         grid = dict(self.grid.items())
         position = self.starting_point
-        direction = DIRS[grid[self.starting_point]]
+        direction = Direction(
+            *DIRS[grid[self.starting_point]],
+            grid[self.starting_point],
+        )
+        curs = Cursor(position, direction)
         grid[position] = "X"
         self._visited_in_1.add(position)
         while True:
-            adhead = (position[0] + direction[0], position[1] + direction[1])
+            adhead = curs.ahead()
             try:
                 if grid[adhead] == "#":  # obstacle:
-                    direction = RIGHT[direction]
+                    curs.turn_right()
                 else:
-                    position = adhead
-                    grid[position] = "X"
-                    self._visited_in_1.add(position)
+                    curs.move_forward()
+                    grid[curs.pos] = "X"
+                    self._visited_in_1.add(curs.pos)
             except KeyError:
                 break
         return sum(1 for i in grid.values() if i == "X")
@@ -49,17 +53,21 @@ class Day(AoCDay):
     def run_in_circle(self, grid) -> bool:
         grid = dict(grid.items())
         position = self.starting_point
-        direction = DIRS[grid[self.starting_point]]
+        direction = Direction(
+            *DIRS[grid[self.starting_point]],
+            grid[self.starting_point],
+        )
+        curs = Cursor(position, direction)
         visited = {}
         while True:
-            visited[(position, direction)] = True
-            adhead = (position[0] + direction[0], position[1] + direction[1])
+            visited[(curs.pos, curs.dir)] = True
+            adhead = curs.ahead()
             try:
                 if grid[adhead] == "#":  # obstacle:
-                    direction = RIGHT[direction]
+                    curs.turn_right()
                 else:
-                    position = adhead
-                if (position, direction) in visited:
+                    curs.move_forward()
+                if (curs.pos, curs.dir) in visited:
                     return True
             except KeyError:
                 break
