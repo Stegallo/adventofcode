@@ -2,7 +2,7 @@
 
 from unittest.mock import mock_open, patch
 
-from y_2024.day7 import Day, Row, add, mul, conc
+from y_2024.day7 import Day, Row, add, conc, mul
 
 with patch(
     "builtins.open",
