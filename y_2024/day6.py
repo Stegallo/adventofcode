@@ -1,4 +1,5 @@
 from common.aoc import AoCDay
+from common.grid import Grid
 
 DIRS = {"^": (-1, 0), ">": (0, 1), "v": (1, 0), "<": (0, -1)}
 RIGHT = {(-1, 0): (0, 1), (0, 1): (1, 0), (1, 0): (0, -1), (0, -1): (-1, 0)}
@@ -11,19 +12,17 @@ class Day(AoCDay):
         super().__init__(__name__, test)
 
     def _preprocess_input(self):
-        self.__input_data = [[i for i in chunk] for chunk in self._input_data]
-        self.grid = {}
-        for y in self.__input_data:
-            for c, x in enumerate(y):
-                for i, k in enumerate(x):
-                    self.grid[(c, i)] = k
-                    if k in DIRS:
-                        self.starting_point = (c, i)
+        self.grid = Grid.from_input(self._input_data)
+        self.grid.display()
+        for i in DIRS:
+            if i in self.grid.values:
+                self.starting_point = self.grid.values[i][0]
+                break
 
     def _calculate_1(self) -> int:
         grid = {k: v for k, v in self.grid.items()}
         position = self.starting_point
-        direction = DIRS[self.grid[self.starting_point]]
+        direction = DIRS[grid[self.starting_point]]
         grid[position] = "X"
         self._visited_in_1.add(position)
         while True:
@@ -42,15 +41,15 @@ class Day(AoCDay):
     def _calculate_2(self) -> int:
         result = 0
         for i in self._visited_in_1 - {self.starting_point}:
-            new_grid = {k: v for k, v in self.grid.items()}
-            new_grid[i] = "#"
-            result += self.run_in_circe(new_grid)
+            grid = {k: v for k, v in self.grid.items()}
+            grid[i] = "#"
+            result += self.run_in_circe(grid)
         return result
 
     def run_in_circe(self, grid) -> bool:
         grid = {k: v for k, v in grid.items()}
         position = self.starting_point
-        direction = DIRS[self.grid[self.starting_point]]
+        direction = DIRS[self.grid.grid[self.starting_point]]
         visited = {}
         while True:
             visited[(position, direction)] = True
