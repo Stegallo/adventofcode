@@ -6,15 +6,6 @@ from common.aoc import AoCDay
 
 
 @dataclass
-class Row:
-    original: str
-    processed: Optional[str] = None
-
-    def __post_init__(self) -> None:
-        self.processed = ""  # self.original
-
-
-@dataclass
 class Rule:
     original: str
     processed: Optional[list[str]] = None
