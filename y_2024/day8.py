@@ -75,8 +75,7 @@ class Day(AoCDay):
                     for m in ants:
                         antin[m] = "O"
 
-        result = sum(bool(antin.get(i)) for i in self.grid.keys())
-        return result
+        return sum(bool(antin.get(i)) for i in self.grid.keys())
 
     def _calculate_1(self):
         return self._common(2, False)
