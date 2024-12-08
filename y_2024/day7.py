@@ -13,6 +13,10 @@ def mul(a, b):
     return a * b
 
 
+def conc(a, b):
+    return int(str(a) + str(b))
+
+
 OPS = [add, mul]
 
 
@@ -26,65 +30,23 @@ class Row:
         self.result = int(self.original.split(": ")[0])
         self.op_list = [int(i) for i in self.original.split(": ")[1].split(" ")]
 
-    def do1(self, lst):
+    def do(self, lst, ops):
         if len(lst) == 1:
             if lst[0] == self.result:
                 return True
             return False
+
         op1 = lst[0]
         op2 = lst[1]
 
-        # A
-        la = [op1 * op2]
-        la.extend(lst[2:])
-
-        a = self.do1(la)
-
-        # B
-        lb = [op1 + op2]
-        lb.extend(lst[2:])
-
-        b = self.do1(lb)
-
-        if a or b:
+        rex = []
+        for i in ops:
+            l_i = [i(op1, op2)]
+            l_i.extend(lst[2:])
+            rex.append(self.do(l_i, ops))
+        if any(rex):
             return True
         return False
-
-    def do2(self, lst):
-        if len(lst) == 1:
-            if lst[0] == self.result:
-                return True
-            return False
-        op1 = lst[0]
-        op2 = lst[1]
-
-        # A
-        la = [op1 * op2]
-        la.extend(lst[2:])
-
-        a = self.do2(la)
-
-        # B
-        lb = [op1 + op2]
-        lb.extend(lst[2:])
-
-        b = self.do2(lb)
-
-        # C
-        lc = [int(str(op1) + str(op2))]
-        lc.extend(lst[2:])
-
-        c = self.do2(lc)
-
-        if a or b or c:
-            return True
-        return False
-
-    def solve1(self):
-        return self.do1(self.op_list)
-
-    def solve2(self):
-        return self.do2(self.op_list)
 
 
 class Day(AoCDay):
@@ -100,13 +62,13 @@ class Day(AoCDay):
     def _calculate_1(self):
         result = 0
         for x in self.__input_data:
-            if x.solve1():
+            if x.do(x.op_list, [add, mul]):
                 result += x.result
         return result
 
     def _calculate_2(self):
         result = 0
         for x in self.__input_data:
-            if x.solve2():
+            if x.do(x.op_list, [add, mul, conc]):
                 result += x.result
         return result
