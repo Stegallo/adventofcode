@@ -25,14 +25,25 @@ class Direction:
         return hash((self.x, self.y))
 
     def right(self):
-        if (self.y, self.x) == (-1, 0):
+        if self.icon == "^":
             return Direction(0, 1, ">")
-        if (self.y, self.x) == (0, 1):
+        if self.icon == ">":
             return Direction(1, 0, "v")
-        if (self.y, self.x) == (1, 0):
+        if self.icon == "v":
             return Direction(0, -1, "<")
-        if (self.y, self.x) == (0, -1):
+        if self.icon == "<":
             return Direction(-1, 0, "^")
+        raise Exception
+
+    def left(self):
+        if self.icon == "^":
+            return Direction(0, -1, "<")
+        if self.icon == ">":
+            return Direction(-1, 0, "^")
+        if self.icon == "v":
+            return Direction(0, 1, ">")
+        if self.icon == "<":
+            return Direction(1, 0, "v")
         raise Exception
 
     @staticmethod
