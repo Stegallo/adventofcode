@@ -3,6 +3,8 @@ from typing import Optional
 from pydantic.dataclasses import dataclass
 from collections import defaultdict
 
+DIRS = {"^": (-1, 0), ">": (0, 1), "v": (1, 0), "<": (0, -1)}
+
 
 @dataclass
 class Point:
@@ -32,6 +34,13 @@ class Direction:
         if (self.y, self.x) == (0, -1):
             return Direction(-1, 0, "^")
         raise Exception
+
+    @staticmethod
+    def from_symbol(symbol: str):
+        return Direction(
+            *DIRS[symbol],
+            symbol,
+        )
 
 
 @dataclass

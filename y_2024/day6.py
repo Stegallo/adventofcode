@@ -1,8 +1,8 @@
 from common.aoc import AoCDay
-from common.grid import Grid, Cursor, Direction, Point
+from common.grid import Grid, Cursor, Direction, Point, DIRS
 
-DIRS = {"^": (-1, 0), ">": (0, 1), "v": (1, 0), "<": (0, -1)}
-RIGHT = {(-1, 0): (0, 1), (0, 1): (1, 0), (1, 0): (0, -1), (0, -1): (-1, 0)}
+# DIRS = {"^": (-1, 0), ">": (0, 1), "v": (1, 0), "<": (0, -1)}
+# RIGHT = {(-1, 0): (0, 1), (0, 1): (1, 0), (1, 0): (0, -1), (0, -1): (-1, 0)}
 
 
 class Day(AoCDay):
@@ -21,18 +21,16 @@ class Day(AoCDay):
 
     def _calculate_1(self) -> int:
         grid = dict(self.grid.items())
-        position = self.starting_point
-        direction = Direction(
-            *DIRS[grid[self.starting_point]],
-            grid[self.starting_point],
+
+        curs = Cursor(
+            self.starting_point,
+            Direction.from_symbol(grid[self.starting_point]),
         )
-        curs = Cursor(position, direction)
-        grid[position] = "X"
-        self._visited_in_1.add(position)
+        grid[curs.pos] = "X"
+        self._visited_in_1.add(curs.pos)
         while True:
-            adhead = curs.ahead()
             try:
-                if grid[adhead] == "#":  # obstacle:
+                if grid[curs.ahead()] == "#":  # obstacle:
                     curs.turn_right()
                 else:
                     curs.move_forward()
@@ -52,18 +50,16 @@ class Day(AoCDay):
 
     def run_in_circle(self, grid) -> bool:
         grid = dict(grid.items())
-        position = self.starting_point
-        direction = Direction(
-            *DIRS[grid[self.starting_point]],
-            grid[self.starting_point],
+
+        curs = Cursor(
+            self.starting_point,
+            Direction.from_symbol(grid[self.starting_point]),
         )
-        curs = Cursor(position, direction)
         visited = {}
         while True:
             visited[(curs.pos, curs.dir)] = True
-            adhead = curs.ahead()
             try:
-                if grid[adhead] == "#":  # obstacle:
+                if grid[curs.ahead()] == "#":  # obstacle:
                     curs.turn_right()
                 else:
                     curs.move_forward()
