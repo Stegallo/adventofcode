@@ -1,5 +1,5 @@
 from common.aoc import AoCDay
-from common.grid import Grid
+from common.grid import Grid, Point
 
 
 class Day(AoCDay):
@@ -10,20 +10,20 @@ class Day(AoCDay):
         self.grid = Grid.from_input(self._input_data)
         self.grid.display()
 
-    def _get_antinodes(self, a, b, i, include) -> list:
+    def _get_antinodes(self, a: Point, b: Point, i: int, include: bool) -> list[Point]:
         x: list = []
-        dist = (b[0] - a[0]), (b[1] - a[1])
+        dist = (b.y - a.y), (b.x - a.x)
         start = 0 if include else 1
         for i in range(start, i):
             x.extend(
                 (
-                    (a[0] - i * dist[0], a[1] - i * dist[1]),
-                    (b[0] + i * dist[0], b[1] + i * dist[1]),
+                    Point(a.x - i * dist[1], a.y - i * dist[0]),
+                    Point(b.x + i * dist[1], b.y + i * dist[0]),
                 ),
             )
         return x
 
-    def _common(self, i, include):
+    def _common(self, i: int, include: bool):
         antin = set()
         antennas = {k: v for k, v in self.grid.values.items() if k != "."}
         for j in antennas.values():

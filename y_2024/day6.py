@@ -1,66 +1,66 @@
 from common.aoc import AoCDay
-
-DIRS = {"^": (-1, 0), ">": (0, 1), "v": (1, 0), "<": (0, -1)}
-RIGHT = {(-1, 0): (0, 1), (0, 1): (1, 0), (1, 0): (0, -1), (0, -1): (-1, 0)}
+from common.grid import Grid, Cursor, Direction, Point, DIRS
 
 
 class Day(AoCDay):
-    _visited_in_1: set[tuple[int]] = set()
+    _visited_in_1: set[Point] = set()
 
     def __init__(self, test=0):
         super().__init__(__name__, test)
 
     def _preprocess_input(self):
-        self.__input_data = [[i for i in chunk] for chunk in self._input_data]
-        self.grid = {}
-        for y in self.__input_data:
-            for c, x in enumerate(y):
-                for i, k in enumerate(x):
-                    self.grid[(c, i)] = k
-                    if k in DIRS:
-                        self.starting_point = (c, i)
+        self.grid = Grid.from_input(self._input_data)
+        self.grid.display()
+        for i in DIRS:
+            if i in self.grid.values:
+                self.starting_point = self.grid.values[i][0]
+                break
 
     def _calculate_1(self) -> int:
-        grid = {k: v for k, v in self.grid.items()}
-        position = self.starting_point
-        direction = DIRS[self.grid[self.starting_point]]
-        grid[position] = "X"
-        self._visited_in_1.add(position)
+        grid = dict(self.grid.items())
+
+        curs = Cursor(
+            self.starting_point,
+            Direction.from_symbol(grid[self.starting_point]),
+        )
+        grid[curs.pos] = "X"
+        self._visited_in_1.add(curs.pos)
         while True:
-            adhead = (position[0] + direction[0], position[1] + direction[1])
             try:
-                if grid[adhead] == "#":  # obstacle:
-                    direction = RIGHT[direction]
+                if grid[curs.ahead()] == "#":  # obstacle:
+                    curs.turn_right()
                 else:
-                    position = adhead
-                    grid[position] = "X"
-                    self._visited_in_1.add(position)
+                    curs.move_forward()
+                    grid[curs.pos] = "X"
+                    self._visited_in_1.add(curs.pos)
             except KeyError:
                 break
         return sum(1 for i in grid.values() if i == "X")
 
     def _calculate_2(self) -> int:
-        result = 0
-        for i in self._visited_in_1 - {self.starting_point}:
-            new_grid = {k: v for k, v in self.grid.items()}
-            new_grid[i] = "#"
-            result += self.run_in_circe(new_grid)
-        return result
+        return sum(
+            self.run_in_circle(self.grid, p)
+            for p in self._visited_in_1 - {self.starting_point}
+        )
 
-    def run_in_circe(self, grid) -> bool:
-        grid = {k: v for k, v in grid.items()}
-        position = self.starting_point
-        direction = DIRS[self.grid[self.starting_point]]
+    def run_in_circle(self, grid, p: Point) -> bool:
+        grid = dict(grid.items())
+
+        curs = Cursor(
+            self.starting_point,
+            Direction.from_symbol(grid[self.starting_point]),
+        )
+        grid[p] = "#"
+
         visited = {}
         while True:
-            visited[(position, direction)] = True
-            adhead = (position[0] + direction[0], position[1] + direction[1])
+            visited[(curs.pos, curs.dir)] = True
             try:
-                if grid[adhead] == "#":  # obstacle:
-                    direction = RIGHT[direction]
+                if grid[curs.ahead()] == "#":  # obstacle:
+                    curs.turn_right()
                 else:
-                    position = adhead
-                if (position, direction) in visited:
+                    curs.move_forward()
+                if (curs.pos, curs.dir) in visited:
                     return True
             except KeyError:
                 break
