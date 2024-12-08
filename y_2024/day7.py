@@ -27,20 +27,11 @@ class Row:
         self.result = int(self.original.split(": ")[0])
         self.op_list = [int(i) for i in self.original.split(": ")[1].split(" ")]
 
-    def do(self, lst, ops):
+    def do(self, lst: list[int], ops: list) -> bool:
         if len(lst) == 1:
-            if lst[0] == self.result:
-                return True
-            return False
+            return lst[0] == self.result
 
-        op1 = lst[0]
-        op2 = lst[1]
-
-        rex = []
-        for i in ops:
-            rex.append(self.do([i(op1, op2)] + lst[2:], ops))
-
-        return any(rex)
+        return any([self.do([op(*lst[:2])] + lst[2:], ops) for op in ops])
 
 
 class Day(AoCDay):
