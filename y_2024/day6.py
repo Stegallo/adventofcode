@@ -39,18 +39,18 @@ class Day(AoCDay):
 
     def _calculate_2(self) -> int:
         return sum(
-            self.run_in_circle(self.grid, i)
-            for i in self._visited_in_1 - {self.starting_point}
+            self.run_in_circle(self.grid, p)
+            for p in self._visited_in_1 - {self.starting_point}
         )
 
-    def run_in_circle(self, grid, i: Point) -> bool:
+    def run_in_circle(self, grid, p: Point) -> bool:
         grid = dict(grid.items())
 
         curs = Cursor(
             self.starting_point,
             Direction.from_symbol(grid[self.starting_point]),
         )
-        grid[i] = "#"
+        grid[p] = "#"
 
         visited = {}
         while True:
