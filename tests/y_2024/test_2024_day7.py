@@ -2,7 +2,7 @@
 
 from unittest.mock import mock_open, patch
 
-from y_2024.day7 import Day
+from y_2024.day7 import Day, Row
 
 with patch(
     "builtins.open",
@@ -34,3 +34,23 @@ def test_calculate_1():
 def test_calculate_2():
     r = day._calculate_2()
     assert r == 11387
+
+
+def test_row_solve1_True():
+    r = Row("190: 10 19")
+    assert r.solve1()
+
+
+def test_row_solve1_False():
+    r = Row("83: 17 5")
+    assert not r.solve1()
+
+
+def test_row_solve2_True():
+    r = Row("156: 15 6")
+    assert r.solve2()
+
+
+def test_row_solve2_False():
+    r = Row("83: 17 5")
+    assert not r.solve2()
