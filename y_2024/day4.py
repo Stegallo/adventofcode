@@ -1,17 +1,4 @@
-from typing import Optional
-
-from pydantic.dataclasses import dataclass
-
 from common.aoc import AoCDay
-
-
-@dataclass
-class Row:
-    original: str
-    processed: Optional[str] = None
-
-    def __post_init__(self) -> None:
-        self.processed = ""  # self.original
 
 
 class Day(AoCDay):
@@ -33,7 +20,7 @@ class Day(AoCDay):
                 for i, k in enumerate(x):
                     if k != "X":
                         continue
-                    l = (c, i - 1)
+                    left = (c, i - 1)
                     r = (c, i + 1)
                     u = (c - 1, i)
                     d = (c + 1, i)
@@ -41,7 +28,7 @@ class Day(AoCDay):
                     ru = (c - 1, i + 1)
                     ld = (c + 1, i - 1)
                     rd = (c + 1, i + 1)
-                    if self.grid.get(l) == "M":
+                    if self.grid.get(left) == "M":
                         if self.grid.get((c, i - 2)) == "A":
                             if self.grid.get((c, i - 3)) == "S":
                                 result += 1
