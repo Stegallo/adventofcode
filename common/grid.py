@@ -6,6 +6,16 @@ from pydantic.dataclasses import dataclass
 from collections import defaultdict
 
 DIRS = {"^": (-1, 0), ">": (0, 1), "v": (1, 0), "<": (0, -1)}
+DIRS_8 = {
+    "^": (-1, 0),
+    ">": (0, 1),
+    "v": (1, 0),
+    "<": (0, -1),
+    "1": (-1, -1),
+    "7": (-1, 1),
+    "L": (1, 1),
+    "J": (1, -1),
+}
 
 
 @dataclass
@@ -52,6 +62,13 @@ class Direction:
     def from_symbol(symbol: str):
         return Direction(
             *DIRS[symbol],
+            symbol,
+        )
+
+    @staticmethod
+    def from_symbol8(symbol: str):
+        return Direction(
+            *DIRS_8[symbol],
             symbol,
         )
 
