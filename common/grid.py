@@ -26,6 +26,10 @@ class Point:
     def __hash__(self) -> int:
         return hash((self.x, self.y))
 
+    @staticmethod
+    def from_dir(d) -> int:
+        return Point(d.x, d.y)
+
 
 @dataclass
 class Direction:
@@ -87,6 +91,25 @@ class Cursor:
     def move_forward(self):
         self.pos = self.ahead()
 
+    def move_right(self):
+        self.pos = self.p_right()
+        self.dir = self.dir.right()
+
+    def move_left(self):
+        self.pos = self.p_left()
+        self.dir = self.dir.left()
+
+    def p_right(self):
+        return Point(
+            self.pos.x + self.dir.x + self.dir.right().x,
+            self.pos.y + self.dir.y + self.dir.right().y,
+        )
+
+    def p_left(self):
+        return (
+            self.pos
+        )  # Point(self.pos.x + self.dir.x + self.dir.left().x, self.pos.y + self.dir.y + self.dir.left().y)
+
 
 @dataclass
 class Grid:
@@ -111,6 +134,10 @@ class Grid:
                     grid[Point(i, c)] = k
 
         return Grid(grid, c + 1, i + 1)
+
+    @staticmethod
+    def from_grid(grid, h, l):
+        return Grid(grid, h, l)
 
     def display(self) -> None:
         for i in range(self.height):
