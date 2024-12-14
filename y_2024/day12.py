@@ -228,7 +228,7 @@ class Day(AoCDay):
                 # for l,u in vicini_potenziali.items():
                 #     if k
             # print(len(shrink))
-            # sides[k] = 2*(len(reduced_v)-len(set_vicini_potenziali_bound))
+            sides[k] = 2*(len(tmp))
             # break
 
         print(sides)
