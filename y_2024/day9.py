@@ -35,26 +35,15 @@ class Day(AoCDay):
 
     def _calculate_1(self):
         result = 0
-        return 0
         r = []
         for c, x in enumerate(self.__input_data[0].original):
-            # print(f"{c//2=},{c%2=},{c=}{x=}")
             m = c // 2 if c % 2 == 0 else "."
-            # print(f"{m=}, {x=}")
+
             for i in range(int(x)):
                 r.append(Elem(str(m)))
-            # r.append(v)
-            # print(f"{v=}")
-            ...
-        # print(r)
-        # string = list(''.join(r))
-        print("here")
-        len_file = len([i for i in r if i.x != "."])
-        # print(f"{string=}, {len_file=}")
-        print(f"{len_file=}")
-        print(f"here, {len_file=}")
+
         c = 0
-        # d=0
+
         for i in range(len(r) - 1):
             x = r[len(r) - 1 - i].x
             try:
@@ -75,22 +64,11 @@ class Day(AoCDay):
         result = 0
         r = []
         for c, x in enumerate(self.__input_data[0].original):
-            # print(f"{c//2=},{c%2=},{c=}{x=}")
             m = c // 2 if c % 2 == 0 else "."
-            # print(f"{m=}, {x=}")
+
             for i in range(int(x)):
                 r.append(Elem(str(m)))
-            # r.append(v)
-            # print(f"{v=}")
-            ...
-        # print(r)
-        # string = list(''.join(r))
-        print("here")
-        len_file = len([i for i in r if i.x != "."])
-        # print(f"{string=}, {len_file=}")
-        print(f"{len_file=}")
-        print(f"here, {len_file=}")
-        # chunks
+
         chunks = []
         chunks2 = []
         c = []
@@ -99,13 +77,10 @@ class Day(AoCDay):
         c.append(x)
         c2.append(len(r) - 1)
         for i in range(1, len(r)):
-            # print(i)
             if r[-1 - i].x == x.x:
-                # print(r[-1-i].x,x.x)
                 c.append(r[len(r) - 1 - i])
                 c2.append(len(r) - 1 - i)
             else:
-                # print(r[-1-i].x,x.x)
                 if c[0].x != ".":
                     chunks.append(c)
                     chunks2.append(c2[::-1])
@@ -114,13 +89,7 @@ class Day(AoCDay):
                 x = r[-1 - i]
                 c.append(x)
                 c2.append(len(r) - 1 - i)
-        # print(chunks)
 
-        # for c,i in enumerate(chunks):
-        #     print(i,chunks2[c])
-        # print('now')
-
-        # free slots
         slots = []
         slo = deque()
         for i in range(len(r)):
@@ -130,40 +99,25 @@ class Day(AoCDay):
                 if len(slo) > 0:
                     slots.append(slo)
                 slo = deque()
-        # for i in slots:
-        # print(i)
-        # return
-        c = 0
-        # d=0
-        print(len(r), r[-60:])
-        print("tada\n\n\n")
-        for c, i in enumerate(chunks):
-            #     # x = chunks[len(chunks)-1-i]
-            # print(i, len(i))
-            for j in range(len(slots)):
-                # print(j,len(j))
 
+        c = 0
+
+        for c, i in enumerate(chunks):
+            for j in range(len(slots)):
                 if len(i) <= len(slots[j]):
                     if slots[j][0] > chunks2[c][0]:
                         break
-                    # print("swap")
-                    # print(chunks2[c])
 
                     for m in chunks2[c]:
-                        # print(m)
                         r[m] = Elem("#")
                         n = slots[j].popleft()
-                        # print(r[n],i[0], len(i))
-                        # if r[n].x!='.':
-                        #     breakpoint()
+
                         r[n] = i[0]
                     break
-        print(len(r), r[-60:])
-        print("".join([i.x for i in r]))
+
         result = 0
         for c, i in enumerate(r):
-            # print(i)
             if i.x not in ["#", "."]:
                 result += c * int(i.x)
-        # 8504654861152 too high
+
         return result
