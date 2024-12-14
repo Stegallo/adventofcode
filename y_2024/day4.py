@@ -32,14 +32,14 @@ class Day(AoCDay):
         dirs_x = {k: v for k, v in DIRS_8.items() if k in ["1", "7", "L", "J"]}
         # print(dirs_x)
         for value in self.grid.values:
-            if value != "X":
+            if value != "A":
                 continue
             for pos in self.grid.values[value]:
                 ones = {}
                 for dir in dirs_x:
                     cur = Cursor(pos, Direction.from_symbol8(dir))
                     ones[cur.dir.icon] = self.grid.grid.get(cur.ahead())
-                print(ones)
+                # print(ones)
                 if (
                     ones["1"] == "M"
                     and ones["L"] == "S"
@@ -69,47 +69,5 @@ class Day(AoCDay):
                     and ones["J"] == "S"
                 ):
                     result += 1
-        result = 0
-        return result
-        for y in self.__input_data:
-            for c, x in enumerate(y):
-                for i, k in enumerate(x):
-                    if k != "A":
-                        continue
-                    lu = (c - 1, i - 1)
-                    ru = (c - 1, i + 1)
-                    ld = (c + 1, i - 1)
-                    rd = (c + 1, i + 1)
-
-                    if (
-                        self.grid.get(lu) == "M"
-                        and self.grid.get(rd) == "S"
-                        and self.grid.get(ru) == "M"
-                        and self.grid.get(ld) == "S"
-                    ):
-                        result += 1
-
-                    if (
-                        self.grid.get(lu) == "S"
-                        and self.grid.get(rd) == "M"
-                        and self.grid.get(ru) == "S"
-                        and self.grid.get(ld) == "M"
-                    ):
-                        result += 1
-
-                    if (
-                        self.grid.get(lu) == "M"
-                        and self.grid.get(rd) == "S"
-                        and self.grid.get(ru) == "S"
-                        and self.grid.get(ld) == "M"
-                    ):
-                        result += 1
-
-                    if (
-                        self.grid.get(lu) == "S"
-                        and self.grid.get(rd) == "M"
-                        and self.grid.get(ru) == "M"
-                        and self.grid.get(ld) == "S"
-                    ):
-                        result += 1
+        # result = 0
         return result
