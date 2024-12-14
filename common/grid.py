@@ -2,7 +2,7 @@ from typing import Optional
 
 from pydantic.dataclasses import dataclass
 
-# from dataclasses import dataclass # disabling pydantic may lead to 5x speed
+from dataclasses import dataclass # disabling pydantic may lead to 5x speed
 from collections import defaultdict
 
 DIRS = {"^": (-1, 0), ">": (0, 1), "v": (1, 0), "<": (0, -1)}
@@ -128,6 +128,14 @@ class Grid:
             self.values[k].append(i)
 
     @staticmethod
+    def from_h_l(h,l):
+        grid = {}
+        for c in range(h):
+                for i in range(l):
+                    grid[Point(i, c)] = '.'
+        return Grid(grid, c + 1, i + 1)
+
+    @staticmethod
     def from_input(input_data):
         input = [list(chunk) for chunk in input_data]
 
@@ -148,8 +156,22 @@ class Grid:
             line = [self.grid[Point(j, i)] for j in range(self.length)]
             print("".join(line))
 
+    def display_param(self, grid) -> None:
+        for i in range(self.height):
+            line = [grid.get(Point(j, i),'.') for j in range(self.length)]
+            print("".join(line))
+
     def items(self):
         return self.grid.items()
 
     def keys(self):
         return self.grid.keys()
+
+    def has_4_in_row(self,grid):
+        for i in range(self.height):
+            line = [grid.get(Point(j, i),'.') for j in range(self.length)]
+            if '********' in ''.join(line):
+                print("".join(line))
+                # input()
+                return True
+        return False

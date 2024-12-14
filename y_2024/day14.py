@@ -24,7 +24,7 @@ class Robot:
     v: Point
 
     def move(self, witdh, lenght):
-        self.pos = Point((self.pos.x + self.v.x)%witdh, (self.pos.y+self.v.y)%lenght)
+        self.pos = Point((int(self.pos.x) + int(self.v.x))%witdh, (int(self.pos.y)+int(self.v.y))%lenght)
 
 class Day(AoCDay):
     def __init__(self, test=0):
@@ -44,6 +44,7 @@ class Day(AoCDay):
         #     print(f"{x}")
 
     def _calculate_1(self):
+        return 0
         result = 0
         witdh = 101
         # witdh = 11
@@ -55,7 +56,7 @@ class Day(AoCDay):
             #     continue
 
             for _ in range(100):
-                # for _ in range(3):
+            # for _ in range(3):
                 x.move(witdh, lenght)
                 # print(f">>> {x}")
 
@@ -100,8 +101,30 @@ class Day(AoCDay):
                         p4+=1
 
         print(p1,p2,p3,p4)
-        return p1*p2*p3*p4
+        g = Grid.from_h_l(lenght,witdh)
+        g.display_param({r.pos:'*' for r in self.__input_data})
+        # return p1*p2*p3*p4
 
-    def _calculate_2(self):
+    def _calculate_2(self): # 6586 low
         result = 0
-        return result
+        witdh = 101
+        # witdh = 11
+        lenght = 103
+        # lenght = 7
+        for i in range(6587):
+
+            for x in self.__input_data:
+            # print(x)
+            # if x.pos!=Point(2,4):
+            #     continue
+
+            # for _ in range(3):
+                x.move(witdh, lenght)
+            g = Grid.from_h_l(lenght,witdh)
+        g.display_param({r.pos:'*' for r in self.__input_data})
+        print(f">>> {i}")
+            # if g.has_4_in_row({r.pos:'*' for r in self.__input_data}):
+            #     g.display_param({r.pos:'*' for r in self.__input_data})
+            #     print(f">>> {i}")
+            #     input()
+        return 0
