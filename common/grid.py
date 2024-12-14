@@ -110,6 +110,10 @@ class Cursor:
             self.pos
         )  # Point(self.pos.x + self.dir.x + self.dir.left().x, self.pos.y + self.dir.y + self.dir.left().y)
 
+    def __hash__(self) -> int:
+        return hash((self.pos.__hash__, self.dir.__hash__))
+
+
 
 @dataclass
 class Grid:

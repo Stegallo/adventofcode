@@ -30,7 +30,7 @@ class Day(AoCDay):
 
     def _preprocess_input(self):
         self.grid = Grid.from_input(self._input_data)
-        # self.grid.display()
+        self.grid.display()
 
     def next_char(self, c):
         return chr(ord(c) + 1)
@@ -121,8 +121,8 @@ class Day(AoCDay):
                 #     self.navigate(cur.ahead())
             # perims[k].append(Point(-1,-1))
             # break
-        for k, v in perims.items():
-            print(k, len(v))
+        # for k, v in perims.items():
+        #     print(k, len(v))
 
         result = 0
         for k, v in region_grid.values.items():
@@ -161,11 +161,79 @@ class Day(AoCDay):
             for i in DIRS:
                 cur = Cursor(k, Direction.from_symbol(i))
                 if self.grid.grid.get(cur.ahead(), "*") != self.grid.grid.get(k):
-                    temp.append((cur.ahead(), cur.dir))
+                    temp.append(cur)
             perims[v].extend(temp)
 
+
+        sides = {}
+        for k, v in perims.items():
+            # print(k, len(v))
+            reduced_v = []
+            for i in v:
+                if i.dir.y==0:
+                    reduced_v.append(i)
+            # print(k, len(reduced_v), reduced_v)
+            # continue
+            # vicino_di_qlcn = set()
+            # shrink = {}
+            vicini_potenziali = defaultdict(list)
+            vicini_potenziali_bound = {}
+            for i in reduced_v:
+                # print(f"{len(shrink)=}")
+                print(f"{i=}")
+                # if i in vicino_di_qlcn:
+                #     print(f"{i} e' gia vicino")
+                #     continue
+                # shrink[i] = (i.pos.y, i.pos.y)
+                for j in reduced_v:
+                    if i == j:
+                        continue
+                    # if j in vicino_di_qlcn:
+                    #     continue
+                    if i.dir != j.dir:
+                        continue
+                    if i.pos.x != j.pos.x:
+                        continue
+                    vicini_potenziali[i].append(j)
+                    vicini_potenziali_bound[i] = i.pos.y
+                #     # if abs(i.pos.y - j.pos.y) != 1:
+                #     #     continue
+                    # if shrink[i][0]-1 != j.pos.y and shrink[i][1]+1 != j.pos.y:
+                    #     breakpoint()
+                #         continue
+                #     # for k in vicini[i]:
+                #     #     if abs(k.pos.y - j.pos.y) != 1:
+                #     #         continue
+                #     vicino_di_qlcn.add(j)
+                #     # vicini[i].append(j)
+                #     print(f"{i=},{j=}")
+            # print(f"{len(vicini_potenziali)=}")
+            # print(f"{vicini_potenziali_bound=}")
+            for kk,vvv in vicini_potenziali.items():
+                print(kk, len(vvv), vicini_potenziali_bound[kk])
+                vv = sorted(vvv, key=lambda x: x.pos.y)
+                for j in vv:
+                    print(f">>> {j}")
+            #         # print(f"{vicini_potenziali_bound[k]=} {j.pos.y=}")
+                    if vicini_potenziali_bound[kk]+1 == j.pos.y:
+                        vicini_potenziali_bound[kk] = j.pos.y
+            # print(f"{vicini_potenziali_bound=}")
+            # print(f"{len(vicini_potenziali_bound)=}")
+            # set_vicini_potenziali_bound = set((k.pos.x,v) for k,v in vicini_potenziali_bound.items())
+            tmp = set((k.pos.x,v,k.dir.icon) for k,v in vicini_potenziali_bound.items())
+            print(f"{vicini_potenziali_bound=}")
+            print(f"{tmp=}")
+            print(f"{len(reduced_v)=}, {len(vicini_potenziali_bound)=}, {len(tmp)=}")
+
+                # for l,u in vicini_potenziali.items():
+                #     if k
+            # print(len(shrink))
+            # sides[k] = 2*(len(reduced_v)-len(set_vicini_potenziali_bound))
+            # break
+
+        print(sides)
         result = 0
         for k, v in region_grid.values.items():
-            result += len(v) * len(perims[k])
+            result += len(v) * sides[k]
 
         return result
