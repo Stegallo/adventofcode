@@ -176,11 +176,15 @@ class Day(AoCDay):
             # continue
             # vicino_di_qlcn = set()
             # shrink = {}
-            vicini_potenziali = defaultdict(list)
+            vicini_potenziali = {} #defaultdict(list)
             vicini_potenziali_bound = {}
+            print(f"{len(reduced_v)=}")
+
             for i in reduced_v:
+                vicini_potenziali[i] = []
+                vicini_potenziali_bound[i] = i.pos.y
                 # print(f"{len(shrink)=}")
-                print(f"{i=}")
+                # print(f"{i=}")
                 # if i in vicino_di_qlcn:
                 #     print(f"{i} e' gia vicino")
                 #     continue
@@ -207,22 +211,26 @@ class Day(AoCDay):
                 #     vicino_di_qlcn.add(j)
                 #     # vicini[i].append(j)
                 #     print(f"{i=},{j=}")
-            # print(f"{len(vicini_potenziali)=}")
-            # print(f"{vicini_potenziali_bound=}")
+            print(f"{len(vicini_potenziali)=}, {len(vicini_potenziali_bound)=}")
+
+            print(f"{vicini_potenziali_bound=}")
             for kk,vvv in vicini_potenziali.items():
-                print(kk, len(vvv), vicini_potenziali_bound[kk])
+                # print(kk, len(vvv), vicini_potenziali_bound[kk])
                 vv = sorted(vvv, key=lambda x: x.pos.y)
                 for j in vv:
-                    print(f">>> {j}")
+                    # print(f">>> {j}")
             #         # print(f"{vicini_potenziali_bound[k]=} {j.pos.y=}")
                     if vicini_potenziali_bound[kk]+1 == j.pos.y:
                         vicini_potenziali_bound[kk] = j.pos.y
+            print(f"{vicini_potenziali_bound=}")
+
             # print(f"{vicini_potenziali_bound=}")
             # print(f"{len(vicini_potenziali_bound)=}")
             # set_vicini_potenziali_bound = set((k.pos.x,v) for k,v in vicini_potenziali_bound.items())
             tmp = set((k.pos.x,v,k.dir.icon) for k,v in vicini_potenziali_bound.items())
             print(f"{vicini_potenziali_bound=}")
             print(f"{tmp=}")
+
             print(f"{len(reduced_v)=}, {len(vicini_potenziali_bound)=}, {len(tmp)=}")
 
                 # for l,u in vicini_potenziali.items():
@@ -232,6 +240,7 @@ class Day(AoCDay):
             # break
 
         print(sides)
+        # print();continue
         result = 0
         for k, v in region_grid.values.items():
             result += len(v) * sides[k]
