@@ -1,8 +1,9 @@
-from typing import Optional
+from typing import Optional, Any
 
 from pydantic.dataclasses import dataclass
 
-# from dataclasses import dataclass # disabling pydantic may lead to 5x speed
+# from dataclasses import dataclass  # disabling pydantic may lead to 5x speed
+
 from collections import defaultdict
 
 DIRS = {"^": (-1, 0), ">": (0, 1), "v": (1, 0), "<": (0, -1)}
@@ -25,6 +26,10 @@ class Point:
 
     def __hash__(self) -> int:
         return hash((self.x, self.y))
+
+    @staticmethod
+    def from_dir(d) -> Any:
+        return Point(d.x, d.y)
 
 
 @dataclass
@@ -87,6 +92,28 @@ class Cursor:
     def move_forward(self):
         self.pos = self.ahead()
 
+    def move_right(self):
+        self.pos = self.p_right()
+        self.dir = self.dir.right()
+
+    def move_left(self):
+        self.pos = self.p_left()
+        self.dir = self.dir.left()
+
+    def p_right(self):
+        return Point(
+            self.pos.x + self.dir.x + self.dir.right().x,
+            self.pos.y + self.dir.y + self.dir.right().y,
+        )
+
+    def p_left(self):
+        return self.pos
+        # Point(self.pos.x + self.dir.x + self.dir.left().x,
+        # self.pos.y + self.dir.y + self.dir.left().y)
+
+    def __hash__(self) -> int:
+        return hash((self.pos.__hash__, self.dir.__hash__))
+
 
 @dataclass
 class Grid:
@@ -101,6 +128,14 @@ class Grid:
             self.values[k].append(i)
 
     @staticmethod
+    def from_h_l(height, length):
+        grid = {}
+        for c in range(height):
+            for i in range(length):
+                grid[Point(i, c)] = "."
+        return Grid(grid, c + 1, i + 1)
+
+    @staticmethod
     def from_input(input_data):
         input = [list(chunk) for chunk in input_data]
 
@@ -112,9 +147,18 @@ class Grid:
 
         return Grid(grid, c + 1, i + 1)
 
+    @staticmethod
+    def from_grid(grid, height, length):
+        return Grid(grid, height, length)
+
     def display(self) -> None:
         for i in range(self.height):
             line = [self.grid[Point(j, i)] for j in range(self.length)]
+            print("".join(line))
+
+    def display_param(self, grid) -> None:
+        for i in range(self.height):
+            line = [grid.get(Point(j, i), ".") for j in range(self.length)]
             print("".join(line))
 
     def items(self):
@@ -122,3 +166,12 @@ class Grid:
 
     def keys(self):
         return self.grid.keys()
+
+    def has_4_in_row(self, grid):
+        for i in range(self.height):
+            line = [grid.get(Point(j, i), ".") for j in range(self.length)]
+            if "********" in "".join(line):
+                print("".join(line))
+                # input()
+                return True
+        return False
