@@ -1,0 +1,42 @@
+# from __future__ import annotations
+
+from unittest.mock import mock_open, patch
+
+from y_2024.day13 import Day
+
+with patch(
+    "builtins.open",
+    mock_open(
+        read_data="""Button A: X+94, Y+34
+Button B: X+22, Y+67
+Prize: X=8400, Y=5400
+
+Button A: X+26, Y+66
+Button B: X+67, Y+21
+Prize: X=12748, Y=12176
+
+Button A: X+17, Y+86
+Button B: X+84, Y+37
+Prize: X=7870, Y=6450
+
+Button A: X+69, Y+23
+Button B: X+27, Y+71
+Prize: X=18641, Y=10279
+""",  # noqa: E501
+    ),
+):
+    day = Day()
+
+
+def test__preprocess_input():
+    assert True
+
+
+def test_calculate_1():
+    r = day._calculate_1()
+    assert r == 480
+
+
+def test_calculate_2():
+    r = day._calculate_2()
+    assert r == 875318608908
