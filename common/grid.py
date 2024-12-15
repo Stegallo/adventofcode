@@ -1,10 +1,10 @@
-from typing import Optional, Any
+from collections import defaultdict
+from typing import Any, Optional
 
 from pydantic.dataclasses import dataclass
 
 # from dataclasses import dataclass  # disabling pydantic may lead to 5x speed
 
-from collections import defaultdict
 
 DIRS = {"^": (-1, 0), ">": (0, 1), "v": (1, 0), "<": (0, -1)}
 DIRS_8 = {

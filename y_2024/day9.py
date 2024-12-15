@@ -1,7 +1,8 @@
+from collections import deque
 from typing import Optional
 
 from pydantic.dataclasses import dataclass
-from collections import deque
+
 from common.aoc import AoCDay
 
 
