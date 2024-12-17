@@ -82,9 +82,22 @@ class Direction:
 class Cursor:
     pos: Point
     dir: Direction
+    x: int = 0
+    y: int = 0
 
     def ahead(self):
         return Point(self.pos.x + self.dir.x, self.pos.y + self.dir.y)
+
+    def all_ahead(self):
+        # self.x = 0
+        # self.y = 0
+        while True:
+            self.x += 1
+            self.y += 1
+            return Point(
+                self.pos.x + self.x * self.dir.x,
+                self.pos.y + self.y * self.dir.y,
+            )
 
     def turn_right(self):
         self.dir = self.dir.right()
@@ -123,6 +136,9 @@ class Grid:
     values: Optional[dict[str, list]] = None
 
     def __post_init__(self) -> None:
+        self.recalculate_values()
+
+    def recalculate_values(self):
         self.values = defaultdict(list)
         for i, k in self.grid.items():
             self.values[k].append(i)
