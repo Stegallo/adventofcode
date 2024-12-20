@@ -27,6 +27,9 @@ class Point:
     def __hash__(self) -> int:
         return hash((self.x, self.y))
 
+    def __lt__(self, other):
+        return True
+
     @staticmethod
     def from_dir(d) -> Any:
         return Point(d.x, d.y)
