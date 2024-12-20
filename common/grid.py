@@ -85,6 +85,9 @@ class Cursor:
     x: int = 0
     y: int = 0
 
+    def __lt__(self, other):
+        return True
+
     def ahead(self):
         return Point(self.pos.x + self.dir.x, self.pos.y + self.dir.y)
 
