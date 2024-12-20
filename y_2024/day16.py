@@ -6,6 +6,7 @@ from common.aoc import AoCDay
 from common.grid import Grid, DIRS, Point
 import math
 import heapq
+from collections import defaultdict
 
 
 @dataclass
@@ -44,12 +45,13 @@ class Day(AoCDay):
         return (Point(cursor[0].x + x, cursor[0].y + y), cursor[1])
 
     def _calculate_1(self):
-        result = 0
+        # result = 0
+        precs = defaultdict(set)
         # for x in self.__input_data:
         # ...
         x = self.grid.values["S"][0]
         # print(x)
-        visited = set()
+        # visited = set()
         costs = {}
         # current_pos = x
         # current_dir =
@@ -59,22 +61,28 @@ class Day(AoCDay):
         # rotations = 0
         opposite_dir = {"^": "v", ">": "<", "v": "^", "<": ">"}
 
-        heapq.heappush(queue, (0, (x, ">")))
+        heapq.heappush(queue, (0, (x, ">"), None))
         print("\n\n")
 
         while True:
             element = heapq.heappop(queue)
 
             # print(f"{element=}, {len(queue)=}")
-            cost, cursor = element
+            cost, cursor, prec = element
+            # breakpoint()
+            precs[cursor] = precs[cursor] | precs[prec]
+            if prec:
+                precs[cursor].add(prec)
+            # breakpoint()
             # print(cursor)
             # breakpoint()
-            visited.add(cursor)
+            # visited.add(cursor)
             # print(f"{cursor.pos}, {self.grid.grid.get(cursor.pos)=}, {cost}")
             # breakpoint()
             if self.grid.grid.get(cursor[0]) == "E":
+                # breakpoint()
                 # print(f" {len(queue)=}")
-                return cost
+                break  # return cost
 
             for i in DIRS:
                 if i == opposite_dir[cursor[1]]:
@@ -88,9 +96,9 @@ class Day(AoCDay):
                         continue
                     c = self.move_forward(c)
                     move_cost = 1
-                    if costs.get(cursor, 0) + move_cost < costs.get(c, math.inf):
+                    if costs.get(cursor, 0) + move_cost <= costs.get(c, math.inf):
                         costs[c] = costs.get(cursor, 0) + move_cost
-                        heapq.heappush(queue, (cost + move_cost, c))
+                        heapq.heappush(queue, (cost + move_cost, c, cursor))
                 else:
                     # print('rotate 90')
                     c = (cursor[0], i)
@@ -98,20 +106,26 @@ class Day(AoCDay):
                         continue
                     # print(f"\n{c}, {self.grid.grid.get(c.pos)=}\n")
                     move_cost = 1000
-                    if (
-                        costs.get(cursor, 0) + move_cost < costs.get(c, math.inf)
-                        and c not in visited
-                    ):
+                    if costs.get(cursor, 0) + move_cost <= costs.get(c, math.inf):
                         costs[c] = costs.get(cursor, 0) + move_cost
-                        heapq.heappush(queue, (cost + move_cost, c))
+                        heapq.heappush(queue, (cost + move_cost, c, cursor))
 
                 # print(cursor.dir.icon, i)
             # print(*queue, sep="\n")
             # print(costs)
             # input()
             # break
+        # print(precs)
+        # max = 0
+        # for k,v in precs.items():
+        #     print(k, len(v), v)
+        #     if len(v)>max:
+        #         max = len(v)
+        # print(max)
+        self.grid.display()
 
-        return result
+        return len(set(i[0] for i in precs[cursor])) + 1
+        return cost
 
     def _calculate_2(self):
         result = 0
