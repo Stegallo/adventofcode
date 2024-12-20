@@ -1,8 +1,8 @@
 from typing import Optional, Any
 
-from pydantic.dataclasses import dataclass
+# from pydantic.dataclasses import dataclass
 
-# from dataclasses import dataclass  # disabling pydantic may lead to 5x speed
+from dataclasses import dataclass  # disabling pydantic may lead to 5x speed
 
 from collections import defaultdict
 
