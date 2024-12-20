@@ -5,6 +5,7 @@ from pydantic.dataclasses import dataclass
 from common.aoc import AoCDay
 from common.grid import Grid, Cursor, Direction, DIRS
 import math
+import heapq
 
 
 @dataclass
@@ -37,7 +38,7 @@ class Day(AoCDay):
         # for x in self.__input_data:
         # ...
         x = self.grid.values["S"][0]
-        print(x)
+        # print(x)
         visited = set()
         costs = {}
         # current_pos = x
@@ -47,64 +48,57 @@ class Day(AoCDay):
         # step_forward = 0
         # rotations = 0
         opposite_dir = {"^": "v", ">": "<", "v": "^", "<": ">"}
-        current_cur = Cursor(x, Direction.from_symbol(">"))
+
+        heapq.heappush(queue, (0, Cursor(x, Direction.from_symbol(">"))))
         print("\n\n")
+
         while True:
-            # print(f"{current_cur=}")
+            element = heapq.heappop(queue)
+
+            print(f"{element=}, {len(queue)=}")
+            cost, cursor = element
+            visited.add(cursor)
+            print(f"{cursor.pos}, {self.grid.grid.get(cursor.pos)=}, {cost}")
             # breakpoint()
+            if self.grid.grid.get(cursor.pos) == "E":
+                print(f" {len(queue)=}")
+                return cost
+
             for i in DIRS:
-                # print(current_cur.dir.icon, i)
-                # continue
-                if i == opposite_dir[current_cur.dir.icon]:
+                if i == opposite_dir[cursor.dir.icon]:
                     # print('not consider this')
                     continue
-                c = Cursor(current_cur.pos, Direction.from_symbol(i))
-                c.move_forward()
-                # print(f"{c.pos=}, {self.grid.grid[c.pos]=}")
-                if self.grid.grid[c.pos] == "#":
-                    continue
+                elif i == cursor.dir.icon:
+                    # print('same Direction')
+                    c = Cursor(cursor.pos, cursor.dir)
+                    # print(f"\n{c}, {self.grid.grid.get(c.pos)=}\n")
+                    if self.grid.grid.get(c.ahead()) == "#":
+                        continue
+                    c.move_forward()
+                    move_cost = 1
+                    if costs.get(cursor, 0) + move_cost < costs.get(c, math.inf):
+                        costs[c] = costs.get(cursor, 0) + move_cost
+                        heapq.heappush(queue, (cost + move_cost, c))
+                else:
+                    # print('rotate 90')
+                    c = Cursor(cursor.pos, Direction.from_symbol(i))
+                    if self.grid.grid.get(c.ahead()) == "#":
+                        continue
+                    # print(f"\n{c}, {self.grid.grid.get(c.pos)=}\n")
+                    move_cost = 1000
+                    if (
+                        costs.get(cursor, 0) + move_cost < costs.get(c, math.inf)
+                        and c not in visited
+                    ):
+                        costs[c] = costs.get(cursor, 0) + move_cost
+                        heapq.heappush(queue, (cost + move_cost, c))
 
-                # breakpoint()
-                move_cost = 1 if current_cur.dir.icon == i else 1001
-                # print(move_cost)
-                if self.grid.grid[c.pos] == "E":
-                    # return
-                    return costs[current_cur] + move_cost
-                # continue
-                # breakpoint()
-
-                if costs.get(current_cur, 0) + move_cost < costs.get(c, math.inf):
-                    costs[c] = costs.get(current_cur, 0) + move_cost
-                    # self.grid.grid[current_pos] = str(costs[current_pos])
-                # c.move_forward()
-                if c not in visited:
-                    queue.append(c)
-                # print(f"{i}, {costs}, {c.ahead()=}, {len(queue)=}, {queue=}")
-                # print(f"{i}, {costs}, {len(queue)=}, {queue=}")
-            # break
+                # print(cursor.dir.icon, i)
+            # print(*queue, sep="\n")
+            # print(costs)
             # input()
-            # breakpoint()
-            min = math.inf
-            min_index = None
-            for c, i in enumerate(queue):
-                # print(i, costs[i])
-                if costs[i] < min:
-                    min = costs[i]
-                    min_index = c
-                    current_cur = i
-            visited.add(current_cur)
-            # print(f"before pop left: {queue}")
-            queue = queue[:min_index] + queue[min_index + 1 :]
-            print(f"{len(queue)=}")
-            # print(f"after pop left: {queue}")
-            # print("\n\n")
-            # current_cur.move_forward()
-            # breakpoint()
-            # current_cur = queue.popleft()
-            # current_pos = current_cur.pos
-            # current_dir = current_cur.dir
-            # self.grid.display()
             # break
+
         return result
 
     def _calculate_2(self):
