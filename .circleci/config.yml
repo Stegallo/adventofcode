@@ -7,13 +7,6 @@ jobs:
     steps:
       - checkout
       - run:
-         name: Setup Code Climate test-reporter
-         command: |
-          # download test reporter as a static binary
-            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-            chmod +x ./cc-test-reporter
-            ./cc-test-reporter before-build
-      - run:
           name: Install missing libs
           command: |
             python -m pip install -r requirements/base.txt
@@ -22,10 +15,6 @@ jobs:
           name: Run tests
           command: |
             python -m pytest --cov-report xml --cov-report term --cov .
-      - run:
-          name: Send coverage to Code Climate
-          command: |
-            ./cc-test-reporter after-build --exit-code $?
       - run:
           name: Send to codecov
           command: |
