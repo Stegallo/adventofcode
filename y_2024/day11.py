@@ -1,9 +1,9 @@
+import functools
 from typing import Optional
 
 from pydantic.dataclasses import dataclass
 
 from common.aoc import AoCDay
-import functools
 
 
 @dataclass

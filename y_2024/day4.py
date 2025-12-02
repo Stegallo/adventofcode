@@ -1,5 +1,5 @@
 from common.aoc import AoCDay
-from common.grid import Grid, DIRS_8, Cursor, Direction
+from common.grid import DIRS_8, Cursor, Direction, Grid
 
 
 class Day(AoCDay):

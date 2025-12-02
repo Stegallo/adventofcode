@@ -1,9 +1,10 @@
+from collections import deque
 from typing import Optional
 
 from pydantic.dataclasses import dataclass
-from collections import deque
+
 from common.aoc import AoCDay
-from common.grid import Grid, Cursor, DIRS, Direction
+from common.grid import DIRS, Cursor, Direction, Grid
 
 
 @dataclass

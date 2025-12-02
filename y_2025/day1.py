@@ -5,10 +5,12 @@ from pydantic.dataclasses import dataclass
 from common.aoc import AoCDay
 from common.grid import Grid
 
+
 @dataclass
 class Rotation:
     direction: str
     degrees: int
+
 
 @dataclass
 class Row:
@@ -31,23 +33,23 @@ class Day(AoCDay):
         result = 0
         dial = 50
         for x in self.__input_data:
-            dial = (dial + self.__dir[x.processed.direction] * x.processed.degrees) % 100
+            dial = (
+                dial + self.__dir[x.processed.direction] * x.processed.degrees
+            ) % 100
             if dial == 0:
                 result += 1
         return result
 
-
     def _calculate_2(self):
-        """ Uses brute force after capping the number of rotations """
+        """Uses brute force after capping the number of rotations"""
         result = 0
         dial = 50
         for x in self.__input_data:
             times = x.processed.degrees // 100
             result += times
-            for _ in range(0, x.processed.degrees%100):
+            for _ in range(0, x.processed.degrees % 100):
                 dial += self.__dir[x.processed.direction]
                 dial %= 100
                 if dial == 0:
                     result += 1
         return result
-

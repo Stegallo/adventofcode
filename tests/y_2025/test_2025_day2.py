@@ -26,4 +26,3 @@ def test_calculate_1():
 def test_calculate_2():
     r = day._calculate_2()
     assert r == 4174379265
-

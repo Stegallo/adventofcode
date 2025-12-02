@@ -5,10 +5,13 @@ from pydantic.dataclasses import dataclass
 from common.aoc import AoCDay
 from common.grid import Grid
 
+
 @dataclass
 class Range:
     start: int
     end: int
+
+
 @dataclass
 class Ranges:
     original: str
@@ -35,7 +38,7 @@ class Day(AoCDay):
                     right = str(y)[len(str(y)) // 2 :]
                     if left == right:
                         result += int(y)
-                    
+
         return result
 
     def _calculate_2(self):
