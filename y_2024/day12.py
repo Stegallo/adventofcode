@@ -1,9 +1,10 @@
+from collections import defaultdict
 from typing import Optional
 
 from pydantic.dataclasses import dataclass
-from collections import defaultdict
+
 from common.aoc import AoCDay
-from common.grid import Grid, Cursor, Direction, DIRS, Point
+from common.grid import DIRS, Cursor, Direction, Grid, Point
 
 
 @dataclass
