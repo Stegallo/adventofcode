@@ -21,10 +21,10 @@ class Placeholder:
         return len(self.sequence)
 
 
-class Time(Placeholder): ...
+class Time(Placeholder): ...  # noqa: E701
 
 
-class Distance(Placeholder): ...
+class Distance(Placeholder): ...  # noqa: E701
 
 
 class Day(AoCDay):

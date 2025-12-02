@@ -90,5 +90,5 @@ class Day(AoCDay):
                 x.move(witdh, lenght)
             g = Grid.from_h_l(lenght, witdh)
         g.display_param({r.pos: "*" for r in self.__input_data})
-        print(f">>> {i+1}")
+        print(f">>> {i + 1}")
         return 0
