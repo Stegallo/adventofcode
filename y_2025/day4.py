@@ -13,12 +13,12 @@ class Day(AoCDay):
     def _calculate_1(self):
         result = 0
         for k, v in self.grid.items():
-            if v == "@":
-                if (
-                    sum(1 if self.grid.grid.get(y) == "@" else 0 for y in k.crown())
-                    <= 3
-                ):
-                    result += 1
+            if v == "@" and (
+                                sum(1 if self.grid.grid.get(y) == "@" else 0 for y in k.crown())
+                                <= 3
+                            ):
+                result += 1
+
         return result
 
     def _calculate_2(self):
