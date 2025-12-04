@@ -14,9 +14,8 @@ class Day(AoCDay):
         result = 0
         for k, v in self.grid.items():
             if v == "@" and (
-                                sum(1 if self.grid.grid.get(y) == "@" else 0 for y in k.crown())
-                                <= 3
-                            ):
+                sum(1 if self.grid.grid.get(y) == "@" else 0 for y in k.crown()) <= 3
+            ):
                 result += 1
 
         return result
