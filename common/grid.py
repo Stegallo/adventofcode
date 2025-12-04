@@ -31,6 +31,9 @@ class Point:
     def from_dir(d) -> Any:
         return Point(d.x, d.y)
 
+    def crown(self) -> list["Point"]:
+        return [Point(self.x + a, self.y + b) for b, a in DIRS_8.values()]
+
 
 @dataclass
 class Direction:
