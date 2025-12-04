@@ -1,7 +1,3 @@
-from typing import Optional
-
-from pydantic.dataclasses import dataclass
-
 from common.aoc import AoCDay
 from common.grid import Grid
 
