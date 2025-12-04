@@ -35,10 +35,11 @@ class Day(AoCDay):
             for x in grid.keys():
                 if grid.grid.get(x) != "@":
                     continue
-                c = 0
-                for y in x.crown():
-                    if y in grid.keys():
-                        c += 1 if grid.grid.get(y) == "@" else 0
+                c = sum(
+                    1 if grid.grid.get(y) == "@" else 0
+                    for y in x.crown()
+                    if y in grid.keys()
+                )
                 if c <= 3:
                     result += 1
                     removed += 1
