@@ -6,15 +6,6 @@ from common.aoc import AoCDay
 from common.grid import Grid
 
 
-@dataclass
-class Row:
-    original: str
-    processed: Optional[str] = None
-
-    def __post_init__(self) -> None:
-        self.processed = ""  # self.original
-
-
 class Day(AoCDay):
     def __init__(self, test=0):
         super().__init__(__name__, test)
