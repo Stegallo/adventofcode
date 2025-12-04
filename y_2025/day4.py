@@ -44,7 +44,7 @@ class Day(AoCDay):
                     result += 1
                     removed += 1
                 if grid.grid.get(x) == "@":
-                    result_grid.grid[x] = "x" if str(c) <= "3" else "@"
+                    result_grid.grid[x] = "x" if c <= 3 else "@"
             if removed == 0:
                 break
             grid = result_grid
