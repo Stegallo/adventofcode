@@ -12,18 +12,13 @@ class Day(AoCDay):
 
     def _calculate_1(self):
         result = 0
-        result_grid = Grid.from_h_l(10, 10)
-        for x in self.grid.keys():
-            if self.grid.grid.get(x) != "@":
-                continue
-            c = 0
-            for y in x.crown():
-                if y in self.grid.keys():
-                    c += 1 if self.grid.grid.get(y) == "@" else 0
-            if c <= 3:
-                result += 1
-            if self.grid.grid.get(x) == "@":
-                result_grid.grid[x] = str(c)
+        for k, v in self.grid.items():
+            if v == "@":
+                if (
+                    sum(1 if self.grid.grid.get(y) == "@" else 0 for y in k.crown())
+                    <= 3
+                ):
+                    result += 1
         return result
 
     def _calculate_2(self):
