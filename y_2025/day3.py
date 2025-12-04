@@ -31,7 +31,7 @@ class Day(AoCDay):
                 for d, z in enumerate(x.processed):
                     if d <= c:
                         continue
-                    t = int(str(y) + str(z))
+                    t = y * 10 + z
                     if t > highest:
                         highest = t
             result += highest
