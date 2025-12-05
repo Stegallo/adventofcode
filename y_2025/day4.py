@@ -22,24 +22,17 @@ class Day(AoCDay):
 
     def _calculate_2(self):
         result = 0
-        grid = self.grid
         while True:
-            removed = 0
-            result_grid = Grid.from_h_l(10, 10)
-            for x in grid.keys():
-                if grid.grid.get(x) != "@":
-                    continue
-                c = sum(
-                    1 if grid.grid.get(y) == "@" else 0
-                    for y in x.crown()
-                    if y in grid.keys()
-                )
-                if c <= 3:
+            removed = False
+            for k, v in self.grid.items():
+                if (
+                    v == "@"
+                    and sum(1 if self.grid.grid.get(y) == "@" else 0 for y in k.crown())
+                    <= 3
+                ):
                     result += 1
-                    removed += 1
-                if grid.grid.get(x) == "@":
-                    result_grid.grid[x] = "x" if c <= 3 else "@"
-            if removed == 0:
+                    removed = True
+                    self.grid.grid[k] = "x"
+            if not removed:
                 break
-            grid = result_grid
         return result

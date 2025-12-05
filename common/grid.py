@@ -133,10 +133,11 @@ class Grid:
     @staticmethod
     def from_h_l(height, length):
         grid = {}
+
         for c in range(height):
             for i in range(length):
                 grid[Point(i, c)] = "."
-        return Grid(grid, c + 1, i + 1)
+        return Grid(grid, height, length)
 
     @staticmethod
     def from_input(input_data):
@@ -156,7 +157,7 @@ class Grid:
 
     def display(self) -> None:
         for i in range(self.height):
-            line = [self.grid[Point(j, i)] for j in range(self.length)]
+            line = [self.grid.get(Point(j, i), '.') for j in range(self.length)]
             print("".join(line))
 
     def display_param(self, grid) -> None:
