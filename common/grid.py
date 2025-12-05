@@ -157,7 +157,7 @@ class Grid:
 
     def display(self) -> None:
         for i in range(self.height):
-            line = [self.grid.get(Point(j, i), '.') for j in range(self.length)]
+            line = [self.grid.get(Point(j, i), ".") for j in range(self.length)]
             print("".join(line))
 
     def display_param(self, grid) -> None:
