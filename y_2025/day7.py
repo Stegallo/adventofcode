@@ -1,18 +1,6 @@
-from typing import Optional
-
-from pydantic.dataclasses import dataclass
-
 from common.aoc import AoCDay
 from common.grid import Grid, Point, Cursor, Direction
-
-
-@dataclass
-class Row:
-    original: str
-    processed: Optional[str] = None
-
-    def __post_init__(self) -> None:
-        self.processed = ""  # self.original
+from functools import lru_cache
 
 
 class Day(AoCDay):
@@ -20,50 +8,50 @@ class Day(AoCDay):
         super().__init__(__name__, test)
 
     def _preprocess_input(self):
-        # self.__input_data = [[int(i) for i in chunk] for chunk in self._input_data]
-        # print(f"{self._input_data=}")
-        # print(f"{len(self._input_data)=}")
-        # print(f"{len(self._input_data[0])=}")
         self.grid = Grid.from_input(self._input_data)
-        self.grid.display()
-        # self.__input_data = [Row(i) for i in self._input_data[0]]
-        # self.__input_data = [Row(i) for j in self._input_data for i in j]
-        # for x in self.__input_data:
-        #     print(f"{x}")
 
     def _calculate_1(self):
         result = 0
-        # print(len(self.grid.values['S']))
-        # print(len(self.grid.values['^']))
-        s = self.grid.values['S'][0]
+        s = self.grid.values["S"][0]
         next_row = set([s])
-        for i in range(self.grid.height):
-            # print(i)
+        for _ in range(self.grid.height):
             beams = [i for i in next_row]
             if not beams:
                 break
-            # print(f"{i}, Beams to process: {len(beams)=}, {beams=}")
+
             next_row = set()
             for p in beams:
-                b = Cursor(p, Direction.from_symbol('v'))
-                # print(f"Processing {b}", self.grid.grid.get(b.ahead()))
-                if self.grid.grid.get(b.ahead()) == '.':
+                b = Cursor(p, Direction.from_symbol("v"))
+                if self.grid.grid.get(b.ahead()) == ".":
                     next_row.add(b.ahead())
-                    # self.grid.grid[b.ahead()] = '|'
-                if self.grid.grid.get(b.ahead()) == '^':
-                # else:
-                #     # print(b.ahead().x)
-                    result+=1
-                    next_row.add(Point(b.ahead().x-1, b.ahead().y))
-                    next_row.add(Point(b.ahead().x+1, b.ahead().y))
-                    # self.grid.grid[Point(b.ahead().x-1, b.ahead().y+1)] = '|'
-                    # self.grid.grid[Point(b.ahead().x+1, b.ahead().y+1)] = '|'
-            # print(result)
-            # self.grid.display()
-        #     ...
+                if self.grid.grid.get(b.ahead()) == "^":
+                    result += 1
+                    next_row.add(Point(b.ahead().x - 1, b.ahead().y))
+                    next_row.add(Point(b.ahead().x + 1, b.ahead().y))
         return result
-        # 2925 too high
+
+    @lru_cache()
+    def possible_routes(self, c_str: str) -> int:
+        c = Cursor.deserialize(c_str)
+        if c.ahead().y >= self.grid.height:
+            return 1
+
+        if self.grid.grid.get(c.ahead()) == "^":
+            return self.possible_routes(
+                Cursor(
+                    Point(c.ahead().x - 1, c.ahead().y), Direction.from_symbol("v")
+                ).serialize()
+            ) + self.possible_routes(
+                Cursor(
+                    Point(c.ahead().x + 1, c.ahead().y), Direction.from_symbol("v")
+                ).serialize()
+            )
+        else:
+            return self.possible_routes(
+                Cursor(c.ahead(), Direction.from_symbol("v")).serialize()
+            )
 
     def _calculate_2(self):
-        result = 0
-        return result
+        s = self.grid.values["S"][0]
+        p = Cursor(s, Direction.from_symbol("v"))
+        return self.possible_routes(p.serialize())

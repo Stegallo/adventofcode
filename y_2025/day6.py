@@ -7,14 +7,6 @@ from common.grid import Grid, Point
 from math import prod
 
 
-def proc_line(line: str) -> str:
-    l = list(line)
-    # zero = 0
-    # for i in range(len(l)):
-    #     print(l[i])
-    return l
-
-
 @dataclass
 class Row:
     original: str
@@ -46,7 +38,6 @@ class Day(AoCDay):
         return result
 
     def _calculate_2(self):
-        # 10194584711842
         result = 0
 
         block_op = None
