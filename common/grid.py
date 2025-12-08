@@ -117,6 +117,14 @@ class Cursor:
     def __hash__(self) -> int:
         return hash((self.pos.__hash__, self.dir.__hash__))
 
+    def serialize(self) -> str:
+        return f"{self.pos.x},{self.pos.y},{self.dir.icon}"
+
+    @staticmethod
+    def deserialize(s: str) -> "Cursor":
+        x, y, icon = s.split(",")
+        return Cursor(Point(int(x), int(y)), Direction.from_symbol(icon))
+
 
 @dataclass
 class Grid:
@@ -157,13 +165,20 @@ class Grid:
 
     def display(self) -> None:
         for i in range(self.height):
-            line = [self.grid.get(Point(j, i), '.') for j in range(self.length)]
+            line = [self.grid.get(Point(j, i), ".") for j in range(self.length)]
             print("".join(line))
 
     def display_param(self, grid) -> None:
         for i in range(self.height):
             line = [grid.get(Point(j, i), ".") for j in range(self.length)]
             print("".join(line))
+
+    def transpose(self) -> "Grid":
+        new_grid = {}
+        for i in range(self.height):
+            for j in range(self.length):
+                new_grid[Point(i, j)] = self.grid.get(Point(j, i), ".")
+        return Grid(new_grid, self.length, self.height)
 
     def items(self):
         return self.grid.items()
