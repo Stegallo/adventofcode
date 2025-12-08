@@ -1,6 +1,7 @@
-from common.aoc import AoCDay
-from common.grid import Grid, Point, Cursor, Direction
 from functools import lru_cache
+
+from common.aoc import AoCDay
+from common.grid import Cursor, Direction, Grid, Point
 
 
 class Day(AoCDay):

@@ -1,10 +1,10 @@
+from math import prod
 from typing import Optional
 
 from pydantic.dataclasses import dataclass
 
 from common.aoc import AoCDay
 from common.grid import Grid, Point
-from math import prod
 
 
 @dataclass
