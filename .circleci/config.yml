@@ -20,9 +20,9 @@ jobs:
           command: |
             bash <(curl -s https://codecov.io/bash) -Z
       - run:
-          name: Run flake8
+          name: Run ruff
           command: |
-            python -m flake8 .
+            python -m ruff check .
       # - run:
       #     name: Run mypy
       #     command: |
