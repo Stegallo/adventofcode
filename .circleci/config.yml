@@ -3,30 +3,27 @@ version: 2.1
 jobs:
   tests:
     docker:
-      - image: stefanogallotti/adventofcode
+      - image: ghcr.io/astral-sh/uv:bookworm-slim
     steps:
       - checkout
       - run:
-          name: Install missing libs
-          command: |
-            python -m pip install -r requirements/base.txt
-            python -m pip install -r requirements/test.txt
+          name: Install dependencies (uv installs Python 3.15 from .python-version)
+          command: uv sync --dev --frozen
       - run:
           name: Run tests
-          command: |
-            python -m pytest --cov-report xml --cov-report term --cov .
+          command: uv run pytest --cov-report xml --cov-report term --cov .
       - run:
-          name: Send to codecov
+          name: Upload coverage to Codecov
           command: |
-            bash <(curl -s https://codecov.io/bash) -Z
+            curl -Os https://cli.codecov.io/latest/linux/codecov
+            chmod +x codecov
+            ./codecov upload-process -Z || true
       - run:
           name: Run ruff
-          command: |
-            python -m ruff check .
+          command: uv run ruff check .
       # - run:
       #     name: Run mypy
-      #     command: |
-      #       python -m mypy y_2015/*.py && python -m mypy y_2019/*.py  && python -m mypy y_2020/*.py
+      #     command: uv run mypy y_2015/*.py && uv run mypy y_2019/*.py
 workflows:
   CI:
     jobs:
