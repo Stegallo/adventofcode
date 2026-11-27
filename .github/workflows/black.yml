@@ -6,17 +6,15 @@ jobs:
   runsBlack:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-python@v1
-        with:
-          python-version: 3.x
-      - run: pip install black ruff
-      - run: ruff check --fix .
-      - run: black .
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --dev --frozen
+      - run: uv run ruff check --fix .
+      - run: uv run black .
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@v7
         with:
           commit-message: format code with black
           title: Black Formatting
