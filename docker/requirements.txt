@@ -1,6 +1,6 @@
 pytest
 pytest-cov
-flake8
+ruff
 mypy
 pre-commit
 black

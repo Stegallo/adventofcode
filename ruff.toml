@@ -1,0 +1,9 @@
+line-length = 88
+
+[lint]
+# Mirror the previous flake8 setup (pycodestyle E/W + pyflakes F).
+select = ["E", "F", "W"]
+# E203: whitespace before ':' (conflicts with black)
+# E741: ambiguous variable name
+# W605: invalid escape sequence (intentional regex strings)
+ignore = ["E203", "E741", "W605"]

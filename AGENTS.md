@@ -84,16 +84,19 @@ input, then assert on `_calculate_1()` / `_calculate_2()` return values.
 
 ## Linting / formatting
 
-Pre-commit runs black, flake8, ruff, isort, add-trailing-comma, and mypy.
+Pre-commit runs black, ruff, isort, add-trailing-comma, and mypy.
 
 ```bash
 pre-commit run --all-files    # run every hook
-python -m flake8 .            # flake8 only (CI runs this)
+python -m ruff check .        # lint (CI runs this)
+python -m ruff check --fix .  # lint + autofix
 python -m black .             # format
 ```
 
-- Line length: 88 (black default). flake8 ignores `E203,W503,W605,E741`.
+- Line length: 88 (see `ruff.toml`). Ruff ignores `E203,E741,W605`.
 - Code style: black. Keep double quotes.
+- Ruff replaced flake8 (flake8's pinned pyflakes broke under Python 3.14;
+  ruff is a standalone binary unaffected by it).
 
 ## Conventions & notes
 
@@ -112,5 +115,5 @@ python -m black .             # format
 ## CI
 
 CircleCI (`.circleci/config.yml`) runs pytest with coverage, uploads to codecov,
-and runs flake8. mypy is currently commented out in CI but enforced via
+and runs ruff. mypy is currently commented out in CI but enforced via
 pre-commit.
