@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v6.0.0
     hooks:
       - id: end-of-file-fixer
         exclude: "docs/.*"
@@ -26,14 +26,15 @@ repos:
       - id: ruff-check
         args: [ --fix ]
   - repo: https://github.com/psf/black
-    rev: 23.11.0
+    rev: 26.10.1
     hooks:
       - id: black
   - repo: https://github.com/asottile/add-trailing-comma
-    rev: v2.3.0
+    rev: v4.0.0
     hooks:
       - id: add-trailing-comma
-        args: [--py36-plus]
+  # Pinned: mypy 2.x is much stricter and flags many pre-existing issues in the
+  # older solution files. Bumping it is a separate cleanup (mypy is not in CI).
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.6.1
     hooks:

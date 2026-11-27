@@ -142,10 +142,9 @@ if you want to run against the test file
 uv run python -m src --year <year> --day <day> --test 1
 ```
 
-note: to avoid tracking in git your credentials:
-```
-git update-index --assume-unchanged secret.py
-```
+note: provide your AoC session cookie either by setting `AOC_SESSION` in your
+environment, or by copying `secret.example.py` to `secret.py` (git-ignored) and
+pasting it there.
 
 ## contributing
 
