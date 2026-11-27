@@ -17,11 +17,11 @@ for solutions in rust, refer to [rust repo][rustrepo]
 | 05 | [puzzle][201505p]</br>[✓][201505] |  |  |  |  |  |  |  | [puzzle][202305p]</br>[✓][202305] | [puzzle][202405p]</br>[✓][202405] | [puzzle][202505p]</br>[✓][202505] |
 | 06 | [puzzle][201506p]</br>[✓][201506] |  |  |  |  |  |  |  | [puzzle][202306p]</br>[✓][202306] | [puzzle][202406p]</br>[✓][202406] | [puzzle][202506p]</br>[✓][202506] |
 | 07 | [puzzle][201507p]</br>[✓][201507] |  |  |  |  |  |  |  | [puzzle][202307p]</br>[✓][202307] | [puzzle][202407p]</br>[✓][202407] | [puzzle][202507p]</br>[✓][202507] |
-| 08 | [puzzle][201508p]</br>[✓][201508] |  |  |  |  |  |  |  | [puzzle][202308p]</br>[✓][202308] | [puzzle][202408p]</br>[✓][202408] |  |
-| 09 | [puzzle][201509p]</br>[✓][201509] |  |  |  |  |  |  |  | [puzzle][202309p]</br>[✓][202309] | [puzzle][202409p]</br>[✓][202409] |  |
-| 10 | [puzzle][201510p]</br>[✓][201510] |  |  |  |  |  |  |  |  | [puzzle][202410p]</br>[✓][202410] |  |
-| 11 | [puzzle][201511p]</br>[✓][201511] |  |  |  |  |  |  |  |  | [puzzle][202411p]</br>[✓][202411] |  |
-| 12 |  |  |  |  |  |  |  |  |  | [puzzle][202412p]</br>[✓][202412] |  |
+| 08 | [puzzle][201508p]</br>[✓][201508] |  |  |  |  |  |  |  | [puzzle][202308p]</br>[✓][202308] | [puzzle][202408p]</br>[✓][202408] | [puzzle][202508p]</br>[✓][202508] |
+| 09 | [puzzle][201509p]</br>[✓][201509] |  |  |  |  |  |  |  | [puzzle][202309p]</br>[✓][202309] | [puzzle][202409p]</br>[✓][202409] | [puzzle][202509p]</br>[✓][202509] |
+| 10 | [puzzle][201510p]</br>[✓][201510] |  |  |  |  |  |  |  |  | [puzzle][202410p]</br>[✓][202410] | [puzzle][202510p]</br>[✓][202510] |
+| 11 | [puzzle][201511p]</br>[✓][201511] |  |  |  |  |  |  |  |  | [puzzle][202411p]</br>[✓][202411] | [puzzle][202511p]</br>[✓][202511] |
+| 12 |  |  |  |  |  |  |  |  |  | [puzzle][202412p]</br>[✓][202412] | [puzzle][202512p]</br>[✓][202512] |
 | 13 |  |  |  |  |  |  |  |  |  | [puzzle][202413p]</br>[✓][202413] |  |
 | 14 |  |  |  |  |  |  |  |  |  | [puzzle][202414p]</br>[✓][202414] |  |
 
@@ -113,6 +113,16 @@ for solutions in rust, refer to [rust repo][rustrepo]
 [202506p]: https://adventofcode.com/2025/day/6
 [202507]: https://github.com/Stegallo/adventofcode/blob/master/y_2025/day7.py
 [202507p]: https://adventofcode.com/2025/day/7
+[202508]: https://github.com/Stegallo/adventofcode/blob/master/y_2025/day8.py
+[202508p]: https://adventofcode.com/2025/day/8
+[202509]: https://github.com/Stegallo/adventofcode/blob/master/y_2025/day9.py
+[202509p]: https://adventofcode.com/2025/day/9
+[202510]: https://github.com/Stegallo/adventofcode/blob/master/y_2025/day10.py
+[202510p]: https://adventofcode.com/2025/day/10
+[202511]: https://github.com/Stegallo/adventofcode/blob/master/y_2025/day11.py
+[202511p]: https://adventofcode.com/2025/day/11
+[202512]: https://github.com/Stegallo/adventofcode/blob/master/y_2025/day12.py
+[202512p]: https://adventofcode.com/2025/day/12
 
 [rustrepo]: https://github.com/Stegallo/adventofcodeinrust
 
