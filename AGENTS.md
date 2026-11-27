@@ -13,6 +13,8 @@ A companion Rust repo holds Rust solutions (linked from the README).
 
 ## Layout
 
+- `y_1900/day0.py` — the generic starter template (copy it to begin a new day).
+  Do **not** commit a per-year `day0.py`; it only lives in `y_1900`.
 - `y_<year>/dayN.py` — solution for a given day. Defines a `Day(AoCDay)` class.
 - `y_<year>/input_dayN.txt` — real puzzle input (git-ignored, auto-downloaded).
 - `y_<year>/input_dayN_test.txt` — optional sample input (used when `test=1`).
