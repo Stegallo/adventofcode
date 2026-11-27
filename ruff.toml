@@ -1,8 +1,9 @@
 line-length = 88
 
 [lint]
-# Mirror the previous flake8 setup (pycodestyle E/W + pyflakes F).
-select = ["E", "F", "W"]
+# Mirror the previous flake8 setup (pycodestyle E/W + pyflakes F) plus
+# import sorting (I), which replaces the standalone isort tool.
+select = ["E", "F", "W", "I"]
 # E203: whitespace before ':' (conflicts with black)
 # E741: ambiguous variable name
 # W605: invalid escape sequence (intentional regex strings)

@@ -86,7 +86,7 @@ input, then assert on `_calculate_1()` / `_calculate_2()` return values.
 
 ## Linting / formatting
 
-Pre-commit runs black, ruff, isort, add-trailing-comma, and mypy.
+Pre-commit runs black, ruff (lint + import sorting), add-trailing-comma, and mypy.
 
 ```bash
 pre-commit run --all-files    # run every hook
@@ -95,7 +95,8 @@ python -m ruff check --fix .  # lint + autofix
 python -m black .             # format
 ```
 
-- Line length: 88 (see `ruff.toml`). Ruff ignores `E203,E741,W605`.
+- Line length: 88 (see `ruff.toml`). Ruff selects `E,F,W,I` and ignores
+  `E203,E741,W605`. The `I` rule does import sorting (replaces isort).
 - Code style: black. Keep double quotes.
 - Ruff replaced flake8 (flake8's pinned pyflakes broke under Python 3.14;
   ruff is a standalone binary unaffected by it).
