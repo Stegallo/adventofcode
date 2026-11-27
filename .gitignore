@@ -128,5 +128,6 @@ dmypy.json
 .pyre/
 input_day*.txt
 y_2022/secret_backup.py
+secret.py
 _old_y*/*
 gpt.txt

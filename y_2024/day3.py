@@ -18,7 +18,7 @@ class Mul:
     @staticmethod
     def from_str(string):
         return (lambda x, y: Mul(int(x), int(y)))(
-            *string.replace(")", "").replace("mul(", "").split(",")
+            *string.replace(")", "").replace("mul(", "").split(","),
         )
 
     @property
