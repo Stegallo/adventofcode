@@ -40,11 +40,13 @@ class Day(AoCDay):
         if self.grid.grid.get(c.ahead()) == "^":
             return self.possible_routes(
                 Cursor(
-                    Point(c.ahead().x - 1, c.ahead().y), Direction.from_symbol("v"),
+                    Point(c.ahead().x - 1, c.ahead().y),
+                    Direction.from_symbol("v"),
                 ).serialize(),
             ) + self.possible_routes(
                 Cursor(
-                    Point(c.ahead().x + 1, c.ahead().y), Direction.from_symbol("v"),
+                    Point(c.ahead().x + 1, c.ahead().y),
+                    Direction.from_symbol("v"),
                 ).serialize(),
             )
         else:
