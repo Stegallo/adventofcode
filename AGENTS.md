@@ -128,6 +128,7 @@ uv run black .                      # format
 
 ## CI
 
-CircleCI (`.circleci/config.yml`) runs pytest with coverage, uploads to codecov,
-and runs ruff. mypy is currently commented out in CI but enforced via
-pre-commit.
+GitHub Actions (`.github/workflows/ci.yml`) runs ruff + pytest with coverage
+(via `uv`) on push and PRs, and uploads to codecov. A second workflow
+(`.github/workflows/black.yml`) opens an auto-format PR after pushes to master.
+mypy is enforced via pre-commit (not yet in CI).
