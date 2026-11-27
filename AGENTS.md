@@ -55,12 +55,23 @@ blank lines (`\n\n`) into chunks, and splits each chunk into lines. So
 The base `__init__` resolves year/day from `__name__` (e.g. `y_2025.day9`), so
 always pass `__name__` to `super().__init__`.
 
+## Environment
+
+This project uses [uv](https://docs.astral.sh/uv/) with Python 3.15 (pinned in
+`.python-version`). All dependencies and tool config live in `pyproject.toml`;
+`uv.lock` is the lockfile. There is no `requirements/` dir or `setup.cfg`.
+
+```bash
+uv sync --dev          # create .venv and install runtime + dev deps
+uv run <cmd>           # run a command inside the project env
+```
+
 ## Running a solution
 
 From the repo root (uses the module CLI in `common/aoc.py`):
 
 ```bash
-python -m src --year 2025 --day 9 --test 0
+uv run python -m src --year 2025 --day 9 --test 0
 ```
 
 `--test 1` loads `input_dayN_test.txt`; `--test 0` loads the real `input_dayN.txt`.
@@ -72,13 +83,13 @@ If the real input is missing, it is auto-downloaded via `common/get_file.py`
 Run all tests with coverage (matches CI):
 
 ```bash
-python -m pytest --cov-report term --cov .
+uv run pytest --cov-report term --cov .
 ```
 
 Run one day's tests:
 
 ```bash
-python -m pytest tests/y_2025/test_2025_day1.py
+uv run pytest tests/y_2025/test_2025_day1.py
 ```
 
 Tests patch `builtins.open` with `mock_open(read_data=...)` to inject sample
@@ -89,14 +100,14 @@ input, then assert on `_calculate_1()` / `_calculate_2()` return values.
 Pre-commit runs black, ruff (lint + import sorting), add-trailing-comma, and mypy.
 
 ```bash
-pre-commit run --all-files    # run every hook
-python -m ruff check .        # lint (CI runs this)
-python -m ruff check --fix .  # lint + autofix
-python -m black .             # format
+uv run pre-commit run --all-files   # run every hook
+uv run ruff check .                 # lint (CI runs this)
+uv run ruff check --fix .           # lint + autofix
+uv run black .                      # format
 ```
 
-- Line length: 88 (see `ruff.toml`). Ruff selects `E,F,W,I` and ignores
-  `E203,E741,W605`. The `I` rule does import sorting (replaces isort).
+- Line length: 88 (ruff config in `pyproject.toml`). Ruff selects `E,F,W,I`
+  and ignores `E203,E741,W605`. The `I` rule does import sorting (replaces isort).
 - Code style: black. Keep double quotes.
 - Ruff replaced flake8 (flake8's pinned pyflakes broke under Python 3.14;
   ruff is a standalone binary unaffected by it).
@@ -117,6 +128,7 @@ python -m black .             # format
 
 ## CI
 
-CircleCI (`.circleci/config.yml`) runs pytest with coverage, uploads to codecov,
-and runs ruff. mypy is currently commented out in CI but enforced via
-pre-commit.
+GitHub Actions (`.github/workflows/ci.yml`) runs ruff + pytest with coverage
+(via `uv`) on push and PRs, and uploads to codecov. A second workflow
+(`.github/workflows/black.yml`) opens an auto-format PR after pushes to master.
+mypy is enforced via pre-commit (not yet in CI).

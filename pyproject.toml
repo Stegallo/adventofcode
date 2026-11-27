@@ -1,0 +1,52 @@
+[project]
+name = "adventofcode"
+version = "0.0.0"
+description = "Advent of Code solutions"
+readme = "README.md"
+requires-python = ">=3.15"
+dependencies = [
+    "numpy",
+    "pydantic",
+    "requests",
+    "scipy",
+    "frozendict",
+]
+
+[dependency-groups]
+dev = [
+    "black",
+    "ruff",
+    "mypy",
+    "pytest",
+    "pytest-cov",
+    "pre-commit",
+]
+
+[tool.uv]
+# This is an application (solutions), not an installable library.
+package = false
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.lint]
+# pycodestyle E/W + pyflakes F + import sorting I (replaces flake8 and isort).
+select = ["E", "F", "W", "I"]
+# E203: whitespace before ':' (conflicts with black)
+# E741: ambiguous variable name
+# W605: invalid escape sequence (intentional regex strings)
+ignore = ["E203", "E741", "W605"]
+
+[tool.mypy]
+plugins = ["pydantic.mypy"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+# Put the repo root on sys.path so `y_2025.dayN` etc. import under `uv run`.
+pythonpath = ["."]
+
+[tool.coverage.run]
+omit = ["tests/*"]
+
+[tool.coverage.report]
+exclude_lines = ['if __name__ == "__main__":']
