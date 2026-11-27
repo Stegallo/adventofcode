@@ -1,11 +1,11 @@
+from math import inf
 from typing import Optional
 
+import numpy as np
 from pydantic.dataclasses import dataclass
+from scipy.optimize import linprog
 
 from common.aoc import AoCDay
-from math import inf
-import numpy as np
-from scipy.optimize import linprog
 
 
 @dataclass
