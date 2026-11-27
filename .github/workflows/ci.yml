@@ -18,5 +18,5 @@ jobs:
       - uses: codecov/codecov-action@v5
         with:
           files: ./coverage.xml
-          token: ${{ secrets.CODECOV_TOKEN }}
+          # Codecov is configured for tokenless uploads (public repo).
           fail_ci_if_error: false
