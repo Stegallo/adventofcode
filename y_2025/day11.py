@@ -1,10 +1,10 @@
+from functools import lru_cache
 from typing import Optional
 
+from frozendict import frozendict
 from pydantic.dataclasses import dataclass
 
 from common.aoc import AoCDay
-from functools import lru_cache
-from frozendict import frozendict
 
 
 @dataclass

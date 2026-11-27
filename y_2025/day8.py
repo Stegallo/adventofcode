@@ -1,9 +1,9 @@
+from math import dist
 from typing import Optional
 
 from pydantic.dataclasses import dataclass
 
 from common.aoc import AoCDay
-from math import dist
 
 
 @dataclass

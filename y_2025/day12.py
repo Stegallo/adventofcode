@@ -4,7 +4,6 @@ from pydantic.dataclasses import dataclass
 
 from common.aoc import AoCDay
 
-
 # @dataclass
 # class Row:
 #     original: str

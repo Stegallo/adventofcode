@@ -1,5 +1,4 @@
 black
-isort
 pre-commit
 pytest
 pytest-cov
