@@ -48,7 +48,10 @@ with patch(
 
 def test__preprocess_input():
     day._preprocess_input()
-    assert True
+    # Both calculation parts are skipped (unfinished/freebie), so assert the
+    # parse actually produced the example's 6 gifts and 3 regions.
+    assert len(day.gifts) == 6
+    assert len(day.regions) == 3
 
 
 def test_calculate_1():

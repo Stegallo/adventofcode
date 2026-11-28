@@ -3,10 +3,7 @@ from unittest.mock import mock_open, patch
 
 from y_2025.day4 import Day
 
-with patch(
-    "builtins.open",
-    mock_open(
-        read_data="""..@@.@@@@.
+EXAMPLE = """..@@.@@@@.
 @@@.@.@.@@
 @@@@@.@.@@
 @.@@@@..@.
@@ -15,22 +12,24 @@ with patch(
 .@.@.@.@@@
 @.@@@.@@@@
 .@@@@@@@@.
-@.@.@@@.@.""",
-    ),
-):
-    day = Day()
+@.@.@@@.@."""
+
+
+def _day() -> Day:
+    # Fresh instance per test: _calculate_2 mutates the grid, so a shared
+    # instance would make these tests order-dependent.
+    with patch("builtins.open", mock_open(read_data=EXAMPLE)):
+        return Day()
 
 
 def test__preprocess_input():
-    day._preprocess_input()
+    _day()._preprocess_input()
     assert True
 
 
 def test_calculate_1():
-    r = day._calculate_1()
-    assert r == 13
+    assert _day()._calculate_1() == 13
 
 
 def test_calculate_2():
-    r = day._calculate_2()
-    assert r == 43
+    assert _day()._calculate_2() == 43
