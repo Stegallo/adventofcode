@@ -58,7 +58,7 @@ class Day(AoCDay):
         for k, v in sorted_distances.items():
             ...
             print(f"{c} -- {k}: {v}")
-            if c >= 1000:
+            if c >= (10 if self._test else 1000):
                 break
             if k[0] in belonging and k[1] in belonging:
                 if belonging[k[0]] == belonging[k[1]]:

@@ -28,7 +28,7 @@ with patch(
 425,690,689""",
     ),
 ):
-    day = Day()
+    day = Day(test=1)  # test flag -> 10 connections for the example (real: 1000)
 
 
 def test__preprocess_input():
@@ -38,7 +38,7 @@ def test__preprocess_input():
 
 def test_calculate_1():
     r = day._calculate_1()
-    assert r == 20
+    assert r == 40
 
 
 def test_calculate_2():

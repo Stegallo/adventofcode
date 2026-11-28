@@ -52,12 +52,16 @@ def test__preprocess_input():
 
 
 def test_calculate_1():
-    pytest.skip("part 1 not implemented; fill expected from puzzle")
+    # Puzzle example answer is 2 (2 regions can fit all their presents). The
+    # solution computes a count `k` but returns `result` (0); fix it, then
+    # assert 2.
+    pytest.skip("day12 part 1 stubbed in the solution; expected answer is 2")
     r = day._calculate_1()
-    assert r == 0  # TODO: expected from puzzle
+    assert r == 2
 
 
 def test_calculate_2():
-    pytest.skip("part 2 not implemented; fill expected from puzzle")
+    # Day 12 part 2 is the AoC finale freebie -- there is no value to compute.
+    pytest.skip("day12 part 2 is the finale freebie; nothing to compute")
     r = day._calculate_2()
-    assert r == 0  # TODO: expected from puzzle
+    assert r == 0

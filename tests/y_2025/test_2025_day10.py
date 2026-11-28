@@ -22,9 +22,11 @@ def test__preprocess_input():
 
 
 def test_calculate_1():
-    pytest.skip("part 1 not implemented; fill expected from puzzle")
+    # Puzzle example answer is 7 (2 + 3 + 2). The solution's _calculate_1 is
+    # stubbed (returns 0 before its logic), so finish it, then assert 7.
+    pytest.skip("day10 part 1 stubbed in the solution; expected answer is 7")
     r = day._calculate_1()
-    assert r == 0  # TODO: expected from puzzle
+    assert r == 7
 
 
 def test_calculate_2():
