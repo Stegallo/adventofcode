@@ -2,12 +2,21 @@
 
 from unittest.mock import mock_open, patch
 
-from y_2025.day2 import Day
+from y_2025.day01 import Day
 
 with patch(
     "builtins.open",
     mock_open(
-        read_data="""11-22,95-115,998-1012,1188511880-1188511890,222220-222224,1698522-1698528,446443-446449,38593856-38593862,565653-565659,824824821-824824827,2121212118-2121212124""",  # noqa: E501
+        read_data="""L68
+L30
+R48
+L5
+R60
+L55
+L1
+L99
+R14
+L82""",
     ),
 ):
     day = Day()
@@ -20,9 +29,21 @@ def test__preprocess_input():
 
 def test_calculate_1():
     r = day._calculate_1()
-    assert r == 1227775554
+    assert r == 3
 
 
 def test_calculate_2():
     r = day._calculate_2()
-    assert r == 4174379265
+    assert r == 6
+
+
+def test_dial_right_wraps():
+    dial = 95
+    dial = (dial + 10) % 100
+    assert dial == 5
+
+
+def test_dial_left_wraps():
+    dial = 5
+    dial = (dial - 10) % 100
+    assert dial == 95

@@ -1,7 +1,7 @@
 # Example + expected answers from the 2025 day 9 puzzle.
 from unittest.mock import mock_open, patch
 
-from y_2025.day9 import Day
+from y_2025.day09 import Day
 
 EXAMPLE = """7,1
 11,1

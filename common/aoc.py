@@ -113,7 +113,11 @@ def main():
     parser.add_argument("--test", type=int, help="test flag")
     args = parser.parse_args()
 
-    module = importlib.import_module(f"y_{args.year}.day{args.day}")
+    try:
+        module = importlib.import_module(f"y_{args.year}.day{args.day}")
+    except ModuleNotFoundError:
+        # 2025 uses zero-padded filenames (day01..day09); other years do not.
+        module = importlib.import_module(f"y_{args.year}.day{args.day:02d}")
 
     day = getattr(module, "Day")(test=args.test)
     day.solve()

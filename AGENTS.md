@@ -52,7 +52,7 @@ class Day(AoCDay):
 blank lines (`\n\n`) into chunks, and splits each chunk into lines. So
 `self._input_data` is `List[List[str]]`.
 
-The base `__init__` resolves year/day from `__name__` (e.g. `y_2025.day9`), so
+The base `__init__` resolves year/day from `__name__` (e.g. `y_2025.day09`), so
 always pass `__name__` to `super().__init__`.
 
 ## Environment
@@ -89,7 +89,7 @@ uv run pytest --cov-report term --cov .
 Run one day's tests:
 
 ```bash
-uv run pytest tests/y_2025/test_2025_day1.py
+uv run pytest tests/y_2025/test_2025_day01.py
 ```
 
 Tests patch `builtins.open` with `mock_open(read_data=...)` to inject sample
