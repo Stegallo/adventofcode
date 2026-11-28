@@ -1,7 +1,7 @@
 # Example + expected answers from the 2025 day 6 puzzle.
 from unittest.mock import mock_open, patch
 
-from y_2025.day6 import Day
+from y_2025.day06 import Day
 
 with patch(
     "builtins.open",
