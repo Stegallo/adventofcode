@@ -35,12 +35,9 @@ class Day(AoCDay):
         #     print(f"{x}")
 
     def _calculate_1(self):
-        result = 0
-        return 0
         d = {}
         for x in self.__input_data:
             d[x.p1] = x.p2
-        print(d)
 
         def search(s, d):
             if s == "out":
@@ -48,12 +45,10 @@ class Day(AoCDay):
             rez = 0
             for i in d[s]:
                 rez += search(i, d)
-                # print(i)
             return rez
 
         s = "you"
         return search(s, d)
-        return result
 
     def _calculate_2(self):
         result = 0
